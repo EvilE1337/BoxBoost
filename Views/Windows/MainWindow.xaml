@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:BoxBoost.ViewModels"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:l="clr-namespace:BoxBoost"
         Title="{Binding Path=Title}" 
         Height="450" Width="800">
@@ -28,7 +29,13 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
-            <TabItem Header="Вкладка 1"></TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Настройки"/>
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
             <TabItem Header="Вкладка 2"></TabItem>
         </TabControl>
     </DockPanel>
