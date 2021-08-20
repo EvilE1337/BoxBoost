@@ -1,5 +1,4 @@
-﻿using BoxBoost.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace BoxBoost
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BestProxie.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class BestProxie : UserControl
     {
-        public MainWindow()
+        public BestProxie()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel(this);
         }
     }
 }
