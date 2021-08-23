@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BoxBoost.Resources.Styles">
 
-    <ControlTemplate x:Key="BoxWindowTemplate" TargetType="{x:Type TypeName=Window}">
+    <!--<ControlTemplate x:Key="BoxWindowTemplate" TargetType="{x:Type TypeName=Window}">
         <Grid>
             <Border Name="PART_BORDER"
                     Margin="7"
@@ -30,10 +30,10 @@
         </Grid>
     </ControlTemplate>
     
-    <Style x:Key="BoxWindowStyle" TargetType="{x:Type TypeName=Window}"> <!--Создаем стиль для окна-->
-        <Setter Property="WindowStyle" Value="None"/> <!--Устанавливаем для windowstyle = null т.е. окно без виндовских стилей-->
-        <Setter Property="AllowsTransparency" Value="True"/> <!--Возможность рисовать элементы с прозрачностью-->
+    <Style x:Key="BoxWindowStyle" TargetType="{x:Type TypeName=Window}"> --><!--Создаем стиль для окна--><!--
+        <Setter Property="WindowStyle" Value="None"/> --><!--Устанавливаем для windowstyle = null т.е. окно без виндовских стилей--><!--
+        <Setter Property="AllowsTransparency" Value="True"/> --><!--Возможность рисовать элементы с прозрачностью--><!--
         <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>
         <Setter Property="Template" Value="{StaticResource ResourceKey=BoxWindowTemplate}"/>
-    </Style>
+    </Style>-->
 </ResourceDictionary>

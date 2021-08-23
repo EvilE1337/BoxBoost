@@ -1,5 +1,4 @@
-﻿using BoxBoost.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BoxBoost
+namespace BoxBoost.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainFrame.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainFrame : BasePage
     {
-        public MainWindow()
+        public MainFrame()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel(this);
-        }
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
         }
     }
 }

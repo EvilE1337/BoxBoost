@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:BoxBoost.ViewModels"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
-        xmlns:l="clr-namespace:BoxBoost"
+        xmlns:valueconverters="clr-namespace:BoxBoost.ValueConverters"
         WindowStyle="None"
+        x:Name="AppWindow"
         MinHeight="{Binding WindowMinimumHeight}"
         MinWidth="{Binding WindowMinimumWidth}"
         Icon="/Images/Logo/BigLogo.png"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Title="{Binding Path=Title}" 
-        Height="450" Width="800">
+        Height="600" Width="900">
     <Window.Resources>
         <Style TargetType="local:MainWindow">
             <Setter Property="Template">
@@ -25,9 +26,15 @@
                             <!--Основной контур окна-->
                             <Grid>
 
+                                <!--Прозрачность углов-->
+
+                                <Border x:Name="Container"
+                                        Background="{StaticResource BackgroundLightBrush}"
+                                        CornerRadius="{Binding WindowRadiusCorner, FallbackValue=10}"/>
+
                                 <!--Отступ и тень-->
-                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=12}"
-                                        Background="WhiteSmoke">
+                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        Background="{Binding ForegroundLightBrush, FallbackValue=white}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
                                     </Border.Effect>
@@ -35,9 +42,15 @@
                                 
                                 <!--Основной содержание окна-->
                                 <Grid>
+
+                                    <!--Обрезка углов-->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}" />
+                                    </Grid.OpacityMask>
+
                                     <Grid.RowDefinitions>
                                         <!--Заголовок окна-->
-                                        <RowDefinition Height="{Binding TitleHeighGridLength, FallbackValue=42}"/>
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}"/>
                                         <!--Тень-->
                                         <RowDefinition Height="Auto"/>
                                         <!--Содержание окна-->
@@ -45,7 +58,7 @@
                                     </Grid.RowDefinitions>
                                     
                                     <!--Шапка-->
-                                    <Grid Grid.Column="0" Panel.ZIndex="1">
+                                    <Grid Background="Transparent" Grid.Column="0" Panel.ZIndex="1" MouseDown="Grid_MouseDown">
                                         <Grid.ColumnDefinitions>
                                             <!--Иконка-->
                                             <ColumnDefinition Width="Auto"/>
@@ -62,7 +75,7 @@
                                         </Button>
                                         
                                         <!--Заголовок-->
-                                        <Viewbox Grid.Column="1" Margin="0" Stretch="Uniform">
+                                        <Viewbox Grid.Column="1" Margin="0">
                                             <TextBlock Style="{StaticResource HeaderText}"
                                                        FontFamily="{StaticResource SansPro}"
                                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=BoxBoost By E1337}"/>
@@ -103,7 +116,9 @@
                                     </Border>
 
                                     <!--Содержание-->
-                                    <!--<Border Grid.Row="2" Padding="{Binding InnerContentPadding}"-->
+                                    <Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
+                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                    </Border>
                                     
                                 </Grid>
                                 
@@ -125,37 +140,7 @@
             />
     </WindowChrome.WindowChrome>
     
-    <!--<DockPanel> --><!--Позволяет притягиваеть содержимое к соотв краям и посл. элемент растягивает на все ост. пространоство--><!--
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Помощь">
-                <MenuItem Header="О программе"></MenuItem>
-            </MenuItem>
-        </Menu>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem>
-                <TextBlock Text="{Binding Status}"></TextBlock>
-            </StatusBarItem>
-            <StatusBarItem>
-                <ProgressBar Width="120" Height="20" Value=" 0"></ProgressBar>
-            </StatusBarItem>
-        </StatusBar>
-        <TabControl>
-            <TabItem>
-                <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Registered" Height="13"/>
-                        <TextBlock Text="Настройки"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <Grid>
-                    --><!--Setting page--><!--
-                    <local:BestProxie />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Вкладка 2"></TabItem>
-        </TabControl>
-    </DockPanel>-->
+    <Grid Background="{StaticResource ForegroundLightBrush}">
+        <!--<Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={valueconverters:ApplicationPageValueConverter}}"/>-->
+    </Grid>
 </Window>

@@ -1,10 +1,6 @@
-﻿using BoxBoost.Infrastructure.Commands;
+﻿using BoxBoost.DataModels;
+using BoxBoost.Infrastructure.Commands;
 using BoxBoost.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -13,6 +9,17 @@ namespace BoxBoost.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         #region Controls
+
+        #region Активная страница
+        /// <summary>Заголовок</summary>
+        private ApplicationPage _CurrentPage = ApplicationPage.MainFrame;
+
+        public ApplicationPage CurrentPage
+        {
+            get => _CurrentPage;
+            set => Set(ref _CurrentPage, value);
+        }
+        #endregion
 
         #region Минимальный длинна окна
         /// <summary>Заголовок</summary>
@@ -38,7 +45,7 @@ namespace BoxBoost.ViewModels
 
         #region Заголовок окна
         /// <summary>Заголовок</summary>
-        private string _Title = "test";
+        private string _Title = "BoxBoost By E1337";
 
         public string Title
         {
@@ -48,13 +55,10 @@ namespace BoxBoost.ViewModels
         #endregion
 
         #region Размер заголовка окна
-        /// <summary>Заголовок</summary>
-        private int _TitleGridLength = 42;
+        /// <summary>Размер заголовка</summary>
+        private readonly int _TitleHeight = 42;
 
-        public GridLength TitleGridLength
-        {
-            get => new GridLength(_TitleGridLength + ResizeBoreder);
-        }
+        public GridLength TitleHeightGridLength => new GridLength(_TitleHeight + ResizeBoreder);
         #endregion
 
         #region Статус операции
@@ -79,10 +83,24 @@ namespace BoxBoost.ViewModels
         }
         #endregion
 
-        #region Граница рамки для скругления углов
+        #region Последнее известное положение окна
+        /// <summary> Видимость окна настроек </summary>
+        private WindowDockPosition _DockPosition = WindowDockPosition.Undocked;
+
+        public WindowDockPosition DockPosition
+        {
+            get => _DockPosition;
+            set => Set(ref _DockPosition, value);
+        }
+        #endregion
+
+        #region Рамка окна
 
         /// <summary> Контрол окна </summary>
-        private Window mWindow;        
+        private Window mWindow;
+
+        /// <summary> Если окно развернуто или закреплено должно ли быть без полей </summary>
+        public bool Borderless { get { return (mWindow.WindowState == WindowState.Maximized || DockPosition != WindowDockPosition.Undocked); } }
 
         /// <summary> Размер рамки </summary>
         private int _ResizeBoreder = 6;
@@ -93,29 +111,31 @@ namespace BoxBoost.ViewModels
             set => Set(ref _ResizeBoreder, value);
         }
 
-        public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBoreder + OuterMagrinSize); } }
+        public Thickness ResizeBorderThickness { get { return new Thickness(ResizeBoreder + OuterMarginSize); } }
+
+        public Thickness InnerContentPadding { get { return new Thickness(ResizeBoreder); } }
 
         /// <summary> Отступ для рамки </summary>
-        private int _OuterMagrinSize = 10;
+        private int _OuterMarginSize = 10;
 
-        public int OuterMagrinSize
+        public int OuterMarginSize
         {
-            get => mWindow.WindowState == WindowState.Maximized ? 0 : _OuterMagrinSize;
-            set => Set(ref _OuterMagrinSize, value);
+            get => Borderless ? 0 : _OuterMarginSize;
+            set => Set(ref _OuterMarginSize, value);
         }
 
-        public Thickness OuterMagrinSizeThickness { get { return new Thickness(OuterMagrinSize); } }
+        public Thickness OuterMarginSizeThickness { get { return new Thickness(OuterMarginSize); } }
 
         /// <summary> Радиус скругления углов </summary>
-        private int _WindowRadious = 10;
+        private int _WindowRadius = 10;
 
-        public int WindowRadious
+        public int WindowRadius
         {
-            get => mWindow.WindowState == WindowState.Maximized ? 0 : _WindowRadious;
-            set => Set(ref _WindowRadious, value);
+            get => Borderless ? 0 : _WindowRadius;
+            set => Set(ref _WindowRadius, value);
         }
 
-        public CornerRadius WindowRadiousCorner { get { return new CornerRadius(WindowRadious); } }
+        public CornerRadius WindowRadiusCorner { get { return new CornerRadius(WindowRadius); } }
         #endregion
 
         #endregion
@@ -141,7 +161,7 @@ namespace BoxBoost.ViewModels
 
         private void OnMaximizeCommandExecute(object p)
         {
-            mWindow.WindowState = WindowState.Maximized;
+            mWindow.WindowState ^= WindowState.Maximized;
         }
 
         private bool CanMaximizeCommandExecute(object p) => true;
@@ -182,21 +202,29 @@ namespace BoxBoost.ViewModels
 
             mWindow.StateChanged += (sender, e) =>
             {
-                OnPropertyChanged(nameof(ResizeBorderThickness));
-                OnPropertyChanged(nameof(OuterMagrinSize));
-                OnPropertyChanged(nameof(OuterMagrinSizeThickness));
-                OnPropertyChanged(nameof(WindowRadious));
-                OnPropertyChanged(nameof(WindowRadiousCorner));
+                WindowResized();
             };
 
             #region Команды
-
+            
             MinimizeCommand = new LambdaCommand(OnMinimizeCommandExecute, CanMinimizeCommandExecute);
             MaximizeCommand = new LambdaCommand(OnMaximizeCommandExecute, CanMaximizeCommandExecute);
             CloseCommand = new LambdaCommand(OnCloseCommandExecute, CanCloseCommandExecute);
             MenuCommand = new LambdaCommand(OnMenuCommandExecute, CanMenuCommandExecute);
 
             #endregion
+
+            // Правка для изменение размеров окна
+            var resizer = new WindowResizer(mWindow);
+            
+            resizer.WindowDockChanged += (dock) =>
+            {
+                //сохраняем позицию окна
+                DockPosition = dock;
+
+                //вызываем событие изменения окна
+                WindowResized();
+            };
         }
 
         #region Private Helpers
@@ -205,6 +233,17 @@ namespace BoxBoost.ViewModels
         {
             Point position = Mouse.GetPosition(mWindow);
             return new Point(position.X + mWindow.Left, position.Y + mWindow.Top);
+        }
+
+        private void WindowResized()
+        {
+            // События изменения окна
+            OnPropertyChanged(nameof(Borderless));
+            OnPropertyChanged(nameof(ResizeBorderThickness));
+            OnPropertyChanged(nameof(OuterMarginSize));
+            OnPropertyChanged(nameof(OuterMarginSizeThickness));
+            OnPropertyChanged(nameof(WindowRadius));
+            OnPropertyChanged(nameof(WindowRadiusCorner));
         }
 
         #endregion
