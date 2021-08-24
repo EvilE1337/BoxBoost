@@ -72,6 +72,7 @@
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ViewModels\MainFrameViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
     <Page Include="BestProxie.xaml">
       <SubType>Designer</SubType>

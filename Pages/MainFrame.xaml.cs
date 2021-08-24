@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoxBoost.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace BoxBoost.Pages
     /// <summary>
     /// Interaction logic for MainFrame.xaml
     /// </summary>
-    public partial class MainFrame : BasePage
+    public partial class MainFrame : BasePage<MainFrameViewModel>
     {
         public MainFrame()
         {
