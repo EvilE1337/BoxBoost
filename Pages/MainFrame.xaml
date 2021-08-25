@@ -25,27 +25,58 @@
 
                         <StackPanel>
 
-                            <StackPanel Orientation="Horizontal" Margin="5 5 5 5">
-                            <TextBlock Text="Ключ" 
-                                   FontSize="{StaticResource FontSizeSmall}" 
-                                   FontFamily="{StaticResource SansPro}"
-                                   Foreground="{StaticResource WordBlueBrush}" />
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="Ключ" 
+                                       FontSize="{StaticResource FontSizeSmall}" 
+                                       FontFamily="{StaticResource SansPro}"
+                                       Foreground="{StaticResource WordBlueBrush}" />
                             
-                            <!-- KeyApi -->
-                            <PasswordBox Tag="KeyApi" Margin="5 0 0 0" Width="150"/>
+                                <!-- KeyApi -->
+                                <PasswordBox Tag="KeyApi" Margin="5 0 0 0" Width="150"/>
                             </StackPanel>
 
-                             <!-- Type protocol -->
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox x:Name="TypeHTTP" IsChecked="{x:Null}" Height="20" Content="HTTP" Margin="5 5 5 5"/>
-                                <CheckBox x:Name="TypeHTTPS" IsChecked="{x:Null}" Height="20" Content="HTTPS" Margin="5 5 5 5"/>
-                                <CheckBox x:Name="TypeSOCKS4" IsChecked="{x:Null}" Height="20" Content="SOCKS4" Margin="5 5 5 5"/>
-                                <CheckBox x:Name="TypeSOCKS5" IsChecked="{x:Null}" Height="20" Content="SOCKS5" Margin="5 5 5 5"/>
+                            <Expander Header="Тип">
+                                <!-- Type protocol -->
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="ProxyHTTP" IsChecked="{x:Null}" Height="20" Content="HTTP" Margin="5"/>
+                                    <CheckBox x:Name="ProxyHTTPS" IsChecked="{x:Null}" Height="20" Content="HTTPS" Margin="5"/>
+                                    <CheckBox x:Name="ProxyeSOCKS4" IsChecked="{x:Null}" Height="20" Content="SOCKS4" Margin="5"/>
+                                    <CheckBox x:Name="ProxySOCKS5" IsChecked="{x:Null}" Height="20" Content="SOCKS5" Margin="5"/>
+                                </StackPanel>
+                            </Expander>
+
+                            <Expander Header="Скорость">
+                                <!-- Speed proxy -->
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="ProxyFast" IsChecked="{x:Null}" Height="20" Content="Быстрые" Margin="5"/>
+                                    <CheckBox x:Name="ProxyMedium" IsChecked="{x:Null}" Height="20" Content="Средние" Margin="5"/>
+                                    <CheckBox x:Name="ProxyLow" IsChecked="{x:Null}" Height="20" Content="Медленные" Margin="5"/>
+                                </StackPanel>
+                            </Expander>
+
+                            <Expander Header="Анонимность">
+                                <!-- Anonim proxy -->
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="ProxyElite" IsChecked="{x:Null}" Height="20" Content="Элитные" Margin="5"/>
+                                    <CheckBox x:Name="ProxyAnonim" IsChecked="{x:Null}" Height="20" Content="Анонимные" Margin="5"/>
+                                    <CheckBox x:Name="ProxyTransparet" IsChecked="{x:Null}" Height="20" Content="Прозрачные" Margin="5"/>
+                                </StackPanel>
+                            </Expander>
+
+                            <StackPanel>
+                                <ListBox ItemsSource="{Binding TheList}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding _IsSelected}" Content="{Binding _TheText}"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <!-- Next button -->
+                                <Button Content="Снять выделенные" 
+                                        HorizontalAlignment="Center" />
                             </StackPanel>
                             
-                            <!-- Next button -->
-                            <Button Content="Next" HorizontalAlignment="Center" />
-
                         </StackPanel>
 
                     </Border>

@@ -55,10 +55,12 @@
                                         <RowDefinition Height="Auto"/>
                                         <!--Содержание окна-->
                                         <RowDefinition Height="*"/>
+                                        <!--Подвал окна-->
+                                        <RowDefinition Height="{Binding StatusHeightGridLength, FallbackValue=42}"/>
                                     </Grid.RowDefinitions>
                                     
                                     <!--Шапка-->
-                                    <Grid Background="Transparent" Grid.Column="0" Panel.ZIndex="1" MouseDown="Grid_MouseDown">
+                                    <Grid Background="Transparent" Grid.Row="0" Panel.ZIndex="1" MouseDown="Grid_MouseDown">
                                         <Grid.ColumnDefinitions>
                                             <!--Иконка-->
                                             <ColumnDefinition Width="Auto"/>
@@ -78,7 +80,7 @@
                                         <Viewbox Grid.Column="1" Margin="0">
                                             <TextBlock Style="{StaticResource HeaderText}"
                                                        FontFamily="{StaticResource SansPro}"
-                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=BoxBoost By E1337}"/>
+                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=BoxBoost}"/>
                                         </Viewbox>
                                         
                                         <!--Кнопки заголовка-->
@@ -116,10 +118,77 @@
                                     </Border>
 
                                     <!--Содержание-->
-                                    <Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
-                                        <ContentPresenter Content="{TemplateBinding Content}"/>
-                                    </Border>
                                     
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <!--Кнопка влево-->
+                                            <ColumnDefinition Width="50"/>
+                                            <!--Содержание-->
+                                            <ColumnDefinition Width="*"/>
+                                            <!--Кнопка вправо-->
+                                            <ColumnDefinition Width="50"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button Grid.Column="0" Style="{StaticResource Hoverless}"
+                                                Command="{Binding MenuCommand}"
+                                                Height="50"
+                                                HorizontalAlignment="Center">
+                                            <fa:ImageAwesome Icon="ChevronCircleLeft"/>
+                                        </Button>
+
+                                        <Border Grid.Column="1" Padding="{Binding InnerContentPadding}">
+                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        </Border>
+
+                                        <Button Grid.Column="2"
+                                                Height="50"
+                                                HorizontalAlignment="Center"
+                                                Style="{StaticResource Hoverless}"
+                                                Command="{Binding SwitchRightCommand}">
+                                            <fa:ImageAwesome Icon="ChevronCircleRight"/>
+                                        </Button>
+
+                                    </Grid>
+
+                                    <Grid Background="Transparent" Grid.Row="3" Panel.ZIndex="1" MouseDown="Grid_MouseDown">
+                                        <Grid.ColumnDefinitions>
+                                            <!--Пагинация-->
+                                            <ColumnDefinition Width="*"/>
+                                            <!--Ссылка-->
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Пагинация-->
+                                        <Viewbox Grid.Column="0">
+                                            <ListBox ItemsSource="{Binding ButtonsPagination}">
+                                                <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ListBox.ItemsPanel>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Button Command="{Binding _Command}"
+                                                                Style="{StaticResource Hoverless}">
+                                                            <Button.ToolTip>
+                                                                <TextBlock Margin="3" Foreground="White" Background="Black" Text="{Binding _DataTitle}"/>
+                                                            </Button.ToolTip>
+                                                            <fa:ImageAwesome Icon="CircleOutline"/>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Viewbox>
+                                        
+                                        <!--Ссылка-->
+                                        <Viewbox Grid.Column="1" Margin="5">
+                                            <TextBlock Style="{StaticResource HeaderText}"
+                                                       FontFamily="{StaticResource SansPro}"
+                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LinkText, FallbackValue=By E1337}"/>
+                                        </Viewbox>
+
+                                    </Grid>
+
                                 </Grid>
                                 
                             </Grid>
@@ -141,6 +210,6 @@
     </WindowChrome.WindowChrome>
     
     <Grid Background="{StaticResource ForegroundLightBrush}">
-        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={valueconverters:ApplicationPageValueConverter}}"/>
+        <Frame x:Name="Frames" Content="{Binding CurrentPage, Converter={valueconverters:ApplicationPageValueConverter}}"/>
     </Grid>
 </Window>

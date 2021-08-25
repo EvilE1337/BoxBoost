@@ -1,6 +1,9 @@
 ﻿using BoxBoost.DataModels;
 using BoxBoost.Infrastructure.Commands;
 using BoxBoost.ViewModels.Base;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,9 +13,38 @@ namespace BoxBoost.ViewModels
     {
         #region Controls
 
+        #region CollectCommandPagination
+
+        private ObservableCollection<ButtonPaginationStruct> _ButtonsPagination;
+
+        public ObservableCollection<ButtonPaginationStruct> ButtonsPagination
+        {
+            get => _ButtonsPagination;
+            set => Set(ref _ButtonsPagination, value);
+        }
+
+        public struct ButtonPaginationStruct
+        {
+            /// <summary>Подсказка</summary>
+            public string _DataTitle { get; set; }
+
+            /// <summary>Команда</summary>
+            public ICommand _Command { get; set; }
+        }
+
+        #endregion
+
+        #region Страницы окна
+        /// <summary>Сраницы окна</summary>
+        private readonly List<string> _PagesNames = System.Enum.GetNames(typeof(ApplicationPage))
+                .ToList();
+
+        public List<string> PagesNames => _PagesNames;
+        #endregion
+
         #region Активная страница
-        /// <summary>Заголовок</summary>
-        private ApplicationPage _CurrentPage = ApplicationPage.MainFrame;
+        /// <summary>Активная страница</summary>
+        private ApplicationPage _CurrentPage = ApplicationPage.None;
 
         public ApplicationPage CurrentPage
         {
@@ -45,7 +77,7 @@ namespace BoxBoost.ViewModels
 
         #region Заголовок окна
         /// <summary>Заголовок</summary>
-        private string _Title = "BoxBoost By E1337";
+        private string _Title = "BoxBoost[DebugVersion]";
 
         public string Title
         {
@@ -54,11 +86,29 @@ namespace BoxBoost.ViewModels
         }
         #endregion
 
+        #region Текст на линке в подвале окна
+        /// <summary>Заголовок</summary>
+        private string _LinkText = "By E1337";
+
+        public string LinkText
+        {
+            get => _LinkText;
+            set => Set(ref _LinkText, value);
+        }
+        #endregion
+
         #region Размер заголовка окна
         /// <summary>Размер заголовка</summary>
         private readonly int _TitleHeight = 42;
 
         public GridLength TitleHeightGridLength => new GridLength(_TitleHeight + ResizeBoreder);
+        #endregion
+
+        #region Размер Подвала окна
+        /// <summary>Размер подвала</summary>
+        private readonly int _StatusHeight = 42;
+
+        public GridLength StatusHeightGridLength => new GridLength(_StatusHeight - ResizeBoreder);
         #endregion
 
         #region Статус операции
@@ -194,6 +244,32 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
+        #region Смена страницы вправо
+
+        public ICommand SwitchRightCommand { get; set; }
+
+        private void OnSwitchRightCommandExecute(object p)
+        {
+            CurrentPage += 1;
+        }
+
+        private bool CanSwitchRightCommandExecute(object p) => true;
+
+        #endregion
+
+        #region Смена страницы на конкретную
+
+        public ICommand SwitchPageCommand { get; set; }
+
+        private void OnSwitchPageCommandExecute(object p)
+        {
+            CurrentPage = (ApplicationPage)p;
+        }
+
+        private bool CanSwitchPageCommandExecute(object p) => true;
+
+        #endregion
+
         #endregion
 
         public MainWindowViewModel(Window window)
@@ -205,8 +281,23 @@ namespace BoxBoost.ViewModels
                 WindowResized();
             };
 
-            #region Команды
+
+            _ButtonsPagination = new ObservableCollection<ButtonPaginationStruct>();
+            System.Enum.GetNames(typeof(ApplicationPage))
+                .ToList().ForEach(f =>
+                {
+                    _ButtonsPagination.Add(new ButtonPaginationStruct()
+                    {
+                        _DataTitle = f,
+                        _Command = new LambdaCommand(OnSwitchPageCommandExecute, CanSwitchPageCommandExecute)
+                    });
+                });
             
+
+            #region Команды
+
+            #region Системные
+
             MinimizeCommand = new LambdaCommand(OnMinimizeCommandExecute, CanMinimizeCommandExecute);
             MaximizeCommand = new LambdaCommand(OnMaximizeCommandExecute, CanMaximizeCommandExecute);
             CloseCommand = new LambdaCommand(OnCloseCommandExecute, CanCloseCommandExecute);
@@ -214,9 +305,14 @@ namespace BoxBoost.ViewModels
 
             #endregion
 
+            SwitchRightCommand = new LambdaCommand(OnSwitchRightCommandExecute, CanSwitchRightCommandExecute);
+            SwitchPageCommand = new LambdaCommand(OnSwitchPageCommandExecute, CanSwitchPageCommandExecute);
+
+            #endregion
+
             // Правка для изменение размеров окна
             var resizer = new WindowResizer(mWindow);
-            
+
             resizer.WindowDockChanged += (dock) =>
             {
                 //сохраняем позицию окна

@@ -19,7 +19,7 @@ namespace BoxBoost.ValueConverters
                     return new Pages.MainFrame();
 
                 default:
-                    Debugger.Break();
+                    //Debugger.Break();
                     return null;
             }
         }

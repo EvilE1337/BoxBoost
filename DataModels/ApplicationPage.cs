@@ -8,6 +8,7 @@ namespace BoxBoost.DataModels
 {
     public enum ApplicationPage
     {
-        MainFrame = 0,
-    }
+        None = 0,
+        MainFrame = 1,
+    }   
 }
