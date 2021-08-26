@@ -160,8 +160,8 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!--Пагинация-->
-                                        <Viewbox Grid.Column="0">
-                                            <ListBox ItemsSource="{Binding ButtonsPagination}">
+                                        <Viewbox Grid.Column="0" >
+                                            <ListBox ItemsSource="{Binding ButtonsPagination}" BorderThickness="0">
                                                 <ListBox.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <WrapPanel Orientation="Horizontal"/>

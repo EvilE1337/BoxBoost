@@ -52,7 +52,11 @@ namespace BoxBoost.ViewModels
         public ApplicationPage CurrentPage
         {
             get => _CurrentPage;
-            set => Set(ref _CurrentPage, value);
+            set
+            {
+                Set(ref _CurrentPage, value);
+                ButtonsPagination[(int)value].IsChecked = true;
+            }
         }
         #endregion
 
@@ -256,7 +260,6 @@ namespace BoxBoost.ViewModels
             int newCurrentPage = (int)CurrentPage + 1;
             int countPage = Enum.GetNames(typeof(ApplicationPage)).Length;
             CurrentPage = newCurrentPage < countPage ? (ApplicationPage)newCurrentPage : CurrentPage;
-            RefreshPagination();
         }
 
         private bool CanSwitchRightCommandExecute(object p) => true;
@@ -271,15 +274,9 @@ namespace BoxBoost.ViewModels
         {
             int newCurrentPage = (int)CurrentPage - 1;
             CurrentPage = newCurrentPage >= 0 ? (ApplicationPage)newCurrentPage : CurrentPage;
-            RefreshPagination();
         }
 
         private bool CanSwitchLeftCommandExecute(object p) => true;
-
-        private void SwitchPage(char oper)
-        {
-            
-        }
 
         #endregion
 
@@ -300,8 +297,8 @@ namespace BoxBoost.ViewModels
             System.Enum.GetNames(typeof(ApplicationPage))
                 .ToList().ForEach(f =>
                 {
-                    Action<object> Act = (object obj) => CurrentPage = (ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), f);
-                    
+                    void Act(object obj) => CurrentPage = (ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), f);
+
                     ButtonsPagination.Add(new ButtonPaginationStruct()
                     {
                         IsChecked = false,
@@ -341,18 +338,6 @@ namespace BoxBoost.ViewModels
         }
 
         #region Private Helpers
-
-        private void RefreshPagination()
-        {
-            foreach (ButtonPaginationStruct button in ButtonsPagination)
-            {
-                if (CurrentPage == (ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), button.DataTitle))
-                {
-                    button.IsChecked = true;
-                    break;
-                }
-            }
-        }
 
         private Point GetMousePointion()
         {
