@@ -129,8 +129,9 @@
                                             <ColumnDefinition Width="50"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Button Grid.Column="0" Style="{StaticResource Hoverless}"
-                                                Command="{Binding MenuCommand}"
+                                        <Button Grid.Column="0" 
+                                                Style="{StaticResource Hoverless}"
+                                                Command="{Binding SwitchLeftCommand}"
                                                 Height="50"
                                                 HorizontalAlignment="Center">
                                             <fa:ImageAwesome Icon="ChevronCircleLeft"/>
@@ -168,13 +169,11 @@
                                                 </ListBox.ItemsPanel>
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Button Command="{Binding _Command}"
-                                                                Style="{StaticResource Hoverless}">
-                                                            <Button.ToolTip>
-                                                                <TextBlock Margin="3" Foreground="White" Background="Black" Text="{Binding _DataTitle}"/>
-                                                            </Button.ToolTip>
-                                                            <fa:ImageAwesome Icon="CircleOutline"/>
-                                                        </Button>
+                                                        <RadioButton GroupName="Pagination" IsChecked="{Binding IsChecked}" Command="{Binding Command}">
+                                                            <RadioButton.ToolTip>
+                                                                <TextBlock Margin="3" Foreground="White" Background="Black" Text="{Binding DataTitle}"/>
+                                                            </RadioButton.ToolTip>
+                                                        </RadioButton>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>

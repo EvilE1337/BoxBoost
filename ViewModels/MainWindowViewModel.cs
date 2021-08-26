@@ -1,8 +1,11 @@
 ﻿using BoxBoost.DataModels;
 using BoxBoost.Infrastructure.Commands;
 using BoxBoost.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -23,23 +26,23 @@ namespace BoxBoost.ViewModels
             set => Set(ref _ButtonsPagination, value);
         }
 
-        public struct ButtonPaginationStruct
+        public class ButtonPaginationStruct : ViewModel
         {
             /// <summary>Подсказка</summary>
-            public string _DataTitle { get; set; }
+            public string DataTitle { get; set; }
 
             /// <summary>Команда</summary>
-            public ICommand _Command { get; set; }
+            public ICommand Command { get; set; }
+
+            private bool _IsChecked;
+            /// <summary>Картинка</summary>
+            public bool IsChecked
+            {
+                get => _IsChecked;
+                set => Set(ref _IsChecked, value);
+            }
         }
 
-        #endregion
-
-        #region Страницы окна
-        /// <summary>Сраницы окна</summary>
-        private readonly List<string> _PagesNames = System.Enum.GetNames(typeof(ApplicationPage))
-                .ToList();
-
-        public List<string> PagesNames => _PagesNames;
         #endregion
 
         #region Активная страница
@@ -244,29 +247,39 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
-        #region Смена страницы вправо
+        #region Смена страницы >
 
         public ICommand SwitchRightCommand { get; set; }
 
         private void OnSwitchRightCommandExecute(object p)
         {
-            CurrentPage += 1;
+            int newCurrentPage = (int)CurrentPage + 1;
+            int countPage = Enum.GetNames(typeof(ApplicationPage)).Length;
+            CurrentPage = newCurrentPage < countPage ? (ApplicationPage)newCurrentPage : CurrentPage;
+            RefreshPagination();
         }
 
         private bool CanSwitchRightCommandExecute(object p) => true;
 
         #endregion
 
-        #region Смена страницы на конкретную
+        #region Смена страницы <
 
-        public ICommand SwitchPageCommand { get; set; }
+        public ICommand SwitchLeftCommand { get; set; }
 
-        private void OnSwitchPageCommandExecute(object p)
+        private void OnSwitchLeftCommandExecute(object p)
         {
-            CurrentPage = (ApplicationPage)p;
+            int newCurrentPage = (int)CurrentPage - 1;
+            CurrentPage = newCurrentPage >= 0 ? (ApplicationPage)newCurrentPage : CurrentPage;
+            RefreshPagination();
         }
 
-        private bool CanSwitchPageCommandExecute(object p) => true;
+        private bool CanSwitchLeftCommandExecute(object p) => true;
+
+        private void SwitchPage(char oper)
+        {
+            
+        }
 
         #endregion
 
@@ -282,14 +295,18 @@ namespace BoxBoost.ViewModels
             };
 
 
-            _ButtonsPagination = new ObservableCollection<ButtonPaginationStruct>();
+            ButtonsPagination = new ObservableCollection<ButtonPaginationStruct>();
+
             System.Enum.GetNames(typeof(ApplicationPage))
                 .ToList().ForEach(f =>
                 {
-                    _ButtonsPagination.Add(new ButtonPaginationStruct()
+                    Action<object> Act = (object obj) => CurrentPage = (ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), f);
+                    
+                    ButtonsPagination.Add(new ButtonPaginationStruct()
                     {
-                        _DataTitle = f,
-                        _Command = new LambdaCommand(OnSwitchPageCommandExecute, CanSwitchPageCommandExecute)
+                        IsChecked = false,
+                        DataTitle = f,
+                        Command = new LambdaCommand(Act, (object obj) => true)
                     });
                 });
             
@@ -306,7 +323,7 @@ namespace BoxBoost.ViewModels
             #endregion
 
             SwitchRightCommand = new LambdaCommand(OnSwitchRightCommandExecute, CanSwitchRightCommandExecute);
-            SwitchPageCommand = new LambdaCommand(OnSwitchPageCommandExecute, CanSwitchPageCommandExecute);
+            SwitchLeftCommand = new LambdaCommand(OnSwitchLeftCommandExecute, CanSwitchLeftCommandExecute);
 
             #endregion
 
@@ -324,6 +341,18 @@ namespace BoxBoost.ViewModels
         }
 
         #region Private Helpers
+
+        private void RefreshPagination()
+        {
+            foreach (ButtonPaginationStruct button in ButtonsPagination)
+            {
+                if (CurrentPage == (ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), button.DataTitle))
+                {
+                    button.IsChecked = true;
+                    break;
+                }
+            }
+        }
 
         private Point GetMousePointion()
         {
