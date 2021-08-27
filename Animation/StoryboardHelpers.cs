@@ -91,8 +91,8 @@ namespace BoxBoost.Animation
             var Animation = new ThicknessAnimation
             {
                 Duration = new System.Windows.Duration(TimeSpan.FromSeconds(seconds)),
-                From = new Thickness(0),
-                To = new Thickness(-offset, 0, offset, 0),
+                From = new Thickness(-offset, 0, offset, 0),
+                To = new Thickness(0),
                 DecelerationRatio = 0.9f
             };
             Storyboard.SetTargetProperty(Animation, new PropertyPath("Margin"));
