@@ -44,5 +44,6 @@ namespace BoxBoost.DataModels
     {
         None = 0,
         SettingsBestProxieFrame = 1,
+        SettingsLocalProxyFrame= 2,
     }   
 }

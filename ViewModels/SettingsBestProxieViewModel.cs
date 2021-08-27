@@ -1,9 +1,6 @@
 ﻿using BoxBoost.DataModels;
-using BoxBoost.Infrastructure.Commands;
 using BoxBoost.ViewModels.Base;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
 
 namespace BoxBoost.ViewModels
 {
@@ -32,14 +29,6 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
-        /// <summary>Заголовок</summary>
-        private ApplicationPage _CurrentPage = ApplicationPage.SettingsBestProxieFrame;
-
-        public ApplicationPage CurrentPage
-        {
-            get => _CurrentPage;
-            set => Set(ref _CurrentPage, value);
-        }
         #endregion
 
         #region Команды

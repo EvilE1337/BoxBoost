@@ -69,12 +69,20 @@
     <Compile Include="Pages\SettingsBestProxieFrame.xaml.cs">
       <DependentUpon>SettingsBestProxieFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SettingsLocalProxyFrame.xaml.cs">
+      <DependentUpon>SettingsLocalProxyFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\SettingsBestProxieViewModel.cs" />
+    <Compile Include="ViewModels\SettingsLocalProxyViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
     <Page Include="Pages\SettingsBestProxieFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingsLocalProxyFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
