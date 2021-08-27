@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BoxBoost.ViewModels
 {
-    class SettingsLocalProxyViewModel : ViewModel
+    public class SettingsLocalProxyViewModel : ViewModel
     {
         #region Controls
 

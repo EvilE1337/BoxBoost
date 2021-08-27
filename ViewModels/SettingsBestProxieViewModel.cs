@@ -37,6 +37,8 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
+        #region constructor
+
         public SettingsBestProxieViewModel()
         {
             CountryList = new ObservableCollection<BoolStringStruct>();
@@ -51,6 +53,7 @@ namespace BoxBoost.ViewModels
             #endregion
 
         }
-        
+
+        #endregion
     }
 }
