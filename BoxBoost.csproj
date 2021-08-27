@@ -66,23 +66,19 @@
     <Compile Include="Animation\StoryboardHelpers.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="Pages\BasePage.cs" />
-    <Compile Include="Pages\MainFrame.xaml.cs">
-      <DependentUpon>MainFrame.xaml</DependentUpon>
+    <Compile Include="Pages\SettingsBestProxieFrame.xaml.cs">
+      <DependentUpon>SettingsBestProxieFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="ViewModels\MainFrameViewModel.cs" />
+    <Compile Include="ViewModels\SettingsBestProxieViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
-    <Page Include="BestProxie.xaml">
+    <Page Include="Pages\SettingsBestProxieFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MainFrame.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Styles\BoxWindowStyle.xaml">
+    <Page Include="Resources\Styles\Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,10 +98,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Styles\LocalProxy.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -114,14 +106,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BestProxie.xaml.cs">
-      <DependentUpon>BestProxie.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
-    <Compile Include="Resources\Styles\LocalProxy.xaml.cs">
-      <DependentUpon>LocalProxy.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\Windows\MainWindow.xaml.cs">

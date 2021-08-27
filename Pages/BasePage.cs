@@ -11,11 +11,62 @@ using System.Windows.Media.Animation;
 
 namespace BoxBoost.Pages
 {
-    public class BasePage<VM> : Page 
-        where VM : ViewModel, new()
+    public class BasePage : Page
     {
         #region Controls
 
+        bool HasAnimation = true;
+
+        /// <summary>
+        /// Время анимации
+        /// </summary>
+        public float SlideSecond { get; set; } = 0.8f;
+
+        #endregion
+
+        #region Constructor
+
+        public BasePage()
+        {
+            if (HasAnimation)
+                this.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        #endregion
+
+        #region Animation Load / Unload
+       
+        public async Task AnimationAsync(PageAnimation animation)
+        {
+            if (animation == PageAnimation.None)
+                return;
+
+            switch (animation)
+            {
+                case PageAnimation.None:
+                    break;
+                case PageAnimation.SlideAndFadeInFromRight:
+                    await this.SlideAndFadeInFromRightAsync(this.SlideSecond);
+                    break;
+                case PageAnimation.SlideAndFadeInFromLeft:
+                    await this.SlideAndFadeInFromLeftAsync(this.SlideSecond);
+                    break;
+                case PageAnimation.SlideAndFadeOutToLeft:
+                    await this.SlideAndFadeOutToLeftAsync(this.SlideSecond);
+                    break;
+                case PageAnimation.SlideAndFadeOutToRight:
+                    await this.SlideAndFadeOutToRightAsync(this.SlideSecond);
+                    break;
+            }
+        }
+
+
+        #endregion
+    }
+
+    public class BasePage<VM> : BasePage
+        where VM : ViewModel, new()
+    {
         #region VM page
 
         /// <summary>
@@ -38,72 +89,15 @@ namespace BoxBoost.Pages
         }
 
         #endregion
-
-        public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideAndFadeInFromRight;
-
-        public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.SlideAndFadeInFromRight;
-
-        /// <summary>
-        /// Время анимации
-        /// </summary>
-        public float SlideSecond { get; set; } = 0.8f;
         
-        #endregion
-
         #region Constructor
 
         public BasePage()
         {
-            if (this.PageLoadAnimation != PageAnimation.None)
-                this.Visibility = System.Windows.Visibility.Collapsed;
-
-            this.Loaded += BasePage_Loaded;
-
             this.ViewModel = new VM();
         }
 
         #endregion
-
-        #region Animation Load / Unload
-
-        private async void BasePage_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            await AnimationIn();
-        }
-
-        public async Task AnimationIn()
-        {
-            if (this.PageLoadAnimation == PageAnimation.None)
-                return;
-
-            switch (this.PageLoadAnimation)
-            {
-                case PageAnimation.None:
-                    break;
-                case PageAnimation.SlideAndFadeInFromRight:
-                        await this.SlideAndFadeInFromRight(this.SlideSecond);
-                    break;
-            }
-        }
-
-        public async Task AnimationOut()
-        {
-            if (this.PageUnloadAnimation == PageAnimation.None)
-                return;
-
-            switch (this.PageUnloadAnimation)
-            {
-                case PageAnimation.None:
-                    break;
-                case PageAnimation.SlideAndFadeOutToLeft:
-                    await this.SlideAndFadeOutToLeft(this.SlideSecond);
-                    break;
-            }
-        }
-
-
-        #endregion
-
-
+        
     }
 }

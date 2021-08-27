@@ -2,6 +2,22 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BoxBoost.Resources.Styles">
 
+
+    <Style TargetType="{x:Type ListViewItem}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--<ControlTemplate x:Key="BoxWindowTemplate" TargetType="{x:Type TypeName=Window}">
         <Grid>
             <Border Name="PART_BORDER"
@@ -30,7 +46,7 @@
         </Grid>
     </ControlTemplate>
     
-    <Style x:Key="BoxWindowStyle" TargetType="{x:Type TypeName=Window}"> --><!--Создаем стиль для окна--><!--
+    <Style x:Key="Window" TargetType="{x:Type TypeName=Window}"> --><!--Создаем стиль для окна--><!--
         <Setter Property="WindowStyle" Value="None"/> --><!--Устанавливаем для windowstyle = null т.е. окно без виндовских стилей--><!--
         <Setter Property="AllowsTransparency" Value="True"/> --><!--Возможность рисовать элементы с прозрачностью--><!--
         <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>

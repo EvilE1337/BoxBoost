@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BoxBoost.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BoxBoost
+namespace BoxBoost.Pages
 {
     /// <summary>
-    /// Interaction logic for BestProxie.xaml
+    /// Interaction logic for SettingsBestProxieFrame.xaml
     /// </summary>
-    public partial class BestProxie : UserControl
+    public partial class SettingsBestProxieFrame : BasePage<SettingsBestProxieViewModel>
     {
-        public BestProxie()
+        public SettingsBestProxieFrame()
         {
             InitializeComponent();
         }

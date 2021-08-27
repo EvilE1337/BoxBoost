@@ -19,10 +19,17 @@ namespace BoxBoost.Animation
         /// Страница появляется справа
         /// </summary>
         SlideAndFadeInFromRight = 1,
-
+        /// <summary>
+        /// Страница появляется слева
+        /// </summary>
+        SlideAndFadeInFromLeft = 2,
         /// <summary>
         /// Страница уходит влево
         /// </summary>
-        SlideAndFadeOutToLeft = 2,
+        SlideAndFadeOutToLeft = 3,
+        /// <summary>
+        /// Страница уходит Вправо
+        /// </summary>
+        SlideAndFadeOutToRight = 4,
     }
 }

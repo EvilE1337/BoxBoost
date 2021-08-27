@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace BoxBoost.ValueConverters
 {
@@ -10,23 +11,33 @@ namespace BoxBoost.ValueConverters
     /// </summary>
     public class ApplicationPageValueConverter : BaseValueConverter<ApplicationPageValueConverter>
     {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object Convert(object value, Type targetType = null, object parameter = null, CultureInfo culture = null)
         {
-            // Find the appropriate page
             switch ((ApplicationPage)value)
             {
-                case ApplicationPage.MainFrame:
-                    return new Pages.MainFrame();
+                case ApplicationPage.SettingsBestProxieFrame:
+                    return PageStorage.CurrentPage = new Pages.SettingsBestProxieFrame();
 
                 default:
+                    PageStorage.CurrentPage = null;
                     //Debugger.Break();
                     return null;
             }
         }
 
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public override object ConvertBack(object value, Type targetType = null, object parameter = null, CultureInfo culture = null)
         {
-            throw new NotImplementedException();
+            if (value != null)
+                switch (value.GetType().Name)
+                {
+                    case "SettingsBestProxieFrame":
+                        return ApplicationPage.SettingsBestProxieFrame;
+                    default:
+                        return ApplicationPage.None;
+
+                }
+            else
+                return ApplicationPage.None;
         }
     }
 }

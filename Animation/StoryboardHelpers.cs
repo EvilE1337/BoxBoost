@@ -13,8 +13,10 @@ namespace BoxBoost.Animation
     /// </summary>
     static class StoryboardHelpers
     {
+        #region Right From / To
+
         /// <summary>
-        /// Анимация выкатывания окна из правой части
+        /// Анимация появляется из правой части к центру
         /// </summary>
         /// <param name="strotyboard">Куда добавлять</param>
         /// <param name="second">Время анимации</param>
@@ -34,11 +36,35 @@ namespace BoxBoost.Animation
         }
 
         /// <summary>
-        /// Анимация исчезновение окна влево
+        /// Анимация уходит из центра окна вправо
         /// </summary>
         /// <param name="strotyboard">Куда добавлять</param>
         /// <param name="second">Время анимации</param>
         /// <param name="offset">Расстояние справа</param>
+        /// <param name="deceleration">Замедление скорости</param>
+        public static void AddSlideToRight(this Storyboard strotyboard, float seconds, double offset, float deceleration = 0.9f)
+        {
+            var Animation = new ThicknessAnimation
+            {
+                Duration = new System.Windows.Duration(TimeSpan.FromSeconds(seconds)),
+                From = new Thickness(0),
+                To = new Thickness(offset, 0, -offset, 0),
+                DecelerationRatio = 0.9f
+            };
+            Storyboard.SetTargetProperty(Animation, new PropertyPath("Margin"));
+            strotyboard.Children.Add(Animation);
+        }
+
+        #endregion
+
+        #region Left From / To
+
+        /// <summary>
+        /// Анимация уходит из центра окна влево
+        /// </summary>
+        /// <param name="strotyboard">Куда добавлять</param>
+        /// <param name="second">Время анимации</param>
+        /// <param name="offset">Расстояние слева</param>
         /// <param name="deceleration">Замедление скорости</param>
         public static void AddSlideToLeft(this Storyboard strotyboard, float seconds, double offset, float deceleration = 0.9f)
         {
@@ -54,7 +80,31 @@ namespace BoxBoost.Animation
         }
 
         /// <summary>
-        /// Анимация выкатывания окна из правой части
+        /// Анимация появляется из левой части к центру
+        /// </summary>
+        /// <param name="strotyboard">Куда добавлять</param>
+        /// <param name="second">Время анимации</param>
+        /// <param name="offset">Расстояние слева</param>
+        /// <param name="deceleration">Замедление скорости</param>
+        public static void AddSlideFromLeft(this Storyboard strotyboard, float seconds, double offset, float deceleration = 0.9f)
+        {
+            var Animation = new ThicknessAnimation
+            {
+                Duration = new System.Windows.Duration(TimeSpan.FromSeconds(seconds)),
+                From = new Thickness(0),
+                To = new Thickness(-offset, 0, offset, 0),
+                DecelerationRatio = 0.9f
+            };
+            Storyboard.SetTargetProperty(Animation, new PropertyPath("Margin"));
+            strotyboard.Children.Add(Animation);
+        }
+
+        #endregion
+
+        #region Fade In / Out
+
+        /// <summary>
+        /// Анимация появления окна
         /// </summary>
         /// <param name="strotyboard">Куда добавлять</param>
         /// <param name="second">Время анимации</param>
@@ -71,7 +121,7 @@ namespace BoxBoost.Animation
         }
 
         /// <summary>
-        /// Анимация исчезновения окна влево
+        /// Анимация исчезновения окна
         /// </summary>
         /// <param name="strotyboard">Куда добавлять</param>
         /// <param name="second">Время анимации</param>
@@ -86,5 +136,7 @@ namespace BoxBoost.Animation
             Storyboard.SetTargetProperty(Animation, new PropertyPath("Opacity"));
             strotyboard.Children.Add(Animation);
         }
+
+        #endregion
     }
 }

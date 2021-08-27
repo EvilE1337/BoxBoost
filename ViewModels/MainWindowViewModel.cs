@@ -257,9 +257,7 @@ namespace BoxBoost.ViewModels
 
         private void OnSwitchRightCommandExecute(object p)
         {
-            int newCurrentPage = (int)CurrentPage + 1;
-            int countPage = Enum.GetNames(typeof(ApplicationPage)).Length;
-            CurrentPage = newCurrentPage < countPage ? (ApplicationPage)newCurrentPage : CurrentPage;
+            SwitchPage(false);
         }
 
         private bool CanSwitchRightCommandExecute(object p) => true;
@@ -272,15 +270,16 @@ namespace BoxBoost.ViewModels
 
         private void OnSwitchLeftCommandExecute(object p)
         {
-            int newCurrentPage = (int)CurrentPage - 1;
-            CurrentPage = newCurrentPage >= 0 ? (ApplicationPage)newCurrentPage : CurrentPage;
+            SwitchPage(true);
         }
-
+        
         private bool CanSwitchLeftCommandExecute(object p) => true;
 
         #endregion
 
         #endregion
+
+        #region constructor
 
         public MainWindowViewModel(Window window)
         {
@@ -291,22 +290,7 @@ namespace BoxBoost.ViewModels
                 WindowResized();
             };
 
-
-            ButtonsPagination = new ObservableCollection<ButtonPaginationStruct>();
-
-            System.Enum.GetNames(typeof(ApplicationPage))
-                .ToList().ForEach(f =>
-                {
-                    void Act(object obj) => CurrentPage = (ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), f);
-
-                    ButtonsPagination.Add(new ButtonPaginationStruct()
-                    {
-                        IsChecked = false,
-                        DataTitle = f,
-                        Command = new LambdaCommand(Act, (object obj) => true)
-                    });
-                });
-            
+            PaginationInitialize();
 
             #region Команды
 
@@ -337,7 +321,47 @@ namespace BoxBoost.ViewModels
             };
         }
 
+        #endregion
+
         #region Private Helpers
+
+        private async void SwitchPage(bool isBack)
+        {
+            int newCurrentPage = (int)CurrentPage + (isBack ? -1 : 1);
+            int countPage = Enum.GetNames(typeof(ApplicationPage)).Length;
+            if (newCurrentPage >= 0 && newCurrentPage < countPage)
+            {
+                await PageStorage.BeforeUnloadPage(isBack);
+                CurrentPage = (ApplicationPage)newCurrentPage;
+            }
+        }
+
+        private async void SwitchPage(ApplicationPage page)
+        {
+            bool isBack = CurrentPage > page;
+            await PageStorage.BeforeUnloadPage(isBack);
+            CurrentPage = page;
+        }
+
+        private void PaginationInitialize()
+        {
+            ButtonsPagination = new ObservableCollection<ButtonPaginationStruct>();
+
+            System.Enum.GetNames(typeof(ApplicationPage))
+                .ToList().ForEach(f =>
+                {
+                    void Act(object obj) => SwitchPage((ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), f));
+
+                    ButtonsPagination.Add(new ButtonPaginationStruct()
+                    {
+                        IsChecked = false,
+                        DataTitle = f,
+                        Command = new LambdaCommand(Act, (object obj) => true)
+                    });
+                });
+
+            CurrentPage = ApplicationPage.None;
+        }
 
         private Point GetMousePointion()
         {

@@ -1,4 +1,4 @@
-﻿<local:BasePage x:TypeArguments="ViewModels:MainFrameViewModel" x:Class="BoxBoost.Pages.MainFrame"
+﻿<local:BasePage x:TypeArguments="ViewModels:SettingsBestProxieViewModel" x:Class="BoxBoost.Pages.SettingsBestProxieFrame"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,10 @@
       xmlns:local="clr-namespace:BoxBoost.Pages"
       xmlns:ViewModels="clr-namespace:BoxBoost.ViewModels"
       mc:Ignorable="d"
-      Title="MainFrame">
+      Title="SettingsBestProxieFrame">
 
     <Border>
         <Grid>
-
             <!-- Main scroll -->
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel 
@@ -30,7 +29,7 @@
                                        FontSize="{StaticResource FontSizeSmall}" 
                                        FontFamily="{StaticResource SansPro}"
                                        Foreground="{StaticResource WordBlueBrush}" />
-                            
+
                                 <!-- KeyApi -->
                                 <PasswordBox Tag="KeyApi" Margin="5 0 0 0" Width="150"/>
                             </StackPanel>
@@ -64,10 +63,10 @@
                             </Expander>
 
                             <StackPanel>
-                                <ListBox ItemsSource="{Binding TheList}">
+                                <ListBox ItemsSource="{Binding CountryList}">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <CheckBox IsChecked="{Binding _IsSelected}" Content="{Binding _TheText}"/>
+                                            <CheckBox IsChecked="{Binding _IsSelected}" Content="{Binding _NameCountry}"/>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
@@ -75,8 +74,9 @@
                                 <!-- Next button -->
                                 <Button Content="Снять выделенные" 
                                         HorizontalAlignment="Center" />
+
                             </StackPanel>
-                            
+
                         </StackPanel>
 
                     </Border>
