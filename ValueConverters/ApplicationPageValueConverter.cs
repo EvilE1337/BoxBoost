@@ -19,6 +19,10 @@ namespace BoxBoost.ValueConverters
                     return PageStorage.CurrentPage = new Pages.SettingsBestProxieFrame();
                 case ApplicationPage.SettingsLocalProxyFrame:
                     return PageStorage.CurrentPage = new Pages.SettingsLocalProxyFrame();
+                case ApplicationPage.SettingsMainFrame:
+                    return PageStorage.CurrentPage = new Pages.SettingsMainFrame();
+                case ApplicationPage.SettingsOtherFrame:
+                    return PageStorage.CurrentPage = new Pages.SettingsOtherFrame();
                 default:
                     PageStorage.CurrentPage = null;
                     //Debugger.Break();
@@ -35,6 +39,10 @@ namespace BoxBoost.ValueConverters
                         return ApplicationPage.SettingsBestProxieFrame;
                     case "SettingsLocalProxyFrame":
                         return ApplicationPage.SettingsLocalProxyFrame;
+                    case "SettingsMainFrame":
+                        return ApplicationPage.SettingsMainFrame;
+                    case "SettingsOtherFrame":
+                        return ApplicationPage.SettingsOtherFrame;
                     default:
                         return ApplicationPage.None;
 

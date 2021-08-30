@@ -43,7 +43,10 @@ namespace BoxBoost.DataModels
     public enum ApplicationPage
     {
         None = 0,
-        SettingsBestProxieFrame = 1,
-        SettingsLocalProxyFrame= 2,
+        SettingsMainFrame = 1,
+        SettingsOtherFrame = 2,
+        SettingsLocalProxyFrame = 3,     
+        SettingsBestProxieFrame = 4,
+
     }   
 }

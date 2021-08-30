@@ -18,38 +18,75 @@
         </Setter>
     </Style>
 
-    <!--<ControlTemplate x:Key="BoxWindowTemplate" TargetType="{x:Type TypeName=Window}">
-        <Grid>
-            <Border Name="PART_BORDER"
-                    Margin="7"
-                    BorderBrush="{TemplateBinding Property=BorderBrush}"
-                    BorderThickness="{TemplateBinding Property=BorderThickness}">
-                <Grid Name="PART_MainGrid"
-                      Margin="7"
-                      Background="{TemplateBinding Property=Background}"
-                      TextOptions.TextRenderingMode="ClearType"
-                      TextOptions.TextFormattingMode="Display">
-                    <DockPanel>
-                        <Grid Name="PART_TitleBar" DockPanel.Dock="Top" Background="WhiteSmoke"></Grid>
-                        <DockPanel Height="32">
-                            <Image DockPanel.Dock="Left"></Image>
-                            <StackPanel DockPanel.Dock="Right">
-                                <TextBlock Text="wwww"/>
-                            </StackPanel>
-                        </DockPanel>
-                        <AdornerDecorator>
-                            <ContentPresenter/>
-                        </AdornerDecorator>
-                    </DockPanel>
-                </Grid>
-            </Border>
-        </Grid>
-    </ControlTemplate>
-    
-    <Style x:Key="Window" TargetType="{x:Type TypeName=Window}"> --><!--Создаем стиль для окна--><!--
-        <Setter Property="WindowStyle" Value="None"/> --><!--Устанавливаем для windowstyle = null т.е. окно без виндовских стилей--><!--
-        <Setter Property="AllowsTransparency" Value="True"/> --><!--Возможность рисовать элементы с прозрачностью--><!--
-        <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>
-        <Setter Property="Template" Value="{StaticResource ResourceKey=BoxWindowTemplate}"/>
-    </Style>-->
+    <Style x:Key="CheckBoxFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle 
+            Margin="15,0,0,0"
+            StrokeThickness="1"
+            Stroke="#60000000"
+            StrokeDashArray="1 2"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MetroFontRegular}"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource CheckBoxFocusVisual}"/>
+        <Setter Property="Foreground" Value="#999999"/>
+        <Setter Property="Background" Value="#3f3f3f"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Border x:Name="Border"  
+                              Width="13" 
+                              Height="13" 
+                              CornerRadius="0" 
+                              Background="#3f3f3f"
+                              BorderBrush="#999999"
+                              BorderThickness="1">
+                                <Path 
+                                                    Width="7" Height="7" 
+                                                    x:Name="CheckMark"
+                                                    SnapsToDevicePixels="False" 
+                                                    Stroke="#979797"
+                                                    StrokeThickness="2"
+                                                    Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+                            </Border>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            RecognizesAccessKey="True"/>
+                    </BulletDecorator>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="#454545" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ApplicationAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="#c1c1c1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
