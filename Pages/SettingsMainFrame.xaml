@@ -9,7 +9,98 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsMainFrame">
 
-    <Grid>
-        
-    </Grid>
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="0 4" />
+        </Style>
+    </Page.Resources>
+    
+    <Border>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+            <StackPanel 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center">
+
+                <Border Background="{StaticResource ForegroundLightBrush}" 
+                            CornerRadius="10"
+                            Width="330">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Labels -->
+                            <TextBlock Text="Сайт"/>
+                            <TextBlock Text="Режим" Grid.Row="1" />
+                            <TextBlock Text="Вероятность" Grid.Row="2"/>
+                            <TextBlock Text="Число потоков" Grid.Row="3"/>
+
+                            <!-- Content -->
+                            <TextBox Grid.Column="1" Style="{StaticResource BaseStyle}"/>
+                            <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource BaseStyle}"/>
+                            <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource BaseStyle}"/>
+                            <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource BaseStyle}"/>
+                            
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <TextBlock Text="Ввод:" />
+                                <TextBox Style="{StaticResource BaseStyle}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                <Button Style="{StaticResource Hoverless}"
+                                        Command=""
+                                        HorizontalAlignment="Center">
+                                    <TextBlock Text="Добавить" />
+                                </Button>
+                                <Button Style="{StaticResource Hoverless}"
+                                        Command=""
+                                        HorizontalAlignment="Center">
+                                    <TextBlock Text="Добавить группу" />
+                                </Button>
+                                <Button Style="{StaticResource Hoverless}"
+                                        Command=""
+                                        HorizontalAlignment="Center">
+                                    <TextBlock Text="Удалить выделенные" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                </Border>
+
+            </StackPanel>
+
+        </ScrollViewer>
+    </Border>
 </local:BasePage>

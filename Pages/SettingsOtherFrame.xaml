@@ -9,6 +9,15 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsOtherFrame">
 
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="0 4" />
+        </Style>
+    </Page.Resources>
+    
     <Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
