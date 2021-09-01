@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace BoxBoost.ViewModels
 {
-    internal class MainWindowViewModel : ViewModel
+    internal class MainWindowViewModel : ViewModel, IWindow
     {
         #region Controls
 
@@ -197,7 +197,7 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
-        #region Команды
+        #region Commands
 
         #region Уменьшение окна
 
@@ -277,6 +277,20 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
+        #region Запуск (открытие нового окна)
+
+        public ICommand StartBoostCommand { get; set; }
+
+        private void OnStartBoostCommandExecute(object p)
+        {
+            var test = new WindowStorage();
+            test.AddWindow(ApplicationWindow.BoostWin);
+        }
+
+        private bool CanStartBoostCommandExecute(object p) => true;
+
+        #endregion
+
         #endregion
 
         #region constructor
@@ -305,6 +319,7 @@ namespace BoxBoost.ViewModels
 
             SwitchRightCommand = new LambdaCommand(OnSwitchRightCommandExecute, CanSwitchRightCommandExecute);
             SwitchLeftCommand = new LambdaCommand(OnSwitchLeftCommandExecute, CanSwitchLeftCommandExecute);
+            StartBoostCommand = new LambdaCommand(OnStartBoostCommandExecute, CanStartBoostCommandExecute);
 
             #endregion
 

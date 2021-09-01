@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace BoxBoost.DataModels
 {
-    public static class PageStorage
+    internal static class PageStorage
     {
         private static BasePage _CurrentPage;
 

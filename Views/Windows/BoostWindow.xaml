@@ -1,0 +1,146 @@
+﻿<Window x:Class="BoxBoost.BoostWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BoxBoost.Views.Windows"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Icon="/Images/Logo/BigLogo.png"
+        AllowsTransparency="True"
+        Title="BoostWindow" 
+        Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="local:BoostWindow">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <!--Внешняя граница с тенью-->
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
+
+                            <!--Основной контур окна-->
+                            <Grid>
+
+                                <!--Прозрачность углов-->
+
+                                <Border x:Name="Container"
+                                        Background="{StaticResource BackgroundLightBrush}"
+                                        CornerRadius="{Binding WindowRadiusCorner, FallbackValue=10}"/>
+
+                                <!--Отступ и тень-->
+                                <Border CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
+                                        Background="{Binding ForegroundLightBrush, FallbackValue=white}">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                </Border>
+
+                                <!--Основной содержание окна-->
+                                <Grid>
+
+                                    <!--Обрезка углов-->
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}" />
+                                    </Grid.OpacityMask>
+
+                                    <Grid.RowDefinitions>
+                                        <!--Заголовок окна-->
+                                        <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}"/>
+                                        <!--Тень-->
+                                        <RowDefinition Height="Auto"/>
+                                        <!--Содержание окна-->
+                                        <RowDefinition Height="*"/>
+                                        <!--Подвал окна-->
+                                        <RowDefinition Height="{Binding StatusHeightGridLength, FallbackValue=42}"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!--Шапка-->
+                                    <Grid Background="Transparent" Grid.Row="0" Panel.ZIndex="1" MouseLeftButtonDown="Grid_MouseDown">
+                                        <Grid.ColumnDefinitions>
+                                            <!--Иконка-->
+                                            <ColumnDefinition Width="Auto"/>
+                                            <!--Заголовок-->
+                                            <ColumnDefinition Width="*"/>
+                                            <!--Кнопки окна-->
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Кнопка с иконкой-->
+                                        <Button Style="{StaticResource SystemIconButton}"
+                                                Command="{Binding MenuCommand}">
+                                            <fa:ImageAwesome Icon="Code"/>
+                                        </Button>
+
+                                        <!--Заголовок-->
+                                        <Viewbox Grid.Column="1" Margin="0">
+                                            <TextBlock Style="{StaticResource HeaderText}"
+                                                       FontFamily="{StaticResource SansPro}"
+                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=BoxBoost}"/>
+                                        </Viewbox>
+
+                                        <!--Кнопки заголовка-->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                            <Button Command="{Binding MinimizeCommand}"
+                                                    Style="{StaticResource WindowControlButton}"
+                                                    Content="_"/>
+                                            <Button Command="{Binding CloseCommand}"
+                                                    Style="{StaticResource WindowCloseButton}"
+                                                    Content="X"/>
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <!--Тень-->
+                                    <Border Grid.Row="1" Height="6" BorderThickness="0 0.2 0 0">
+                                        <!--Линия-->
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.5"/>
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Color="{StaticResource BackgroundVeryLight}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <!--Содержание-->
+
+                                    <Grid Grid.Row="2">
+
+                                        <Border Padding="{Binding InnerContentPadding}">
+                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        </Border>
+
+                                    </Grid>
+
+                                    <!--Подвал-->
+                                    
+                                    <Grid Grid.Row="3">
+                                        
+                                    </Grid>
+
+                                    
+
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource ForegroundLightBrush}">
+        <TextBlock Text=""/>
+    </Grid>
+
+</Window>
