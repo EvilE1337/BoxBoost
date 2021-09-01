@@ -1,5 +1,6 @@
 ﻿using BoxBoost.DataModels;
 using BoxBoost.Infrastructure.Commands;
+using BoxBoost.Infrastructure.Helpers;
 using BoxBoost.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Windows.Input;
 
 namespace BoxBoost.ViewModels
 {
-    internal class MainWindowViewModel : ViewModel, IWindow
+    internal class MainWindowViewModel : ViewModel
     {
         #region Controls
 
@@ -111,35 +112,13 @@ namespace BoxBoost.ViewModels
         public GridLength TitleHeightGridLength => new GridLength(_TitleHeight + ResizeBoreder);
         #endregion
 
-        #region Размер Подвала окна
+        #region Размер подвала окна
         /// <summary>Размер подвала</summary>
         private readonly int _StatusHeight = 42;
 
         public GridLength StatusHeightGridLength => new GridLength(_StatusHeight - ResizeBoreder);
         #endregion
-
-        #region Статус операции
-        /// <summary> Статус операции </summary>
-        private string _Status = "Ready";
-
-        public string Status
-        {
-            get => _Status;
-            set => Set(ref _Status, value);
-        }
-        #endregion
-
-        #region Видимость окна настроек
-        /// <summary> Видимость окна настроек </summary>
-        private bool _VisibleSettingWindow = false;
-
-        public bool VisibleSettingWindow
-        {
-            get => _VisibleSettingWindow;
-            set => Set(ref _VisibleSettingWindow, value);
-        }
-        #endregion
-
+        
         #region Последнее известное положение окна
         /// <summary> Видимость окна настроек </summary>
         private WindowDockPosition _DockPosition = WindowDockPosition.Undocked;
@@ -244,7 +223,7 @@ namespace BoxBoost.ViewModels
 
         private void OnMenuCommandExecute(object p)
         {
-            SystemCommands.ShowSystemMenu(mWindow, GetMousePointion());
+            SystemCommands.ShowSystemMenu(mWindow, WindowHelper.GetMousePointion(mWindow));
         }
 
         private bool CanMenuCommandExecute(object p) => true;
@@ -283,8 +262,7 @@ namespace BoxBoost.ViewModels
 
         private void OnStartBoostCommandExecute(object p)
         {
-            var test = new WindowStorage();
-            test.AddWindow(ApplicationWindow.BoostWin);
+            _WindowStorage.OpenWindow(ApplicationWindow.BoostWin);
         }
 
         private bool CanStartBoostCommandExecute(object p) => true;
@@ -293,7 +271,7 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
-        #region constructor
+        #region Constructor
 
         public MainWindowViewModel(Window window)
         {
@@ -340,6 +318,8 @@ namespace BoxBoost.ViewModels
 
         #region Private Helpers
 
+        private WindowStorage _WindowStorage = new WindowStorage();
+
         private async void SwitchPage(bool isBack)
         {
             int newCurrentPage = (int)CurrentPage + (isBack ? -1 : 1);
@@ -376,12 +356,6 @@ namespace BoxBoost.ViewModels
                 });
 
             CurrentPage = ApplicationPage.None;
-        }
-
-        private Point GetMousePointion()
-        {
-            Point position = Mouse.GetPosition(mWindow);
-            return new Point(position.X + mWindow.Left, position.Y + mWindow.Top);
         }
 
         private void WindowResized()

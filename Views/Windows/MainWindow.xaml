@@ -163,22 +163,17 @@
 
                                         <!--Кнопка запуска-->
 
-                                        <Grid>
-                                            <Button Grid.Column="2"
-                                                    HorizontalAlignment="Center"
-                                                    Style="{StaticResource Hoverless}"
-                                                    Command="{Binding StartBoostCommand}">
-                                                <DockPanel>
-                                                    <TextBlock Style="{StaticResource HeaderText}"
-                                                               FontFamily="{StaticResource SansPro}"
-                                                               Background="Transparent"
-                                                               FontSize="28"
-                                                               Text="Запуск"/>
-                                                    <fa:ImageAwesome Icon="PlayCircleOutline"
-                                                                     Margin="5"/>
-                                                </DockPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource HeaderText}"
+                                                       Padding="20 0 5 5"
+                                                       FontSize="23"
+                                                       Text="Запуск"/>
+                                            <Button Style="{StaticResource Hoverless}"
+                                                    Command="{Binding StartBoostCommand}"
+                                                    Padding="0 0 0 5">
+                                                <fa:ImageAwesome Icon="PlayCircleOutline"/>
                                             </Button>
-                                        </Grid>
+                                        </StackPanel>
                                         
                                         <!--Пагинация-->
                                         <Viewbox Grid.Column="1" >
@@ -205,9 +200,9 @@
                                         </Viewbox>
                                         
                                         <!--Ссылка-->
-                                        <Viewbox Grid.Column="2" Margin="5">
+                                        <Viewbox Grid.Column="2">
                                             <TextBlock Style="{StaticResource HeaderText}"
-                                                       FontFamily="{StaticResource SansPro}"
+                                                       Padding="0 0 15 0"
                                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LinkText, FallbackValue=By E1337}"/>
                                         </Viewbox>
 

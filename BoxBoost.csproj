@@ -81,6 +81,8 @@
     <Compile Include="Animation\PageAnimations.cs" />
     <Compile Include="Animation\StoryboardHelpers.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="DataModels\ApplicationWindow.cs" />
+    <Compile Include="Infrastructure\Helpers\WindowHelper.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\SettingsBestProxieFrame.xaml.cs">
       <DependentUpon>SettingsBestProxieFrame.xaml</DependentUpon>
@@ -95,12 +97,18 @@
       <DependentUpon>SettingsOtherFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
+    <Compile Include="ValueConverters\ApplicationWindowValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\ListToStringConverter.cs" />
+    <Compile Include="ViewModels\BoostWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsBestProxieViewModel.cs" />
     <Compile Include="ViewModels\SettingsLocalProxyViewModel.cs" />
     <Compile Include="ViewModels\SettingsMainViewModel.cs" />
     <Compile Include="ViewModels\SettingsOtherViewModel.cs" />
+    <Compile Include="Views\Windows\BoostWindow.xaml.cs">
+      <DependentUpon>BoostWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\WindowResizer.cs" />
     <Page Include="Pages\SettingsBestProxieFrame.xaml">
       <SubType>Designer</SubType>
@@ -135,6 +143,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\BoostWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,6 +218,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\E1337.BoostWorker\E1337.BoostWorker.csproj">
+      <Project>{0a3d53a8-303b-4ca1-b973-74fb5f8caaff}</Project>
+      <Name>E1337.BoostWorker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\E1337.ProxyWorker\E1337.ProxyWorker.csproj">
+      <Project>{7aee8dbb-be2c-4257-9017-985319796627}</Project>
+      <Name>E1337.ProxyWorker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,7 +23,12 @@ namespace BoxBoost
         public BoostWindow()
         {
             InitializeComponent();
-            this.DataContext = new BoostWindowViewModel();
+            this.DataContext = new BoostWindowViewModel(this);
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
