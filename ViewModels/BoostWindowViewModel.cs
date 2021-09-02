@@ -18,7 +18,7 @@ namespace BoxBoost.ViewModels
     {
         #region Controls
 
-        #region CollectCommandPagination
+        #region Коллекция информации для вывода
 
         private ObservableCollection<OutInformationStruct> _ListViewOutInfoItem;
 
@@ -78,18 +78,7 @@ namespace BoxBoost.ViewModels
             set => Set(ref _Status, value);
         }
         #endregion
-
-        #region Текст на выводе
-        /// <summary> Статус операции </summary>
-        private List<string> _OutputInformation;
-
-        public List<string> OutputInformation
-        {
-            get => _OutputInformation;
-            set => Set(ref _OutputInformation, value);
-        }
-        #endregion
-
+        
         #endregion
 
         #region Commands

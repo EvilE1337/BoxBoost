@@ -26,7 +26,7 @@
 
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <TextBlock Text="Ключ" 
-                                       FontSize="{StaticResource FontSizeSmall}" 
+                                       FontSize="{StaticResource FontSizeRegular}" 
                                        FontFamily="{StaticResource SansPro}"
                                        Foreground="{StaticResource WordBlueBrush}" />
 
@@ -71,9 +71,12 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
 
-                                <!-- Next button -->
-                                <Button Content="Снять выделенные" 
-                                        HorizontalAlignment="Center" />
+                                <!-- Clear checked -->
+                                <Button Style="{StaticResource Hoverless}"
+                                        Command=""
+                                        HorizontalAlignment="Center">
+                                    <TextBlock Text="Очистить" />
+                                </Button>
 
                             </StackPanel>
 

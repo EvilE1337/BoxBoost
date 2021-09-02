@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BoxBoost.Pages"
       xmlns:ViewModels="clr-namespace:BoxBoost.ViewModels"
+      xmlns:valueconverters="clr-namespace:BoxBoost.ValueConverters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsMainFrame">
@@ -57,10 +58,41 @@
                             <TextBlock Text="Число потоков" Grid.Row="3"/>
 
                             <!-- Content -->
-                            <TextBox Grid.Column="1" Style="{StaticResource BaseStyle}"/>
-                            <TextBox Grid.Column="1" Grid.Row="1" Style="{StaticResource BaseStyle}"/>
-                            <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource BaseStyle}"/>
-                            <TextBox Grid.Column="1" Grid.Row="3" Style="{StaticResource BaseStyle}"/>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ListBoostSiteItem}"/>
+                            <ComboBox Grid.Column="1"
+                                      Grid.Row="1"
+                                      ItemsSource="{Binding ListModeItem}"/>
+                            <DockPanel VerticalAlignment="Center"
+                                       Margin="10"
+                                       Grid.Column="1"
+                                       Grid.Row="2">
+                                <TextBlock Text="{Binding ElementName=zRandValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                         DockPanel.Dock="Right"
+                                         TextAlignment="Right" 
+                                         Width="40" />
+                                <Slider Maximum="100"
+                                        Minimum="5"
+                                        TickPlacement="BottomRight"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Name="zRandValue"/>
+                            </DockPanel>
+                            <DockPanel VerticalAlignment="Center"
+                                       Margin="10"
+                                       Grid.Column="1"
+                                       Grid.Row="3">
+                                <TextBlock Text="{Binding ElementName=zStreamValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                         DockPanel.Dock="Right"
+                                         TextAlignment="Right" 
+                                         Width="40" />
+                                <Slider Maximum="100"
+                                        Minimum="1"
+                                        TickPlacement="BottomRight"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Name="zStreamValue" />
+                            </DockPanel>
                             
                         </Grid>
 
@@ -72,11 +104,16 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                <TextBlock Text="Ввод:" />
-                                <TextBox Style="{StaticResource BaseStyle}"/>
+                            <StackPanel Grid.Row="1">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ListLinkBoostItem, Converter={valueconverters:ListToStringConverter}}"/>
+                                </StackPanel>
+                                <DockPanel>
+                                    <TextBlock Text="Ввод:"/>
+                                    <TextBox Style="{StaticResource BaseStyle}" Margin="10 0 0 0"/>
+                                </DockPanel>
                             </StackPanel>
-                            
+
                             <StackPanel Grid.Row="2" Orientation="Horizontal">
                                 <Button Style="{StaticResource Hoverless}"
                                         Command=""

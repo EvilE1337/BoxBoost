@@ -16,7 +16,7 @@
         <Setter Property="Margin" Value="0 4" />
     </Style>
 
-    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
+    <Style TargetType="{x:Type TextBox}" x:Key="MainText" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource SansPro}" />
