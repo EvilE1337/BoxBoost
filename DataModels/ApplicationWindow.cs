@@ -19,9 +19,16 @@ namespace BoxBoost.DataModels
             AddWindow(_window);            
         }
 
-        internal void CloseWindow()
+        internal void OpenWindow(ApplicationWindow appWindow, out Window _window)
         {
+            _window = Create(appWindow);
+            _window.Show();
+            AddWindow(_window);
+        }
 
+        internal void CloseWindow(Window _Window)
+        {
+            
         }
 
         private Window Create(ApplicationWindow appWindow) => (Window)new ApplicationWindowValueConverter().Convert(appWindow);

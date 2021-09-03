@@ -82,6 +82,9 @@
     <Compile Include="Animation\StoryboardHelpers.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationWindow.cs" />
+    <Compile Include="ViewModels\VMSettings\BestProxieSettings.cs" />
+    <Compile Include="ViewModels\VMSettings\MainSettings.cs" />
+    <Compile Include="DataModels\TaskManager.cs" />
     <Compile Include="Infrastructure\Helpers\WindowHelper.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\SettingsBestProxieFrame.xaml.cs">
@@ -96,6 +99,9 @@
     <Compile Include="Pages\SettingsOtherFrame.xaml.cs">
       <DependentUpon>SettingsOtherFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TaskOutputFrame.xaml.cs">
+      <DependentUpon>TaskOutputFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\ApplicationWindowValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
@@ -106,6 +112,8 @@
     <Compile Include="ViewModels\SettingsLocalProxyViewModel.cs" />
     <Compile Include="ViewModels\SettingsMainViewModel.cs" />
     <Compile Include="ViewModels\SettingsOtherViewModel.cs" />
+    <Compile Include="ViewModels\TastOutputViewModel.cs" />
+    <Compile Include="ViewModels\VMSettings\OtherSettings.cs" />
     <Compile Include="Views\Windows\BoostWindow.xaml.cs">
       <DependentUpon>BoostWindow.xaml</DependentUpon>
     </Compile>
@@ -123,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\SettingsOtherFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\TaskOutputFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

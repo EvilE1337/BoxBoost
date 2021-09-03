@@ -17,7 +17,7 @@ namespace BoxBoost.ViewModels
     {
         #region Controls
 
-        #region CollectCommandPagination
+        #region Коллекция для кнопок пагинации
 
         private ObservableCollection<ButtonPaginationStruct> _ButtonsPagination;
 
@@ -282,6 +282,7 @@ namespace BoxBoost.ViewModels
                 WindowResized();
             };
 
+            _WindowStorage = new WindowStorage();
             PaginationInitialize();
 
             #region Команды
@@ -318,7 +319,7 @@ namespace BoxBoost.ViewModels
 
         #region Private Helpers
 
-        private WindowStorage _WindowStorage = new WindowStorage();
+        private WindowStorage _WindowStorage;
 
         private async void SwitchPage(bool isBack)
         {

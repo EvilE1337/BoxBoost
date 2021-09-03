@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace BoxBoost.ViewModels
 {
-    public class SettingsBestProxieViewModel : ViewModel
+    public class SettingsBestProxieViewModel : BestProxieSettings
     {
         #region Controls
 

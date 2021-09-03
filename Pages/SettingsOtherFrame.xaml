@@ -57,10 +57,54 @@
                         <TextBlock Text="Проверить прокси перед работой" Grid.Row="6" FontFamily="{StaticResource SansPro}" />
 
                         <!-- Content -->
-                        <TextBlock Text="" Grid.Column="1" />
-                        <TextBlock Text="" Grid.Column="1" Grid.Row="1" />
-                        <TextBlock Text="" Grid.Column="1" Grid.Row="2" />
-                        <TextBlock Text="" Grid.Column="1" Grid.Row="3" />
+                        <DockPanel VerticalAlignment="Center"
+                                       Margin="10"
+                                       Grid.Column="1">
+                            <TextBlock Text="{Binding ElementName=zPauseValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                         DockPanel.Dock="Right"
+                                         TextAlignment="Right" 
+                                         Width="40" />
+                            <Slider Maximum="100"
+                                        Minimum="1"
+                                        TickPlacement="BottomRight"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Name="zPauseValue" />
+                        </DockPanel>
+                        <CheckBox IsChecked="{x:Null}" Height="20" Margin="5" Grid.Column="1" Grid.Row="1"/>
+                        <DockPanel VerticalAlignment="Center"
+                                       Margin="10"
+                                       Grid.Column="1"
+                                       Grid.Row="2">
+                            <TextBlock Text="{Binding ElementName=zPlayValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                         DockPanel.Dock="Right"
+                                         TextAlignment="Right" 
+                                         Width="40" />
+                            <Slider Maximum="100"
+                                        Minimum="1"
+                                        TickPlacement="BottomRight"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Name="zPlayValue" />
+                        </DockPanel>
+                        <DockPanel VerticalAlignment="Center"
+                                       Margin="10"
+                                       Grid.Column="1"
+                                       Grid.Row="3">
+                            <TextBlock Text="{Binding ElementName=zDownloadValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                         DockPanel.Dock="Right"
+                                         TextAlignment="Right" 
+                                         Width="40" />
+                            <Slider Maximum="100"
+                                        Minimum="1"
+                                        TickPlacement="BottomRight"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Name="zDownloadValue" />
+                        </DockPanel>
+                        <CheckBox IsChecked="{x:Null}" Height="20" Margin="5" Grid.Column="1" Grid.Row="4"/>
+                        <CheckBox IsChecked="{x:Null}" Height="20" Margin="5" Grid.Column="1" Grid.Row="5"/>
+                        <CheckBox IsChecked="{x:Null}" Height="20" Margin="5" Grid.Column="1" Grid.Row="6"/>
 
                     </Grid>
                     
