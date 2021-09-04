@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace BoxBoost.DataModels
 {
-    public class BestProxieSettings : ViewModel
+    [Serializable]
+    public abstract class BestProxieSettings : ViewModel
     {
         #region Настройка BestProxie
 

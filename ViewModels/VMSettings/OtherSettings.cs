@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace BoxBoost.ViewModels.VMSettings
 {
-    public class OtherSettings : ViewModel
+    [Serializable]
+    public abstract class OtherSettings : ViewModel
     {
         #region Дополнительные настройки
 

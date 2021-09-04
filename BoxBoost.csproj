@@ -82,6 +82,7 @@
     <Compile Include="Animation\StoryboardHelpers.cs" />
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationWindow.cs" />
+    <Compile Include="Infrastructure\Helpers\SettingHelper.cs" />
     <Compile Include="ViewModels\VMSettings\BestProxieSettings.cs" />
     <Compile Include="ViewModels\VMSettings\MainSettings.cs" />
     <Compile Include="DataModels\TaskManager.cs" />

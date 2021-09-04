@@ -31,34 +31,34 @@
                                        Foreground="{StaticResource WordBlueBrush}" />
 
                                 <!-- KeyApi -->
-                                <PasswordBox Tag="KeyApi" Margin="5 0 0 0" Width="150"/>
+                                <PasswordBox Password="" Tag="KeyApi" Margin="5 0 0 0" Width="150"/>
                             </StackPanel>
 
                             <Expander Header="Тип">
                                 <!-- Type protocol -->
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox x:Name="ProxyHTTP" IsChecked="{x:Null}" Height="20" Content="HTTP" Margin="5"/>
-                                    <CheckBox x:Name="ProxyHTTPS" IsChecked="{x:Null}" Height="20" Content="HTTPS" Margin="5"/>
-                                    <CheckBox x:Name="ProxyeSOCKS4" IsChecked="{x:Null}" Height="20" Content="SOCKS4" Margin="5"/>
-                                    <CheckBox x:Name="ProxySOCKS5" IsChecked="{x:Null}" Height="20" Content="SOCKS5" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Http}" Height="20" Content="HTTP" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Https}" Height="20" Content="HTTPS" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Socks4}" Height="20" Content="SOCKS4" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Socks5}" Height="20" Content="SOCKS5" Margin="5"/>
                                 </StackPanel>
                             </Expander>
 
                             <Expander Header="Скорость">
                                 <!-- Speed proxy -->
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox x:Name="ProxyFast" IsChecked="{x:Null}" Height="20" Content="Быстрые" Margin="5"/>
-                                    <CheckBox x:Name="ProxyMedium" IsChecked="{x:Null}" Height="20" Content="Средние" Margin="5"/>
-                                    <CheckBox x:Name="ProxyLow" IsChecked="{x:Null}" Height="20" Content="Медленные" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Fast}" Height="20" Content="Быстрые" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Medium}" Height="20" Content="Средние" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Slow}" Height="20" Content="Медленные" Margin="5"/>
                                 </StackPanel>
                             </Expander>
 
                             <Expander Header="Анонимность">
                                 <!-- Anonim proxy -->
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox x:Name="ProxyElite" IsChecked="{x:Null}" Height="20" Content="Элитные" Margin="5"/>
-                                    <CheckBox x:Name="ProxyAnonim" IsChecked="{x:Null}" Height="20" Content="Анонимные" Margin="5"/>
-                                    <CheckBox x:Name="ProxyTransparet" IsChecked="{x:Null}" Height="20" Content="Прозрачные" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Elite}" Height="20" Content="Элитные" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Anonim}" Height="20" Content="Анонимные" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Transparet}" Height="20" Content="Прозрачные" Margin="5"/>
                                 </StackPanel>
                             </Expander>
 
