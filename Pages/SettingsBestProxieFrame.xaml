@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BoxBoost.Pages"
+      xmlns:components="clr-namespace:BoxBoost.Components"
       xmlns:ViewModels="clr-namespace:BoxBoost.ViewModels"
       mc:Ignorable="d"
       Title="SettingsBestProxieFrame">
@@ -17,21 +18,26 @@
                     HorizontalAlignment="Center"
                     TextBlock.TextAlignment="Center">
 
-                    <!-- Main login white box -->
-                    <Border Background="{StaticResource ForegroundLightBrush}" 
+                    <!-- Main BP box -->
+                    <Border BorderBrush="{StaticResource ForegroundGrayBrush}" 
+                            BorderThickness="3"
                             CornerRadius="10"
                             Width="330">
-
+                        
                         <StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="5">
                                 <TextBlock Text="Ключ" 
-                                       FontSize="{StaticResource FontSizeRegular}" 
-                                       FontFamily="{StaticResource SansPro}"
-                                       Foreground="{StaticResource WordBlueBrush}" />
+                                            FontSize="{StaticResource FontSizeRegular}" 
+                                            FontFamily="{StaticResource SansPro}"
+                                            Foreground="{StaticResource WordBlueBrush}" />
 
                                 <!-- KeyApi -->
-                                <PasswordBox Password="" Tag="KeyApi" Margin="5 0 0 0" Width="150"/>
+                                <components:BindablePasswordBox
+                                                    Password="{Binding Key}"
+                                                    Tag="KeyApi" 
+                                                    Margin="5 0 0 0" 
+                                                    Width="150"/>
                             </StackPanel>
 
                             <Expander Header="Тип">
@@ -62,23 +68,31 @@
                                 </StackPanel>
                             </Expander>
 
-                            <StackPanel>
-                                <ListBox ItemsSource="{Binding CountryList}">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <CheckBox IsChecked="{Binding _IsSelected}" Content="{Binding _NameCountry}"/>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
+                            <Expander Header="Страны">
+                                <StackPanel>
+                                    <ListBox ItemsSource="{Binding CountryList}">
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel MaxWidth="320"/>
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding NameCountry}"/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
 
-                                <!-- Clear checked -->
-                                <Button Style="{StaticResource Hoverless}"
-                                        Command=""
-                                        HorizontalAlignment="Center">
-                                    <TextBlock Text="Очистить" />
-                                </Button>
+                                    <!-- Clear checked -->
+                                    <Button Style="{StaticResource Hoverless}"
+                                            Command=""
+                                            HorizontalAlignment="Center">
+                                        <TextBlock Text="Очистить" />
+                                    </Button>
 
-                            </StackPanel>
+                                </StackPanel>
+                            </Expander>
+
 
                         </StackPanel>
 

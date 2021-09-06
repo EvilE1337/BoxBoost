@@ -80,8 +80,12 @@
     <Compile Include="Animation\PageAnimation.cs" />
     <Compile Include="Animation\PageAnimations.cs" />
     <Compile Include="Animation\StoryboardHelpers.cs" />
+    <Compile Include="Components\BindablePasswordBox.xaml.cs">
+      <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationWindow.cs" />
+    <Compile Include="Infrastructure\Helpers\PasswordHelper.cs" />
     <Compile Include="Infrastructure\Helpers\SettingHelper.cs" />
     <Compile Include="ViewModels\VMSettings\BestProxieSettings.cs" />
     <Compile Include="ViewModels\VMSettings\MainSettings.cs" />
@@ -119,6 +123,10 @@
       <DependentUpon>BoostWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\WindowResizer.cs" />
+    <Page Include="Components\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SettingsBestProxieFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,6 +249,12 @@
       <Project>{7aee8dbb-be2c-4257-9017-985319796627}</Project>
       <Name>E1337.ProxyWorker</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BackGroundImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BackGroundPage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

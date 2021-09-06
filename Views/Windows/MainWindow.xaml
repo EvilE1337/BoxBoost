@@ -25,7 +25,7 @@
                             
                             <!--Основной контур окна-->
                             <Grid>
-
+                                
                                 <!--Прозрачность углов-->
 
                                 <Border x:Name="Container"
@@ -42,7 +42,10 @@
                                 
                                 <!--Основной содержание окна-->
                                 <Grid>
-
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="/Images/BackGroundImage.jpg" />
+                                    </Grid.Background>
+                                    
                                     <!--Обрезка углов-->
                                     <Grid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Container}" />
@@ -51,10 +54,12 @@
                                     <Grid.RowDefinitions>
                                         <!--Заголовок окна-->
                                         <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}"/>
-                                        <!--Тень-->
+                                        <!--Тень заголовка-->
                                         <RowDefinition Height="Auto"/>
                                         <!--Содержание окна-->
                                         <RowDefinition Height="*"/>
+                                        <!--Тень подвала-->
+                                        <RowDefinition Height="Auto"/>
                                         <!--Подвал окна-->
                                         <RowDefinition Height="{Binding StatusHeightGridLength, FallbackValue=42}"/>
                                     </Grid.RowDefinitions>
@@ -111,8 +116,8 @@
 
                                         <Border.Background>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                <GradientStop Color="{StaticResource BackgroundVeryLight}" Offset="0.0"/>
-                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="1.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundVeryDark}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundDark}" Offset="1.0"/>
                                             </LinearGradientBrush>
                                         </Border.Background>
                                     </Border>
@@ -151,7 +156,27 @@
 
                                     </Grid>
 
-                                    <Grid Background="Transparent" Grid.Row="3" Panel.ZIndex="1">
+                                    <!--Тень-->
+                                    <Border Grid.Row="3" Height="6" BorderThickness="0 0.2 0 0">
+                                        <!--Линия-->
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.5"/>
+                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Color="{StaticResource ForegroundDark}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundVeryDark}" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    
+                                    <!--Подвал-->
+                                    <Grid Background="Transparent" Grid.Row="4" Panel.ZIndex="1" Margin="0 3 0 0">
                                         <Grid.ColumnDefinitions>
                                             <!--Кнопка запуска-->
                                             <ColumnDefinition Width="Auto"/>
@@ -177,7 +202,7 @@
                                         
                                         <!--Пагинация-->
                                         <Viewbox Grid.Column="1" >
-                                            <ListView ItemsSource="{Binding ButtonsPagination}" BorderThickness="0" ItemContainerStyle="{DynamicResource ListViewItem}">
+                                            <ListView ItemsSource="{Binding ButtonsPagination}" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListViewItem}">
                                                 <ListView.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel Orientation="Horizontal"/>
@@ -227,8 +252,8 @@
             GlassFrameThickness="0"
             />
     </WindowChrome.WindowChrome>
-    
-    <Grid Background="{StaticResource ForegroundLightBrush}">
+
+    <Grid>
         <Frame x:Name="Frames"
                NavigationUIVisibility="Hidden"
                Content="{Binding CurrentPage, Converter={valueconverters:ApplicationPageValueConverter}}"/>

@@ -32,5 +32,6 @@ namespace BoxBoost.Infrastructure.Helpers
             }
             return data;
         }
+
     }
 }

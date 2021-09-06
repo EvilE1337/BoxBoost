@@ -33,6 +33,8 @@ namespace BoxBoost.Pages
         private void LoadEvent(object sender, RoutedEventArgs e)
         {
             ViewModel = SettingHelper.LoadSetting(base.ViewModel);
+            if(base.ViewModel.CountryList == null)
+                ViewModel.FillCountry();
         }
 
         private void UnloadEvent(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using BoxBoost.ViewModels.Base;
+﻿using BoxBoost.DataModels;
+using BoxBoost.ViewModels.Base;
 using E1337.BoostWorker;
 using System;
 using System.Collections.Generic;
@@ -6,29 +7,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BoxBoost.ViewModels
 {
-    public class SettingsMainViewModel : ViewModel
+    public class SettingsMainViewModel : MainSettings
     {
         #region Controls
 
-        #region Ссылки для буста
-
-        private List<string> _ListLinkBoostItem;
-
-        public List<string> ListLinkBoostItem
-        {
-            get => _ListLinkBoostItem;
-            set => Set(ref _ListLinkBoostItem, value);
-        }
-
-        #endregion
-
         #region Коллекция списка сайтов
-
-        private ObservableCollection<string> _ListBoostSiteItem;
         
+        private ObservableCollection<string> _ListBoostSiteItem;
+
+        [XmlIgnore]
         public ObservableCollection<string> ListBoostSiteItem
         {
             get => _ListBoostSiteItem;
@@ -38,13 +29,26 @@ namespace BoxBoost.ViewModels
         #endregion
 
         #region Коллекция режимов
-
+        
         private ObservableCollection<string> _ListModeItem;
 
+        [XmlIgnore]
         public ObservableCollection<string> ListModeItem
         {
             get => _ListModeItem;
             set => Set(ref _ListModeItem, value);
+        }
+
+        #endregion
+
+        #region Введенная ссылка
+
+        private string _InLink;
+
+        public string InLink
+        {
+            get => _InLink;
+            set => Set(ref _InLink, value);
         }
 
         #endregion
@@ -58,7 +62,7 @@ namespace BoxBoost.ViewModels
         {
             InitializeFillColection(ref _ListBoostSiteItem, Enum.GetNames(typeof(SiteList)));
             InitializeFillColection(ref _ListModeItem, Enum.GetNames(typeof(ModeList)));
-            ListLinkBoostItem = new List<string>()
+            ListLinkBoost = new List<string>()
             {
                 "wewew",
                 "wewew"

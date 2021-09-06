@@ -2,6 +2,7 @@
 using BoxBoost.Infrastructure.Commands;
 using BoxBoost.Infrastructure.Helpers;
 using BoxBoost.ViewModels.Base;
+using E1337.ProxyWorker;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,42 @@ namespace BoxBoost.ViewModels
     internal class BoostWindowViewModel : ViewModel
     {
         #region Controls
+
+        #region Основные настройки
+
+        private SettingsMainViewModel _MainSettings;
+
+        public SettingsMainViewModel MainSettings
+        {
+            get => _MainSettings;
+            set => Set(ref _MainSettings, value);
+        }
+
+        #endregion
+
+        #region Доп настройки
+
+        private SettingsOtherViewModel _OtherSettings;
+
+        public SettingsOtherViewModel OtherSettings
+        {
+            get => _OtherSettings;
+            set => Set(ref _OtherSettings, value);
+        }
+
+        #endregion
+
+        #region BestProxie настройки
+
+        private SettingsBestProxieViewModel _BestProxieSettings;
+
+        public SettingsBestProxieViewModel BestProxieSettings
+        {
+            get => _BestProxieSettings;
+            set => Set(ref _BestProxieSettings, value);
+        }
+
+        #endregion
 
         #region Коллекция информации для вывода
 
@@ -70,12 +107,12 @@ namespace BoxBoost.ViewModels
         
         #region Статус операции
         /// <summary> Статус операции </summary>
-        private string _Status = "Ready";
+        private int _StatusOperBar = 0;
 
-        public string Status
+        public int StatusOperBar
         {
-            get => _Status;
-            set => Set(ref _Status, value);
+            get => _StatusOperBar;
+            set => Set(ref _StatusOperBar, value);
         }
         #endregion
         
@@ -139,6 +176,24 @@ namespace BoxBoost.ViewModels
               }
             };
 
+            FillSettings();
+            FillCommand();
+
+        }
+
+        #endregion
+
+        #region Helper
+
+        private void FillSettings()
+        {
+            BestProxieSettings = SettingHelper.LoadSetting(new SettingsBestProxieViewModel());
+            MainSettings = SettingHelper.LoadSetting(new SettingsMainViewModel());
+            OtherSettings = SettingHelper.LoadSetting(new SettingsOtherViewModel());
+        }
+
+        private void FillCommand()
+        {
             #region Команды
 
             #region Системные
@@ -150,6 +205,44 @@ namespace BoxBoost.ViewModels
             #endregion
 
             #endregion
+        }
+
+        private async Task LaunchAsync()
+        {
+            List<string> Proxy = await GetProxy();
+        }
+
+        private async Task<List<string>> GetProxy()
+        {
+            List<string> OutList = new List<string>();
+            List<Task> tasks = new List<Task>();
+            List<IProxy> proxyContainer = FillProxyContainer();
+            proxyContainer.ForEach(f =>
+            {
+                tasks.Add(Task.Run(() =>
+                {
+                    OutList.AddRange(f.GetProxyAsync().Result);
+                }));
+            });
+
+            await Task.WhenAll(tasks);
+
+            return OutList;
+        }
+
+        private List<IProxy> FillProxyContainer()
+        {
+            List<IProxy> proxyContainer = new List<IProxy>();
+            if (!string.IsNullOrWhiteSpace(BestProxieSettings.Key))
+            {
+                ArgsService argsService = new ArgsService()
+                {
+                    // here use sett
+                };
+                proxyContainer.Add(new BestProxie(MainSettings.ListLinkBoost[0], argsService));
+            }
+
+            return proxyContainer;
         }
 
         #endregion

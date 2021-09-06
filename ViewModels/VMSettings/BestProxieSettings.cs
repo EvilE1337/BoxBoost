@@ -1,6 +1,7 @@
 ﻿using BoxBoost.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -121,12 +122,27 @@ namespace BoxBoost.DataModels
 
         #region Страны
         /// <summary>Страны</summary>
-        private List<string> _ListCountry;
+        private ObservableCollection<BoolStringStruct> _CountryList;
 
-        public List<string> ListCountry
+        public ObservableCollection<BoolStringStruct> CountryList
         {
-            get => _ListCountry;
-            set => Set(ref _ListCountry, value);
+            get => _CountryList;
+            set => Set(ref _CountryList, value);
+        }
+
+        public class BoolStringStruct : ViewModel
+        {
+            /// <summary>Название страны</summary>
+            public string NameCountry { get; set; }
+            
+            /// <summary>Отмечено</summary>
+            private bool _IsSelected;
+
+            public bool IsSelected
+            {
+                get => _IsSelected;
+                set => Set(ref _IsSelected, value);
+            }
         }
         #endregion
 

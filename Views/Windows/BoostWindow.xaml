@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Title="{Binding Path=Title}" 
-        Height="450" Width="800">
+        Height="200" Width="550">
     <Window.Resources>
         <Style TargetType="local:BoostWindow">
             <Setter Property="Template">
@@ -125,7 +125,7 @@
                                     <!--Подвал-->
                                     
                                     <Grid Grid.Row="3">
-                                        
+                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding StatusOperBar}" />
                                     </Grid>
 
                                     
@@ -142,23 +142,21 @@
     </Window.Resources>
 
     <Grid Background="{StaticResource ForegroundLightBrush}">
-        <Viewbox>
-            <ListView ItemsSource="{Binding ListViewOutInfoItem}" BorderThickness="0">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock FontSize="12" 
+        <ListView ItemsSource="{Binding ListViewOutInfoItem}" BorderThickness="0">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="12" 
                                    TextWrapping="Wrap"
                                    Foreground="{Binding ColorText}"
                                    Text="{Binding InformationText}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Viewbox>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 
 </Window>

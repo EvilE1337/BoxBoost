@@ -27,9 +27,10 @@
                     HorizontalAlignment="Center"
                     TextBlock.TextAlignment="Center">
 
-                <Border Background="{StaticResource ForegroundLightBrush}" 
-                            CornerRadius="10"
-                            Width="330">
+                <Border BorderBrush="{StaticResource ForegroundGrayBrush}"
+                        BorderThickness="3"
+                        CornerRadius="10"
+                        Width="330">
 
                     <Grid>
 
@@ -59,9 +60,11 @@
 
                             <!-- Content -->
                             <ComboBox Grid.Column="1"
+                                      SelectedItem="{Binding Site}"
                                       ItemsSource="{Binding ListBoostSiteItem}"/>
                             <ComboBox Grid.Column="1"
                                       Grid.Row="1"
+                                      SelectedItem="{Binding Mode}"
                                       ItemsSource="{Binding ListModeItem}"/>
                             <DockPanel VerticalAlignment="Center"
                                        Margin="10"
@@ -73,6 +76,7 @@
                                          Width="40" />
                                 <Slider Maximum="100"
                                         Minimum="5"
+                                        Value="{Binding RandomMode}"
                                         TickPlacement="BottomRight"
                                         TickFrequency="1"
                                         IsSnapToTickEnabled="True"
@@ -88,6 +92,7 @@
                                          Width="40" />
                                 <Slider Maximum="100"
                                         Minimum="1"
+                                        Value="{Binding CountStream}"
                                         TickPlacement="BottomRight"
                                         TickFrequency="1"
                                         IsSnapToTickEnabled="True"
@@ -106,11 +111,29 @@
 
                             <StackPanel Grid.Row="1">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding ListLinkBoostItem, Converter={valueconverters:ListToStringConverter}}"/>
+
+                                    <StackPanel>
+                                        <ListBox ItemsSource="{Binding ListLinkBoost}">
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Vertical"/>
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}"/>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
+
+                                    
                                 </StackPanel>
                                 <DockPanel>
                                     <TextBlock Text="Ввод:"/>
-                                    <TextBox Style="{StaticResource BaseStyle}" Margin="10 0 0 0"/>
+                                    <TextBox Style="{StaticResource BaseStyle}"
+                                             Text="{Binding InLink}"
+                                             Margin="10 0 0 0"/>
                                 </DockPanel>
                             </StackPanel>
 

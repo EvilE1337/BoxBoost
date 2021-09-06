@@ -32,4 +32,7 @@
     <Color x:Key="WordGreen">#00c541</Color>
     <SolidColorBrush x:Key="WordGreenBrush" Color="{StaticResource WordGreen}" />
 
+    <Color x:Key="ForegroundGray">#201B27</Color>
+    <SolidColorBrush x:Key="ForegroundGrayBrush" Color="{StaticResource ForegroundGray}" />
+
 </ResourceDictionary>
