@@ -1,6 +1,7 @@
 ﻿using BoxBoost.DataModels;
 using BoxBoost.Infrastructure.Commands;
 using BoxBoost.Infrastructure.Helpers;
+using BoxBoost.Services;
 using BoxBoost.ViewModels.Base;
 using E1337.ProxyWorker;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using static BoxBoost.Services.Log4netLvl;
 
 namespace BoxBoost.ViewModels
 {
@@ -167,18 +169,12 @@ namespace BoxBoost.ViewModels
         {
             mWindow = window;
 
-            ListViewOutInfoItem = new ObservableCollection<OutInformationStruct>
-            {
-              new OutInformationStruct()
-              {
-                  ColorText = Brushes.Red,
-                  InformationText = "Начало работы"
-              }
-            };
+            ListViewOutInfoItem = new ObservableCollection<OutInformationStruct>();
 
             FillSettings();
             FillCommand();
 
+            LaunchAsync();
         }
 
         #endregion
@@ -207,13 +203,16 @@ namespace BoxBoost.ViewModels
             #endregion
         }
 
-        private async Task LaunchAsync()
+        private async void LaunchAsync()
         {
+            MessageUpdate("Запуск...", OutLvl.Good);
             List<string> Proxy = await GetProxy();
         }
 
         private async Task<List<string>> GetProxy()
         {
+            MessageUpdate("Начало получения прокси", OutLvl.Info);
+
             List<string> OutList = new List<string>();
             List<Task> tasks = new List<Task>();
             List<IProxy> proxyContainer = FillProxyContainer();
@@ -237,13 +236,31 @@ namespace BoxBoost.ViewModels
             {
                 ArgsService argsService = new ArgsService()
                 {
-                    // here use sett
+                    Key = BestProxieSettings.Key,
+                    // HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 };
                 proxyContainer.Add(new BestProxie(MainSettings.ListLinkBoost[0], argsService));
             }
 
             return proxyContainer;
         }
+
+        private void MessageUpdate(string msg, OutLvl lvl)
+        {
+            ListViewOutInfoItem.Add(new OutInformationStruct()
+            {
+                ColorText = ColorLvl[lvl],
+                InformationText = msg
+            });
+            AddLog(msg, lvl);
+        }
+
+        private readonly Dictionary<OutLvl, SolidColorBrush> ColorLvl = new Dictionary<OutLvl, SolidColorBrush>
+        {
+            {OutLvl.Err, Brushes.Red},
+            {OutLvl.Info, Brushes.DarkGray},
+            {OutLvl.Good, Brushes.Green}
+        };
 
         #endregion
     }
