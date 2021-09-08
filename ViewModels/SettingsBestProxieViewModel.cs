@@ -28,6 +28,7 @@ namespace BoxBoost.ViewModels
         #endregion
 
         #region Helper
+
         internal void FillCountry()
         {
             if (CountryList == null)

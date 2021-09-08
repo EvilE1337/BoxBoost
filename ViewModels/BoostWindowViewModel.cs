@@ -237,14 +237,24 @@ namespace BoxBoost.ViewModels
                 ArgsService argsService = new ArgsService()
                 {
                     Key = BestProxieSettings.Key,
-                    // HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    Http = BestProxieSettings.Http,
+                    Https = BestProxieSettings.Https,
+                    Socks4 = BestProxieSettings.Socks4,
+                    Socks5 = BestProxieSettings.Socks5,
+                    Elite = BestProxieSettings.Elite,
+                    Anonim = BestProxieSettings.Anonim,
+                    Transparent = BestProxieSettings.Transparent,
+                    Fast = BestProxieSettings.Fast,
+                    Medium = BestProxieSettings.Medium,
+                    Slow = BestProxieSettings.Slow,
+                    Limit = "0",
+                    Country = BestProxyCountry.GetReplaceOnValueList(BestProxieSettings.CountryList.Where(w => w.IsSelected).Select(s => s.NameCountry).ToList())
                 };
                 proxyContainer.Add(new BestProxie(MainSettings.ListLinkBoost[0], argsService));
             }
 
             return proxyContainer;
         }
-
         private void MessageUpdate(string msg, OutLvl lvl)
         {
             ListViewOutInfoItem.Add(new OutInformationStruct()

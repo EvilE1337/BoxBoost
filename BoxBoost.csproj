@@ -92,6 +92,7 @@
     <Compile Include="DataModels\ApplicationWindow.cs" />
     <Compile Include="Infrastructure\Helpers\PasswordHelper.cs" />
     <Compile Include="Infrastructure\Helpers\SettingHelper.cs" />
+    <Compile Include="Services\Log4netLvl.cs" />
     <Compile Include="ViewModels\VMSettings\BestProxieSettings.cs" />
     <Compile Include="ViewModels\VMSettings\MainSettings.cs" />
     <Compile Include="DataModels\TaskManager.cs" />
@@ -225,7 +226,6 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Models\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logo\MainLogo.ico" />
