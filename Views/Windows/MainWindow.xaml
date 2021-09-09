@@ -138,7 +138,8 @@
                                                 Style="{StaticResource Hoverless}"
                                                 Command="{Binding SwitchLeftCommand}"
                                                 Height="50"
-                                                HorizontalAlignment="Center">
+                                                HorizontalAlignment="Center"
+                                                IsEnabled="{Binding EnableSwitch}">
                                             <fa:ImageAwesome Icon="ChevronLeft"/>
                                         </Button>
 
@@ -150,7 +151,8 @@
                                                 Height="50"
                                                 HorizontalAlignment="Center"
                                                 Style="{StaticResource Hoverless}"
-                                                Command="{Binding SwitchRightCommand}">
+                                                Command="{Binding SwitchRightCommand}"
+                                                IsEnabled="{Binding EnableSwitch}">
                                             <fa:ImageAwesome Icon="ChevronRight"/>
                                         </Button>
 
@@ -195,17 +197,18 @@
                                                        Text="Запуск"/>
                                             <Button Style="{StaticResource Hoverless}"
                                                     Command="{Binding StartBoostCommand}"
-                                                    Padding="0 0 0 5">
+                                                    Padding="0 0 0 5"
+                                                    IsEnabled="{Binding EnableSwitch}">
                                                 <fa:ImageAwesome Icon="PlayCircleOutline"/>
                                             </Button>
                                         </StackPanel>
                                         
                                         <!--Пагинация-->
                                         <Viewbox Grid.Column="1" >
-                                            <ListView ItemsSource="{Binding ButtonsPagination}" Background="Transparent" BorderThickness="0" ItemContainerStyle="{DynamicResource ListViewItem}">
+                                            <ListView ItemsSource="{Binding ButtonsPagination}" Background="Transparent"  BorderThickness="0" ItemContainerStyle="{DynamicResource ListViewItem}">
                                                 <ListView.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Horizontal"/>
+                                                        <StackPanel Orientation="Horizontal" IsEnabled="{Binding EnableSwitch}"/>
                                                     </ItemsPanelTemplate>
                                                 </ListView.ItemsPanel>
                                                 <ListView.ItemTemplate>

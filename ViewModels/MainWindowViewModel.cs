@@ -83,6 +83,17 @@ namespace BoxBoost.ViewModels
         }
         #endregion
 
+        #region Сокрытие элементов смены окна
+        /// <summary>Сокрытие элементов смены окна</summary>
+        private bool _EnableSwitch = true;
+
+        public bool EnableSwitch
+        {
+            get => _EnableSwitch;
+            set => Set(ref _EnableSwitch, value);
+        }
+        #endregion
+
         #region Заголовок окна
         /// <summary>Заголовок</summary>
         private string _Title = "BoxBoost[DebugVersion]";
@@ -262,6 +273,8 @@ namespace BoxBoost.ViewModels
 
         private void OnStartBoostCommandExecute(object p)
         {
+            if(ApplicationPage.None != CurrentPage)
+                SwitchPage(ApplicationPage.None);
             _WindowStorage.OpenWindow(ApplicationWindow.BoostWin);
         }
 
@@ -327,16 +340,23 @@ namespace BoxBoost.ViewModels
             int countPage = Enum.GetNames(typeof(ApplicationPage)).Length;
             if (newCurrentPage >= 0 && newCurrentPage < countPage)
             {
+                EnableSwitch = false;
                 await PageStorage.BeforeUnloadPage(isBack);
                 CurrentPage = (ApplicationPage)newCurrentPage;
+                EnableSwitch = true;
             }
         }
 
         private async void SwitchPage(ApplicationPage page)
         {
-            bool isBack = CurrentPage > page;
-            await PageStorage.BeforeUnloadPage(isBack);
-            CurrentPage = page;
+            if (page != CurrentPage)
+            {
+                bool isBack = CurrentPage > page;
+                EnableSwitch = false;
+                await PageStorage.BeforeUnloadPage(isBack);
+                CurrentPage = page;
+                EnableSwitch = true;
+            }
         }
 
         private void PaginationInitialize()

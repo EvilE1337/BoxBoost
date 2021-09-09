@@ -13,7 +13,7 @@ namespace BoxBoost.Infrastructure.Helpers
         internal static void SaveSetting<T>(T data)
         {
             XmlSerializer formatter = new XmlSerializer(data.GetType());
-            using (FileStream fs = new FileStream(data.GetType().Name + ".xml", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(data.GetType().Name + ".xml", FileMode.Create))
             {
                 formatter.Serialize(fs, data);
             }
