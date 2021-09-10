@@ -1,8 +1,10 @@
 ﻿using BoxBoost.DataModels;
 using BoxBoost.Infrastructure.Commands;
+using BoxBoost.Infrastructure.Extensions;
 using BoxBoost.Infrastructure.Helpers;
 using BoxBoost.Services;
 using BoxBoost.ViewModels.Base;
+using E1337.BoostWorker;
 using E1337.ProxyWorker;
 using System;
 using System.Collections.Generic;
@@ -207,31 +209,62 @@ namespace BoxBoost.ViewModels
         {
             MessageUpdate("Запуск...", OutLvl.Good);
             List<string> Proxy = await GetProxy();
+            int CountProxy = Proxy.Count;
+            MessageUpdate("Получено " + CountProxy + " прокси", CountProxy > 0 ? OutLvl.Good : OutLvl.Err);
+        }
+
+        private async Task RunBoost(List<string> Proxy)
+        {
+
+        }
+
+        private IBoostSite GetBoostSite(List<string> Proxy)
+        {
+            switch (MainSettings.Site.ToEnum<SiteList>())
+            {
+                case SiteList.PromoDJ:
+                    return new PromoDJ(new SettingsPromoDJ()
+                    {
+                        CountStream = MainSettings.CountStream,
+                        Mode = MainSettings.Mode.ToEnum<ModeList>(),
+                        LuckyRnd = MainSettings.RandomMode,
+                        ProxyList = Proxy,
+                        Pause = OtherSettings.Pause,
+                        PercentDownLoad = OtherSettings.DownloadPercent,
+                        PercentPlay = OtherSettings.PlayTime,
+                        UseProxyRepeat = OtherSettings.UseProxyRepeat
+                    });
+                case SiteList.SoundCloud:
+                    break;
+            }
+            return null;
         }
 
         private async Task<List<string>> GetProxy()
         {
             MessageUpdate("Начало получения прокси", OutLvl.Info);
 
-            List<string> OutList = new List<string>();
+            List<string> OutListProxy = new List<string>();
             List<Task> tasks = new List<Task>();
             List<IProxy> proxyContainer = FillProxyContainer();
+
             proxyContainer.ForEach(f =>
             {
                 tasks.Add(Task.Run(() =>
                 {
-                    OutList.AddRange(f.GetProxyAsync().Result);
+                    OutListProxy.AddRange(f.GetProxyAsync(OtherSettings.CheckProxy).Result);
                 }));
             });
 
             await Task.WhenAll(tasks);
 
-            return OutList;
+            return OutListProxy;
         }
 
         private List<IProxy> FillProxyContainer()
         {
             List<IProxy> proxyContainer = new List<IProxy>();
+
             if (!string.IsNullOrWhiteSpace(BestProxieSettings.Key))
             {
                 ArgsService argsService = new ArgsService()
@@ -250,19 +283,27 @@ namespace BoxBoost.ViewModels
                     Limit = "0",
                     Country = BestProxyCountry.GetReplaceOnValueList(BestProxieSettings.CountryList.Where(w => w.IsSelected).Select(s => s.NameCountry).ToList())
                 };
-                proxyContainer.Add(new BestProxie(MainSettings.ListLinkBoost[0], argsService));
+
+                Action<string> delegateMsg = (msg) => MessageUpdate(msg);
+                Action<int> delegateStatus = (status) => StatusOperBar = status;
+
+                proxyContainer.Add(new BestProxie(MainSettings.ListLinkBoost[0], argsService, ref delegateMsg, ref delegateStatus));
             }
 
             return proxyContainer;
         }
-        private void MessageUpdate(string msg, OutLvl lvl)
+
+        private void MessageUpdate(string msg, OutLvl lvl = OutLvl.Info)
         {
-            ListViewOutInfoItem.Add(new OutInformationStruct()
+            App.Current.Dispatcher.Invoke(() =>
             {
-                ColorText = ColorLvl[lvl],
-                InformationText = msg
+                ListViewOutInfoItem.Add(new OutInformationStruct()
+                {
+                    ColorText = ColorLvl[lvl],
+                    InformationText = msg
+                });
+                AddLog(msg, lvl);
             });
-            AddLog(msg, lvl);
         }
 
         private readonly Dictionary<OutLvl, SolidColorBrush> ColorLvl = new Dictionary<OutLvl, SolidColorBrush>
