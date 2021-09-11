@@ -211,13 +211,13 @@ namespace BoxBoost.ViewModels
             List<string> Proxy = await GetProxy();
             int CountProxy = Proxy.Count;
             MessageUpdate("Получено " + CountProxy + " прокси", CountProxy > 0 ? OutLvl.Good : OutLvl.Err);
-            await RunBoost(MainSettings.ListLinkBoost);
+            await RunBoost(MainSettings.ListLinkBoost.ToList());
         }
 
         private async Task RunBoost(List<string> Proxy)
         {
             IBoostSite BoostSite = GetBoostSite(Proxy);
-            BoostSite.LaunchBoost(MainSettings.ListLinkBoost);
+            BoostSite.LaunchBoost(MainSettings.ListLinkBoost.ToList());
         }
 
         private IBoostSite GetBoostSite(List<string> Proxy)

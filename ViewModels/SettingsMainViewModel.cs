@@ -1,4 +1,5 @@
 ﻿using BoxBoost.DataModels;
+using BoxBoost.Infrastructure.Commands;
 using BoxBoost.ViewModels.Base;
 using E1337.BoostWorker;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml.Serialization;
 
 namespace BoxBoost.ViewModels
@@ -55,15 +57,53 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
+        #region Commands
+
+        #region Добавить ссылку в список
+        [XmlIgnore]
+        public ICommand AddLinkCommand { get; set; }
+
+        private void OnAddLinkCommandExecute(object p)
+        {
+            if(!string.IsNullOrEmpty(InLink))
+                ListLinkBoost.Add(InLink);
+        }
+
+        private bool CanAddLinkCommandExecute(object p) => true;
+
+        #endregion
+
+        #region Удалить ссылку из списка
+        [XmlIgnore]
+        public ICommand DeleteLinkCommand { get; set; }
+
+        private void OnDeleteLinkCommandExecute(object p)
+        {
+            if(p != null && ListLinkBoost.IndexOf(p.ToString()) != -1)
+                ListLinkBoost.Remove(p.ToString());
+        }
+
+        private bool CanDeleteLinkCommandExecute(object p) => true;
+
+        #endregion
+
+        #endregion
+
 
         #region Constructor
 
         public SettingsMainViewModel()
         {
+            #region команды
+            DeleteLinkCommand = new LambdaCommand(OnDeleteLinkCommandExecute, CanDeleteLinkCommandExecute);
+            AddLinkCommand = new LambdaCommand(OnAddLinkCommandExecute, CanAddLinkCommandExecute);
+            #endregion
+
             InitializeFillColection(ref _ListBoostSiteItem, Enum.GetNames(typeof(SiteList)));
             InitializeFillColection(ref _ListModeItem, Enum.GetNames(typeof(ModeList)));
-            ListLinkBoost = new List<string>()
+            ListLinkBoost = new ObservableCollection<string>()
             {
+                "wewe","wewe"
             };
         }
 

@@ -7,7 +7,7 @@
         <ResourceDictionary Source="Colors.xaml" />
         <ResourceDictionary Source="Fonts.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type ListViewItem}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -29,16 +29,129 @@
         </Setter>
     </Style>
 
-    <Style x:Key="CheckBoxFocusVisual">
-        <Setter Property="Control.Template">
+    <Style x:Key="ComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
-                    <Border>
-                        <Rectangle 
-            Margin="15,0,0,0"
-            StrokeThickness="1"
-            Stroke="#60000000"
-            StrokeDashArray="1 2"/>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                        <Border Name="ComboBoxTextBoxStyleBorder" CornerRadius="7"
+                            BorderThickness="0,1,0,1"
+                                Margin="0,0,1,1"
+                            Background="Transparent">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" Value="{StaticResource ForegroundPurpuleBrush}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsReadOnly" Value="True"/>
+    </Style>
+    
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Border Name="roundedCornerComboBoxBorder" 
+                            BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="7" 
+                            ClipToBounds="True" 
+                            Background="Transparent">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Name="PART_EditableTextBox"
+                                         Panel.ZIndex="0"
+                                         Style="{StaticResource ComboBoxTextBoxStyle}"
+                                         Padding="0,0,0,0"
+                                         IsHitTestVisible="False"
+                                         Height="{TemplateBinding Height}">
+                                </TextBox>
+                                <ToggleButton Grid.Column="1"
+                                              Panel.ZIndex="1"
+                                              Margin="5"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Center"
+                                              BorderBrush="Transparent"
+                                              Background="Transparent"
+                                              Height="{TemplateBinding Height}"
+                                              Width="{TemplateBinding Width}"
+                                              IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                              HorizontalContentAlignment="Right"
+                                              ClickMode="Press">
+
+                                    <Path Grid.Column="1"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M 0 0 L 8 8 L 16 0 Z"
+                                          Fill="DodgerBlue" />
+                                </ToggleButton>
+                                <ContentPresenter Name="ContentSite"
+                                                  Cursor="Arrow"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Left"
+                                                  Margin="3,0,0,0">
+                                </ContentPresenter>
+                                <Popup Name="Popup"
+                                       Placement="Bottom"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True" 
+                                       Focusable="False"
+                                       PopupAnimation="Slide">
+                                    <Grid Name="DropDown"
+                                          SnapsToDevicePixels="True"                
+                                          MinWidth="{TemplateBinding ActualWidth}"
+                                          MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border x:Name="DropDownBorder"
+                                                BorderThickness="1"
+                                                CornerRadius="7"
+                                                Background="{StaticResource BackgroundLightBrush}"
+                                                BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"/>
+                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border Background="Transparent" 
+                                BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                BorderThickness="1" CornerRadius="10">
+                        <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -47,8 +160,9 @@
 
     <ControlTemplate x:Key="passBox" TargetType="{x:Type PasswordBox}">
         <Border Background="Transparent" 
-        x:Name="Bd" BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
-        BorderThickness="1" CornerRadius="10">
+                x:Name="Bd" 
+                BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                BorderThickness="1" CornerRadius="10">
             <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
         </Border>
         <ControlTemplate.Triggers>

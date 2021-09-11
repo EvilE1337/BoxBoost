@@ -1,6 +1,7 @@
 ﻿using BoxBoost.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,9 +59,9 @@ namespace BoxBoost.DataModels
 
         #region Ссылки для буста
 
-        private List<string> _ListLinkBoost;
+        private ObservableCollection<string> _ListLinkBoost;
 
-        public List<string> ListLinkBoost
+        public ObservableCollection<string> ListLinkBoost
         {
             get => _ListLinkBoost;
             set => Set(ref _ListLinkBoost, value);
