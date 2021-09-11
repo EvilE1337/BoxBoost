@@ -12,8 +12,7 @@
 
     <Page.Resources>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
-            <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
-            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Margin" Value="0 4" />
         </Style>
@@ -27,12 +26,21 @@
                     HorizontalAlignment="Center"
                     TextBlock.TextAlignment="Center">
 
-                <Border BorderBrush="{StaticResource ForegroundGrayBrush}"
-                        BorderThickness="3"
+                <Border BorderThickness="3"
                         CornerRadius="10"
                         Width="330">
 
-                    <Grid>
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
+                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
+                            <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
+                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
+                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+
+                    <Grid Margin="5">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -46,10 +54,10 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
                             </Grid.RowDefinitions>
 
                             <!-- Labels -->
@@ -59,45 +67,45 @@
                             <TextBlock Text="Число потоков" Grid.Row="3"/>
 
                             <!-- Content -->
-                            <ComboBox Grid.Column="1"
-                                      SelectedItem="{Binding Site}"
-                                      ItemsSource="{Binding ListBoostSiteItem}"/>
-                            <ComboBox Grid.Column="1"
-                                      Grid.Row="1"
-                                      SelectedItem="{Binding Mode}"
-                                      ItemsSource="{Binding ListModeItem}"/>
-                            <DockPanel VerticalAlignment="Center"
-                                       Margin="10"
-                                       Grid.Column="1"
-                                       Grid.Row="2">
+                            <StackPanel Grid.Column="1"
+                                        Margin="5 0 5 0">
+                                <ComboBox SelectedItem="{Binding Site}"
+                                          ItemsSource="{Binding ListBoostSiteItem}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" 
+                                        Grid.Row="1"
+                                        Margin="5 0 5 0">
+                                <ComboBox SelectedItem="{Binding Mode}"
+                                          ItemsSource="{Binding ListModeItem}"/>
+                            </StackPanel>
+                            <DockPanel Grid.Column="1" 
+                                       Grid.Row="2"
+                                       Margin="5 0 5 0">
                                 <TextBlock Text="{Binding ElementName=zRandValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
-                                         DockPanel.Dock="Right"
-                                         TextAlignment="Right" 
-                                         Width="40" />
+                                            DockPanel.Dock="Right"
+                                            TextAlignment="Center" 
+                                            Width="40" />
                                 <Slider Maximum="100"
                                         Minimum="5"
                                         Value="{Binding RandomMode}"
-                                        TickPlacement="BottomRight"
                                         TickFrequency="1"
                                         IsSnapToTickEnabled="True"
                                         Name="zRandValue"/>
                             </DockPanel>
-                            <DockPanel VerticalAlignment="Center"
-                                       Margin="10"
-                                       Grid.Column="1"
-                                       Grid.Row="3">
-                                <TextBlock Text="{Binding ElementName=zStreamValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
-                                         DockPanel.Dock="Right"
-                                         TextAlignment="Right" 
-                                         Width="40" />
-                                <Slider Maximum="100"
-                                        Minimum="1"
-                                        Value="{Binding CountStream}"
-                                        TickPlacement="BottomRight"
-                                        TickFrequency="1"
-                                        IsSnapToTickEnabled="True"
-                                        Name="zStreamValue" />
-                            </DockPanel>
+                            <DockPanel Grid.Column="1"
+                                       Grid.Row="3"
+                                       Margin="5 0 5 0">
+                            <TextBlock Text="{Binding ElementName=zStreamValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                        DockPanel.Dock="Right"
+                                        TextAlignment="Center" 
+                                        Width="40" />
+                            <Slider Maximum="100"
+                                    Minimum="1"
+                                    Value="{Binding CountStream}"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    Name="zStreamValue" />
+                        </DockPanel>
                             
                         </Grid>
 

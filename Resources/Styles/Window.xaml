@@ -2,6 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BoxBoost.Resources.Styles">
 
+    <ResourceDictionary.MergedDictionaries>
+        <!-- Order is important -->
+        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="Fonts.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <Style TargetType="{x:Type ListViewItem}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -39,59 +45,24 @@
         </Setter>
     </Style>
 
-    <Style x:Key="{x:Type CheckBox}" TargetType="CheckBox">
-        <Setter Property="SnapsToDevicePixels" Value="true"/>
-        <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="FontFamily" Value="{DynamicResource MetroFontRegular}"/>
-        <Setter Property="FocusVisualStyle" Value="{StaticResource CheckBoxFocusVisual}"/>
-        <Setter Property="Foreground" Value="#999999"/>
-        <Setter Property="Background" Value="#3f3f3f"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="CheckBox">
-                    <BulletDecorator Background="Transparent">
-                        <BulletDecorator.Bullet>
-                            <Border x:Name="Border"  
-                              Width="13" 
-                              Height="13" 
-                              CornerRadius="0" 
-                              Background="#3f3f3f"
-                              BorderBrush="#999999"
-                              BorderThickness="1">
-                                <Path 
-                                                    Width="7" Height="7" 
-                                                    x:Name="CheckMark"
-                                                    SnapsToDevicePixels="False" 
-                                                    Stroke="#979797"
-                                                    StrokeThickness="2"
-                                                    Data="M 0 0 L 7 7 M 0 7 L 7 0" />
-                            </Border>
-                        </BulletDecorator.Bullet>
-                        <ContentPresenter Margin="8,0,0,0"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            RecognizesAccessKey="True"/>
-                    </BulletDecorator>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="false">
-                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="{x:Null}">
-                            <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="#454545" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource ApplicationAccentBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="#c1c1c1"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <ControlTemplate x:Key="passBox" TargetType="{x:Type PasswordBox}">
+        <Border Background="Transparent" 
+        x:Name="Bd" BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+        BorderThickness="1" CornerRadius="10">
+            <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="Width" Value="Auto">
+                <Setter Property="MinWidth" Value="100"/>
+            </Trigger>
+            <Trigger Property="Height" Value="Auto">
+                <Setter Property="MinHeight" Value="20"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
 </ResourceDictionary>

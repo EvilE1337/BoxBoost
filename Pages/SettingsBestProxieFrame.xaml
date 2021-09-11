@@ -19,25 +19,31 @@
                     TextBlock.TextAlignment="Center">
 
                     <!-- Main BP box -->
-                    <Border BorderBrush="{StaticResource ForegroundGrayBrush}" 
-                            BorderThickness="3"
-                            CornerRadius="10"
+                    <Border BorderThickness="3"
+                            CornerRadius="12"
                             Width="330">
-                        
-                        <StackPanel>
+
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
+                                <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+
+                        <StackPanel Margin="5">
 
                             <StackPanel Orientation="Horizontal" Margin="5">
-                                <TextBlock Text="Ключ" 
-                                            FontSize="{StaticResource FontSizeRegular}" 
-                                            FontFamily="{StaticResource SansPro}"
-                                            Foreground="{StaticResource WordBlueBrush}" />
+                                <TextBlock Text="Ключ" FontSize="{StaticResource FontSizeRegular}" />
 
                                 <!-- KeyApi -->
                                 <components:BindablePasswordBox
                                                     Password="{Binding Key}"
                                                     Tag="KeyApi" 
-                                                    Margin="5 0 0 0" 
-                                                    Width="150"/>
+                                                    Margin="8 0 0 0" 
+                                                    MinWidth="240"/>
                             </StackPanel>
 
                             <Expander Header="Тип">
@@ -70,10 +76,10 @@
 
                             <Expander Header="Страны">
                                 <StackPanel>
-                                    <ListBox ItemsSource="{Binding CountryList}">
+                                    <ListBox ItemsSource="{Binding CountryList}" Background="Transparent" BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}">
                                         <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <WrapPanel MaxWidth="320"/>
+                                                <WrapPanel MaxWidth="300"/>
                                             </ItemsPanelTemplate>
                                         </ListBox.ItemsPanel>
                                         <ListBox.ItemTemplate>
@@ -84,10 +90,10 @@
                                     </ListBox>
 
                                     <!-- Clear checked -->
-                                    <Button Style="{StaticResource Hoverless}"
+                                    <Button Style="{StaticResource TextButton}"
                                             Command=""
-                                            HorizontalAlignment="Center">
-                                        <TextBlock Text="Очистить" />
+                                            HorizontalAlignment="Center"
+                                            Content="Очистить">
                                     </Button>
 
                                 </StackPanel>

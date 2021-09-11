@@ -64,8 +64,6 @@ namespace BoxBoost.ViewModels
             InitializeFillColection(ref _ListModeItem, Enum.GetNames(typeof(ModeList)));
             ListLinkBoost = new List<string>()
             {
-                "wewew",
-                "wewew"
             };
         }
 

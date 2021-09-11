@@ -2,12 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BoxBoost.Resources.Styles">
 
+    <!--Background-->
+    
     <Color x:Key="BackgroundLight">#efefef</Color>
     <SolidColorBrush x:Key="BackgroundLightBrush" Color="{StaticResource BackgroundLight}" />
 
     <Color x:Key="BackgroundVeryLight">#fafafa</Color>
     <SolidColorBrush x:Key="BackgroundVeryLightBrush" Color="{StaticResource BackgroundVeryLight}" />
 
+    <!--Foreground-->
+    
     <Color x:Key="ForegroundMain">#686868</Color>
     <SolidColorBrush x:Key="ForegroundMainBrush" Color="{StaticResource ForegroundMain}" />
 
@@ -20,6 +24,17 @@
     <Color x:Key="ForegroundDark">#bdbdbd</Color>
     <SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDark}" />
 
+    <Color x:Key="ForegroundGray">#201B27</Color>
+    <SolidColorBrush x:Key="ForegroundGrayBrush" Color="{StaticResource ForegroundGray}" />
+
+    <Color x:Key="ForegroundPurpule">#4C2982</Color>
+    <SolidColorBrush x:Key="ForegroundPurpuleBrush" Color="{StaticResource ForegroundPurpule}" />
+
+    <Color x:Key="ForegroundDarkPurpule">#2F0571</Color>
+    <SolidColorBrush x:Key="ForegroundDarkPurpuleBrush" Color="{StaticResource ForegroundDarkPurpule}" />
+
+    <!--Word-->
+    
     <Color x:Key="WordBlue">#3099c5</Color>
     <SolidColorBrush x:Key="WordBlueBrush" Color="{StaticResource WordBlue}" />
 
@@ -32,7 +47,7 @@
     <Color x:Key="WordGreen">#00c541</Color>
     <SolidColorBrush x:Key="WordGreenBrush" Color="{StaticResource WordGreen}" />
 
-    <Color x:Key="ForegroundGray">#201B27</Color>
-    <SolidColorBrush x:Key="ForegroundGrayBrush" Color="{StaticResource ForegroundGray}" />
+    <Color x:Key="WordBlueLow">#2F3485</Color>
+    <SolidColorBrush x:Key="WordBlueLowBrush" Color="{StaticResource WordBlueLow}" />
 
 </ResourceDictionary>

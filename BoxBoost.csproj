@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="DataModels\ApplicationPage.cs" />
     <Compile Include="DataModels\ApplicationWindow.cs" />
+    <Compile Include="Infrastructure\Extensions\StringExtension.cs" />
     <Compile Include="Infrastructure\Helpers\PasswordHelper.cs" />
     <Compile Include="Infrastructure\Helpers\SettingHelper.cs" />
     <Compile Include="Services\Log4netLvl.cs" />
@@ -260,6 +261,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BackGroundPage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BackGroundFr.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

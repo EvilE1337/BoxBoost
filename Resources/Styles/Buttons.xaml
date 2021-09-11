@@ -137,8 +137,6 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
         <Setter Property="FontFamily" Value="{StaticResource SansPro}" />
-        <Setter Property="Padding" Value="50 10" />
-        <Setter Property="Margin" Value="0 10" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -159,7 +157,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource WordOrangeBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource WordBlueLowBrush}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{StaticResource ForegroundDarkBrush}"/>

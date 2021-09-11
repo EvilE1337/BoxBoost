@@ -43,7 +43,7 @@
                                 <!--Основной содержание окна-->
                                 <Grid>
                                     <Grid.Background>
-                                        <ImageBrush ImageSource="/Images/BackGroundImage.jpg" />
+                                        <ImageBrush ImageSource="/Images/BackGroundFr.jpg" />
                                     </Grid.Background>
                                     
                                     <!--Обрезка углов-->
