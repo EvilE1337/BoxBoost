@@ -9,14 +9,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsOtherFrame">
 
-    <Page.Resources>
-        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
-            <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="Margin" Value="0 4" />
+    <local:BasePage.Resources>
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-    </Page.Resources>
+        <Style TargetType="{x:Type Slider}">
+            <Setter Property="Maximum" Value="100"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="TickFrequency" Value="1"/>
+            <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        </Style>
+    </local:BasePage.Resources>
     
     <Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -26,12 +30,21 @@
                     HorizontalAlignment="Center"
                     TextBlock.TextAlignment="Center">
 
-                <Border BorderBrush="{StaticResource ForegroundGrayBrush}"
-                        BorderThickness="3"
+                <Border BorderThickness="3"
                         CornerRadius="10"
-                        Width="330">
-                    
-                    <Grid>
+                        Width="530">
+
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
+                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
+                            <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
+                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
+                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+
+                    <Grid Margin="5">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -39,76 +52,52 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
 
                         <!-- Labels -->
-                        <TextBlock Text="Пауза между операциями" FontFamily="{StaticResource SansPro}" />
-                        <TextBlock Text="Включить таймер прокси" Grid.Row="1" FontFamily="{StaticResource SansPro}" />
-                        <TextBlock Text="Прослушать" Grid.Row="2" FontFamily="{StaticResource SansPro}" />
-                        <TextBlock Text="Скачать" Grid.Row="3" FontFamily="{StaticResource SansPro}" />
-                        <TextBlock Text="Просмотр процесса" Grid.Row="4" FontFamily="{StaticResource SansPro}" />
-                        <TextBlock Text="Использовать прокси повторно" Grid.Row="5" FontFamily="{StaticResource SansPro}" />
-                        <TextBlock Text="Проверить прокси перед работой" Grid.Row="6" FontFamily="{StaticResource SansPro}" />
+                        <TextBlock Text="Пауза между операциями"/>
+                        <TextBlock Text="Прослушать" Grid.Row="1"/>
+                        <TextBlock Text="Скачать" Grid.Row="2"/>
+                        <TextBlock Text="Включить таймер прокси" Grid.Row="3"/>
+                        <TextBlock Text="Просмотр процесса" Grid.Row="4"/>
+                        <TextBlock Text="Использовать прокси повторно" Grid.Row="5"/>
+                        <TextBlock Text="Проверить прокси перед работой" Grid.Row="6"/>
 
                         <!-- Content -->
-                        <DockPanel VerticalAlignment="Center"
-                                       Margin="10"
-                                       Grid.Column="1">
+                        <DockPanel Grid.Column="1">
                             <TextBlock Text="{Binding ElementName=zPauseValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
                                        DockPanel.Dock="Right"
-                                       TextAlignment="Right" 
-                                       Width="40" />
-                            <Slider Maximum="100"
-                                    Minimum="1"
-                                    Value="{Binding Pause}"
-                                    TickPlacement="BottomRight"
-                                    TickFrequency="1"
-                                    IsSnapToTickEnabled="True"
+                                       TextAlignment="Center" />
+                            <Slider Value="{Binding Pause}"
                                     Name="zPauseValue" />
                         </DockPanel>
-                        <CheckBox IsChecked="{Binding Timer}" Height="20" Margin="5" Grid.Column="1" Grid.Row="1"/>
-                        <DockPanel VerticalAlignment="Center"
-                                       Margin="10"
-                                       Grid.Column="1"
-                                       Grid.Row="2">
+                        <DockPanel Grid.Column="1"
+                                   Grid.Row="1">
                             <TextBlock Text="{Binding ElementName=zPlayValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
                                        DockPanel.Dock="Right"
-                                       TextAlignment="Right" 
-                                       Width="40" />
-                            <Slider Maximum="100"
-                                    Minimum="1"
-                                    Value="{Binding PlayTime}"
-                                    TickPlacement="BottomRight"
-                                    TickFrequency="1"
-                                    IsSnapToTickEnabled="True"
+                                       TextAlignment="Center"/>
+                            <Slider Value="{Binding PlayTime}"
                                     Name="zPlayValue"/>
                         </DockPanel>
-                        <DockPanel VerticalAlignment="Center"
-                                       Margin="10"
-                                       Grid.Column="1"
-                                       Grid.Row="3">
+                        <DockPanel Grid.Column="1"
+                                   Grid.Row="2">
                             <TextBlock Text="{Binding ElementName=zDownloadValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
                                         DockPanel.Dock="Right"
-                                        TextAlignment="Right" 
-                                        Width="40" />
-                            <Slider Maximum="100"
-                                    Minimum="1"
-                                    Value="{Binding DownloadPercent}"
-                                    TickPlacement="BottomRight"
-                                    TickFrequency="1"
-                                    IsSnapToTickEnabled="True"
+                                        TextAlignment="Right"/>
+                            <Slider Value="{Binding DownloadPercent}"
                                     Name="zDownloadValue" />
                         </DockPanel>
-                        <CheckBox IsChecked="{Binding ViewProcess}" Height="20" Margin="5" Grid.Column="1" Grid.Row="4"/>
-                        <CheckBox IsChecked="{Binding UseProxyRepeat}" Height="20" Margin="5" Grid.Column="1" Grid.Row="5"/>
-                        <CheckBox IsChecked="{Binding CheckProxy}" Height="20" Margin="5" Grid.Column="1" Grid.Row="6"/>
+                        <CheckBox IsChecked="{Binding Timer}" Grid.Column="1" Grid.Row="3"/>
+                        <CheckBox IsChecked="{Binding ViewProcess}" Grid.Column="1" Grid.Row="4"/>
+                        <CheckBox IsChecked="{Binding UseProxyRepeat}" Grid.Column="1" Grid.Row="5"/>
+                        <CheckBox IsChecked="{Binding CheckProxy}" Grid.Column="1" Grid.Row="6"/>
 
                     </Grid>
                     

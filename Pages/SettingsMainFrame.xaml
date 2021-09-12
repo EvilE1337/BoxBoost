@@ -11,6 +11,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsMainFrame">
 
+    <local:BasePage.Resources>
+        <Style TargetType="{x:Type Slider}">
+            <Setter Property="Maximum" Value="100"/>
+            <Setter Property="Minimum" Value="1"/>
+            <Setter Property="TickFrequency" Value="1"/>
+            <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        </Style>
+    </local:BasePage.Resources>
     
     <Border>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -22,7 +30,7 @@
 
                 <Border BorderThickness="3"
                         CornerRadius="10"
-                        Width="430">
+                        Width="530">
 
                     <Border.BorderBrush>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -61,45 +69,31 @@
                             <TextBlock Text="Число потоков" Grid.Row="3"/>
 
                             <!-- Content -->
-                            <StackPanel Grid.Column="1"
-                                        Margin="5 0 5 0">
+                            <StackPanel Grid.Column="1">
                                 <ComboBox SelectedItem="{Binding Site}"
                                           ItemsSource="{Binding ListBoostSiteItem}"
                                           MinHeight="32"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1" 
-                                        Grid.Row="1"
-                                        Margin="5 0 5 0">
+                                        Grid.Row="1">
                                 <ComboBox SelectedItem="{Binding Mode}"
                                           ItemsSource="{Binding ListModeItem}"
                                           MinHeight="32"/>
                             </StackPanel>
                             <DockPanel Grid.Column="1" 
-                                       Grid.Row="2"
-                                       Margin="5 0 5 0">
+                                       Grid.Row="2">
                                 <TextBlock Text="{Binding ElementName=zRandValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
                                             DockPanel.Dock="Right"
-                                            TextAlignment="Center" 
-                                            Width="40" />
-                                <Slider Maximum="100"
-                                        Minimum="5"
-                                        Value="{Binding RandomMode}"
-                                        TickFrequency="1"
-                                        IsSnapToTickEnabled="True"
+                                            TextAlignment="Center"/>
+                                <Slider Value="{Binding RandomMode}"
                                         Name="zRandValue"/>
                             </DockPanel>
                             <DockPanel Grid.Column="1"
-                                       Grid.Row="3"
-                                       Margin="5 0 5 0">
+                                       Grid.Row="3">
                             <TextBlock Text="{Binding ElementName=zStreamValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
                                         DockPanel.Dock="Right"
-                                        TextAlignment="Center" 
-                                        Width="40" />
-                            <Slider Maximum="100"
-                                    Minimum="1"
-                                    Value="{Binding CountStream}"
-                                    TickFrequency="1"
-                                    IsSnapToTickEnabled="True"
+                                        TextAlignment="Center"/>
+                            <Slider Value="{Binding CountStream}"
                                     Name="zStreamValue" />
                         </DockPanel>
                             
@@ -121,7 +115,6 @@
 
                                 <StackPanel Grid.Row="1">
                                     <StackPanel>
-
                                         <StackPanel>
                                             <ListBox x:Name="listBox" 
                                                      ItemsSource="{Binding ListLinkBoost}" 
@@ -150,8 +143,6 @@
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
                                         </StackPanel>
-
-                                    
                                     </StackPanel>
                                     <DockPanel>
                                         <TextBlock Text="Ввод:"/>
