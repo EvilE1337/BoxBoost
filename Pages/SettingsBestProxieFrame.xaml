@@ -9,6 +9,16 @@
       mc:Ignorable="d"
       Title="SettingsBestProxieFrame">
 
+    <local:BasePage.Resources>
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxStyle}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type Expander}">
+            <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        </Style>
+    </local:BasePage.Resources>
+    
     <Border>
         <Grid>
             <!-- Main scroll -->
@@ -21,7 +31,7 @@
                     <!-- Main BP box -->
                     <Border BorderThickness="3"
                             CornerRadius="12"
-                            Width="330">
+                            Width="530">
 
                         <Border.BorderBrush>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -36,41 +46,41 @@
                         <StackPanel Margin="5">
 
                             <StackPanel Orientation="Horizontal" Margin="5">
-                                <TextBlock Text="Ключ" FontSize="{StaticResource FontSizeRegular}" />
+                                <TextBlock Text="Ключ"/>
 
                                 <!-- KeyApi -->
                                 <components:BindablePasswordBox
                                                     Password="{Binding Key}"
                                                     Tag="KeyApi" 
                                                     Margin="8 0 0 0" 
-                                                    MinWidth="240"/>
+                                                    MinWidth="340"/>
                             </StackPanel>
 
                             <Expander Header="Тип">
                                 <!-- Type protocol -->
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding Http}" Height="20" Content="HTTP" Margin="5"/>
-                                    <CheckBox IsChecked="{Binding Https}" Height="20" Content="HTTPS" Margin="5"/>
-                                    <CheckBox IsChecked="{Binding Socks4}" Height="20" Content="SOCKS4" Margin="5"/>
-                                    <CheckBox IsChecked="{Binding Socks5}" Height="20" Content="SOCKS5" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Http}" Content="HTTP" VerticalAlignment="Center"/>
+                                    <CheckBox IsChecked="{Binding Https}" Content="HTTPS"/>
+                                    <CheckBox IsChecked="{Binding Socks4}" Content="SOCKS4"/>
+                                    <CheckBox IsChecked="{Binding Socks5}" Content="SOCKS5"/>
                                 </StackPanel>
                             </Expander>
 
                             <Expander Header="Скорость">
                                 <!-- Speed proxy -->
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding Fast}" Height="20" Content="Быстрые" Margin="5"/>
-                                    <CheckBox IsChecked="{Binding Medium}" Height="20" Content="Средние" Margin="5"/>
-                                    <CheckBox IsChecked="{Binding Slow}" Height="20" Content="Медленные" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Fast}" Content="Быстрые"/>
+                                    <CheckBox IsChecked="{Binding Medium}" Content="Средние"/>
+                                    <CheckBox IsChecked="{Binding Slow}" Content="Медленные"/>
                                 </StackPanel>
                             </Expander>
 
                             <Expander Header="Анонимность">
                                 <!-- Anonim proxy -->
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding Elite}" Height="20" Content="Элитные" Margin="5"/>
-                                    <CheckBox IsChecked="{Binding Anonim}" Height="20" Content="Анонимные" Margin="5"/>
-                                    <CheckBox IsChecked="{Binding Transparet}" Height="20" Content="Прозрачные" Margin="5"/>
+                                    <CheckBox IsChecked="{Binding Elite}" Content="Элитные"/>
+                                    <CheckBox IsChecked="{Binding Anonim}" Content="Анонимные"/>
+                                    <CheckBox IsChecked="{Binding Transparet}" Content="Прозрачные"/>
                                 </StackPanel>
                             </Expander>
 
@@ -79,7 +89,7 @@
                                     <ListBox ItemsSource="{Binding CountryList}" Background="Transparent" BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}">
                                         <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <WrapPanel MaxWidth="300"/>
+                                                <WrapPanel MaxWidth="500"/>
                                             </ItemsPanelTemplate>
                                         </ListBox.ItemsPanel>
                                         <ListBox.ItemTemplate>
