@@ -1,4 +1,5 @@
-﻿using BoxBoost.ViewModels.Base;
+﻿using BoxBoost.DataModels;
+using BoxBoost.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,12 +28,6 @@ namespace BoxBoost.ViewModels
         {
             /// <summary>Время создания</summary>
             public string DateTimeTask { get; set; }
-
-            /// <summary>Ссылки</summary>
-            public string LinksTask { get; set; }
-
-            /// <summary>Подробная информация</summary>
-            private string InfoTask { get; set; }
             
             /// <summary>Команда перезапуска</summary>
             public ICommand CommandReset { get; set; }
@@ -50,6 +45,11 @@ namespace BoxBoost.ViewModels
         public TastOutputViewModel()
         {
             TaskCollection = new ObservableCollection<TaskCollectionStruct>();
+            List<TaskManager.TaskCollectionStruct> Tasks = TaskManager.GetTaskList();
+            Tasks.ForEach(f =>
+            {
+                //получить vm
+            });
         }
 
         #endregion

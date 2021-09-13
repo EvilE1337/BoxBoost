@@ -11,37 +11,39 @@ namespace BoxBoost.DataModels
 {
     static internal class TaskManager
     {
-        static List<TaskCollectionStruct> TaskList = new List<TaskCollectionStruct>();
+        private static List<TaskCollectionStruct> TaskList = new List<TaskCollectionStruct>();
         
-        private class TaskCollectionStruct
+        public class TaskCollectionStruct
         {
             /// <summary>Время создания</summary>
             public string DateTimeTask { get; set; }
 
-            /// <summary>Ссылки</summary>
-            public string LinksTask { get; set; }
-
-            /// <summary>Подробная информация</summary>
-            private string InfoTask { get; set; }
-
-            /// <summary>Команда перезапуска</summary>
-            public ICommand CommandReset { get; set; }
-
             /// <summary>Команда отключения</summary>
-            public ICommand CommandShutdown { get; set; }
+            public Action<BoostWindow> CommandShutdown { get; set; }
 
             /// <summary>Окно</summary>
-            public Window AppWin { get; set; }
+            public BoostWindow AppWin { get; set; }
         }
 
-        static internal void Delete(Window _window)
+        static internal void Delete(BoostWindow _window)
         {
-
+            // удаляем тут и из applicationWindow
         }
 
-        static internal void Create(Window _window)
+        static internal void Create(BoostWindow _window)
         {
-            
+            TaskCollectionStruct TaskNew = new TaskCollectionStruct()
+            {
+                DateTimeTask = DateTime.Now.ToString(),
+                AppWin = _window,
+                CommandShutdown = Delete
+            };
+        }
+
+        static internal List<TaskCollectionStruct> GetTaskList()
+        {
+            // заюзать проверку на права или еще что-нибудь
+            return TaskList;
         }
 
     }

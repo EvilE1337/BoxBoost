@@ -276,7 +276,8 @@ namespace BoxBoost.ViewModels
         {
             if(ApplicationPage.None != CurrentPage)
                 SwitchPage(ApplicationPage.None);
-            _WindowStorage.OpenWindow(ApplicationWindow.BoostWin);
+            _WindowStorage.OpenWindow(ApplicationWindow.BoostWin, out Window _window);
+            TaskManager.Create((BoostWindow)_window);
         }
 
         private bool CanStartBoostCommandExecute(object p) => true;
