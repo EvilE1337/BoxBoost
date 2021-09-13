@@ -1,4 +1,5 @@
 ﻿using BoxBoost.ValueConverters;
+using BoxBoost.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace BoxBoost.DataModels
         {
             Window _window = Create(appWindow);
             _window.Show();
-            AddWindow(_window);            
+            AddWindow(_window);
         }
 
         internal void OpenWindow(ApplicationWindow appWindow, out Window _window)

@@ -86,9 +86,15 @@
                                         
                                         <!--Заголовок-->
                                         <Viewbox Grid.Column="1" Margin="0">
-                                            <TextBlock Style="{StaticResource HeaderText}"
-                                                       FontFamily="{StaticResource SansPro}"
-                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=BoxBoost}"/>
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource HeaderText}"
+                                                           FontSize="{StaticResource FontSizeLarge}"
+                                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=BoxBoost}"/>
+                                                <TextBlock Style="{StaticResource HeaderText}"
+                                                           Foreground="{StaticResource ForegroundDarkPurpuleBrush}"
+                                                           FontSize="{StaticResource FontSizeRegular}"
+                                                           Text="{Binding CurrentPage, Converter={valueconverters:ApplicationPageName}}"/>
+                                            </StackPanel>
                                         </Viewbox>
                                         
                                         <!--Кнопки заголовка-->
@@ -144,7 +150,8 @@
                                                 HorizontalAlignment="Center"
                                                 IsEnabled="{Binding EnableSwitch}">
                                             <fa:ImageAwesome Icon="ChevronLeft"
-                                                             Foreground="{StaticResource ForegroundMainBrush}"/>
+                                                             Style="{StaticResource ImageButtonAwesome}" 
+                                                             Cursor="ScrollW"/>
                                         </Button>
 
                                         <Border Grid.Column="1" Padding="{Binding InnerContentPadding}">
@@ -158,7 +165,8 @@
                                                 Command="{Binding SwitchRightCommand}"
                                                 IsEnabled="{Binding EnableSwitch}">
                                             <fa:ImageAwesome Icon="ChevronRight"
-                                                             Foreground="{StaticResource ForegroundMainBrush}"/>
+                                                             Style="{StaticResource ImageButtonAwesome}"
+                                                             Cursor="ScrollE"/>
                                         </Button>
 
                                     </Grid>
@@ -206,7 +214,7 @@
                                                     Command="{Binding StartBoostCommand}"
                                                     IsEnabled="{Binding EnableSwitch}">
                                                 <fa:ImageAwesome Icon="PlayCircleOutline"
-                                                                 Foreground="{StaticResource ForegroundMainBrush}"/>
+                                                                 Style="{StaticResource ImageButtonAwesome}"/>
                                             </Button>
                                         </StackPanel>
                                         
@@ -220,13 +228,16 @@
                                                 </ListView.ItemsPanel>
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
-                                                        <RadioButton GroupName="Pagination" IsChecked="{Binding IsChecked}" Command="{Binding Command}">
+                                                        <RadioButton GroupName="Pagination" 
+                                                                     IsChecked="{Binding IsChecked}" 
+                                                                     Command="{Binding Command}"
+                                                                     Cursor="Hand">
                                                             <RadioButton.ToolTip>
                                                                 <TextBlock Style="{StaticResource HeaderText}"
                                                                            FontFamily="{StaticResource SansPro}"
                                                                            Margin="3" 
                                                                            Background="Transparent" 
-                                                                           Text="{Binding DataTitle}"/>
+                                                                           Text="{Binding DataTitle, Converter={valueconverters:ApplicationPageName}}"/>
                                                             </RadioButton.ToolTip>
                                                         </RadioButton>
                                                     </DataTemplate>
@@ -238,7 +249,8 @@
                                         <StackPanel Grid.Column="2" Margin="0 0 5 0">
                                             <TextBlock Style="{StaticResource HeaderText}"
                                                        FontSize="{StaticResource FontSizeRegular}"
-                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LinkText, FallbackValue=By E1337}"/>
+                                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LinkText, FallbackValue=By E1337}"
+                                                       Cursor="No"/>
                                         </StackPanel>
 
                                     </Grid>
@@ -265,6 +277,7 @@
 
     <Grid>
         <Frame x:Name="Frames"
+               Panel.ZIndex="1"
                NavigationUIVisibility="Hidden"
                Content="{Binding CurrentPage, Converter={valueconverters:ApplicationPageValueConverter}}"/>
     </Grid>

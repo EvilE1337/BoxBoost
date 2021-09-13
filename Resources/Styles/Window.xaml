@@ -91,4 +91,16 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ImageButtonAwesome" TargetType="{x:Type fa:ImageAwesome}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Foreground" Value="{StaticResource ForegroundDarkPurpuleBrush}"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="false">
+                <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

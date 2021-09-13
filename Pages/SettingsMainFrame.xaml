@@ -103,8 +103,8 @@
                             <GroupBox Grid.Row="1">
                                 <GroupBox.Header>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Ссылки"/>
                                         <fa:ImageAwesome Icon="List" Height="12" Margin="5 0 0 0"/>
+                                        <TextBlock Text="Ссылки" Margin="5 0 0 0"/>
                                     </StackPanel>
                                 </GroupBox.Header>
                                 <Grid>
