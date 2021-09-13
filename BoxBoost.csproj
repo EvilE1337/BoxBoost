@@ -95,6 +95,7 @@
     <Compile Include="Infrastructure\Helpers\SettingHelper.cs" />
     <Compile Include="Services\Log4netLvl.cs" />
     <Compile Include="ViewModels\VMSettings\BestProxieSettings.cs" />
+    <Compile Include="ViewModels\VMSettings\LocalProxySettings.cs" />
     <Compile Include="ViewModels\VMSettings\MainSettings.cs" />
     <Compile Include="DataModels\TaskManager.cs" />
     <Compile Include="Infrastructure\Helpers\WindowHelper.cs" />

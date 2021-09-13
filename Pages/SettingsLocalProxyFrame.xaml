@@ -9,7 +9,76 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsLocalProxyFrame">
 
-    <Grid>
-        
-    </Grid>
+    <Border>
+        <Grid>
+            <!-- Main scroll -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center">
+
+                    <!-- Main BP box -->
+                    <Border BorderThickness="3"
+                            CornerRadius="12"
+                            Width="530">
+
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
+                                <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+
+                        <StackPanel Margin="5">
+
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="Редактор:"/>
+                                <Button Style="{StaticResource TextButton}"
+                                            Command="{Binding OpenFileCommand}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="Добавить из файла"
+                                            Margin="5 0 5 0">
+                                </Button>
+                                <TextBlock Text="|"/>
+                                <Button Style="{StaticResource TextButton}"
+                                            Command="{Binding ClearListCommand}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="Очистить список"
+                                            Margin="5 0 5 0">
+                                </Button>
+                            </StackPanel>
+                            <ListBox x:Name="listBox" 
+                                     ItemsSource="{Binding ListProxyFileItem}" 
+                                     Background="Transparent" 
+                                     BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                     Margin="5"
+                                     HorizontalContentAlignment="Stretch">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel>
+                                            <TextBlock Text="{Binding}" 
+                                                       Height="Auto"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </local:BasePage>
