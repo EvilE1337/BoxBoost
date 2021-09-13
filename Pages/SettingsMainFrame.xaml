@@ -21,153 +21,155 @@
     </local:BasePage.Resources>
     
     <Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Width="580">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
-            <StackPanel 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center">
+                <StackPanel 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextBlock.TextAlignment="Center">
 
-                <Border BorderThickness="3"
-                        CornerRadius="10"
-                        Width="530">
+                    <Border BorderThickness="3"
+                            CornerRadius="10"
+                            Width="530">
 
-                    <Border.BorderBrush>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
-                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
-                            <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
-                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
-                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
+                                <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
 
-                    <Grid Margin="5">
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <Grid Margin="5">
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                                <RowDefinition Height="40" />
-                                <RowDefinition Height="40" />
-                                <RowDefinition Height="40" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <!-- Labels -->
-                            <TextBlock Text="Сайт"/>
-                            <TextBlock Text="Режим" Grid.Row="1" />
-                            <TextBlock Text="Вероятность" Grid.Row="2"/>
-                            <TextBlock Text="Число потоков" Grid.Row="3"/>
-
-                            <!-- Content -->
-                            <StackPanel Grid.Column="1">
-                                <ComboBox SelectedItem="{Binding Site}"
-                                          ItemsSource="{Binding ListBoostSiteItem}"
-                                          MinHeight="32"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" 
-                                        Grid.Row="1">
-                                <ComboBox SelectedItem="{Binding Mode}"
-                                          ItemsSource="{Binding ListModeItem}"
-                                          MinHeight="32"/>
-                            </StackPanel>
-                            <DockPanel Grid.Column="1" 
-                                       Grid.Row="2">
-                                <TextBlock Text="{Binding ElementName=zRandValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
-                                            DockPanel.Dock="Right"
-                                            TextAlignment="Center"/>
-                                <Slider Value="{Binding RandomMode}"
-                                        Name="zRandValue"/>
-                            </DockPanel>
-                            <DockPanel Grid.Column="1"
-                                       Grid.Row="3">
-                            <TextBlock Text="{Binding ElementName=zStreamValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
-                                        DockPanel.Dock="Right"
-                                        TextAlignment="Center"/>
-                            <Slider Value="{Binding CountStream}"
-                                    Name="zStreamValue" />
-                        </DockPanel>
-                            
-                        </Grid>
-
-                        <GroupBox Grid.Row="1">
-                            <GroupBox.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Ссылки"/>
-                                    <fa:ImageAwesome Icon="List" Height="12" Margin="5 0 0 0"/>
-                                </StackPanel>
-                            </GroupBox.Header>
                             <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
 
-                                <StackPanel Grid.Row="1">
-                                    <StackPanel>
-                                        <StackPanel>
-                                            <ListBox x:Name="listBox" 
-                                                     ItemsSource="{Binding ListLinkBoost}" 
-                                                     Background="Transparent" 
-                                                     BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
-                                                     Margin="5"
-                                                     HorizontalContentAlignment="Stretch">
-                                                <ListBox.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Vertical"/>
-                                                    </ItemsPanelTemplate>
-                                                </ListBox.ItemsPanel>
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <DockPanel>
-                                                            <TextBlock Text="{Binding}" Height="Auto"/>
-                                                            <Button Style="{StaticResource Hoverless}"
-                                                                    Command="{Binding DataContext.DeleteLinkCommand,ElementName=listBox}"
-                                                                    CommandParameter="{Binding}"
-                                                                    HorizontalContentAlignment="Right"
-                                                                    HorizontalAlignment="Right">
-                                                                <fa:ImageAwesome Icon="Minus" Height="3"/>
-                                                            </Button>
-                                                        </DockPanel>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <DockPanel>
-                                        <TextBlock Text="Ввод:"/>
-                                        <TextBox Text="{Binding InLink}"
-                                                 Margin="10 0 0 0"/>
-                                    </DockPanel>
-                                </StackPanel>
+                                <!-- Labels -->
+                                <TextBlock Text="Сайт"/>
+                                <TextBlock Text="Режим" Grid.Row="1" />
+                                <TextBlock Text="Вероятность" Grid.Row="2"/>
+                                <TextBlock Text="Число потоков" Grid.Row="3"/>
 
-                                <StackPanel Grid.Row="2">
-                                    <Button Style="{StaticResource TextButton}"
-                                            Command="{Binding AddLinkCommand}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Content="Добавить"
-                                            Margin="5">
-                                    </Button>
+                                <!-- Content -->
+                                <StackPanel Grid.Column="1">
+                                    <ComboBox SelectedItem="{Binding Site}"
+                                              ItemsSource="{Binding ListBoostSiteItem}"
+                                              MinHeight="32"/>
                                 </StackPanel>
+                                <StackPanel Grid.Column="1" 
+                                            Grid.Row="1">
+                                    <ComboBox SelectedItem="{Binding Mode}"
+                                              ItemsSource="{Binding ListModeItem}"
+                                              MinHeight="32"/>
+                                </StackPanel>
+                                <DockPanel Grid.Column="1" 
+                                           Grid.Row="2">
+                                    <TextBlock Text="{Binding ElementName=zRandValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                                DockPanel.Dock="Right"
+                                                TextAlignment="Center"/>
+                                    <Slider Value="{Binding RandomMode}"
+                                            Name="zRandValue"/>
+                                </DockPanel>
+                                <DockPanel Grid.Column="1"
+                                           Grid.Row="3">
+                                <TextBlock Text="{Binding ElementName=zStreamValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                            DockPanel.Dock="Right"
+                                            TextAlignment="Center"/>
+                                <Slider Value="{Binding CountStream}"
+                                        Name="zStreamValue" />
+                            </DockPanel>
+                            
                             </Grid>
-                        </GroupBox>
-                    </Grid>
 
-                </Border>
+                            <GroupBox Grid.Row="1">
+                                <GroupBox.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Ссылки"/>
+                                        <fa:ImageAwesome Icon="List" Height="12" Margin="5 0 0 0"/>
+                                    </StackPanel>
+                                </GroupBox.Header>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
-            </StackPanel>
+                                    <StackPanel Grid.Row="1">
+                                        <StackPanel>
+                                            <StackPanel>
+                                                <ListBox x:Name="listBox" 
+                                                         ItemsSource="{Binding ListLinkBoost}" 
+                                                         Background="Transparent" 
+                                                         BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                                         Margin="5"
+                                                         HorizontalContentAlignment="Stretch">
+                                                    <ListBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Vertical"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ListBox.ItemsPanel>
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <TextBlock Text="{Binding}" Height="Auto"/>
+                                                                <Button Style="{StaticResource Hoverless}"
+                                                                        Command="{Binding DataContext.DeleteLinkCommand,ElementName=listBox}"
+                                                                        CommandParameter="{Binding}"
+                                                                        HorizontalContentAlignment="Right"
+                                                                        HorizontalAlignment="Right">
+                                                                    <fa:ImageAwesome Icon="Minus" Height="3"/>
+                                                                </Button>
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <DockPanel>
+                                            <TextBlock Text="Ввод:"/>
+                                            <TextBox Text="{Binding InLink}"
+                                                     Margin="10 0 0 0"/>
+                                        </DockPanel>
+                                    </StackPanel>
 
-        </ScrollViewer>
+                                    <StackPanel Grid.Row="2">
+                                        <Button Style="{StaticResource TextButton}"
+                                                Command="{Binding AddLinkCommand}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Content="Добавить"
+                                                Margin="5">
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+
+                    </Border>
+
+                </StackPanel>
+
+            </ScrollViewer>
+        </Grid>
     </Border>
 </local:BasePage>

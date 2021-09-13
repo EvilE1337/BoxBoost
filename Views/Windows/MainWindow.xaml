@@ -78,7 +78,10 @@
                                         <!--Кнопка с иконкой-->
                                         <Button Style="{StaticResource SystemIconButton}"
                                                 Command="{Binding MenuCommand}">
-                                            <fa:ImageAwesome Icon="Code"/>
+                                            <fa:ImageAwesome Icon="Code" 
+                                                             Spin="True" 
+                                                             SpinDuration="5" 
+                                                             Foreground="{StaticResource ForegroundDarkPurpuleBrush}"/>
                                         </Button>
                                         
                                         <!--Заголовок-->
@@ -140,7 +143,8 @@
                                                 Height="50"
                                                 HorizontalAlignment="Center"
                                                 IsEnabled="{Binding EnableSwitch}">
-                                            <fa:ImageAwesome Icon="ChevronLeft"/>
+                                            <fa:ImageAwesome Icon="ChevronLeft"
+                                                             Foreground="{StaticResource ForegroundMainBrush}"/>
                                         </Button>
 
                                         <Border Grid.Column="1" Padding="{Binding InnerContentPadding}">
@@ -153,7 +157,8 @@
                                                 Style="{StaticResource Hoverless}"
                                                 Command="{Binding SwitchRightCommand}"
                                                 IsEnabled="{Binding EnableSwitch}">
-                                            <fa:ImageAwesome Icon="ChevronRight"/>
+                                            <fa:ImageAwesome Icon="ChevronRight"
+                                                             Foreground="{StaticResource ForegroundMainBrush}"/>
                                         </Button>
 
                                     </Grid>
@@ -200,7 +205,8 @@
                                             <Button Style="{StaticResource Hoverless}"
                                                     Command="{Binding StartBoostCommand}"
                                                     IsEnabled="{Binding EnableSwitch}">
-                                                <fa:ImageAwesome Icon="PlayCircleOutline"/>
+                                                <fa:ImageAwesome Icon="PlayCircleOutline"
+                                                                 Foreground="{StaticResource ForegroundMainBrush}"/>
                                             </Button>
                                         </StackPanel>
                                         

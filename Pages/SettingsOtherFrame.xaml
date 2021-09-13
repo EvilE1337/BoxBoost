@@ -23,88 +23,90 @@
     </local:BasePage.Resources>
     
     <Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Width="580">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
-            <StackPanel 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center">
+                <StackPanel 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextBlock.TextAlignment="Center">
 
-                <Border BorderThickness="3"
-                        CornerRadius="10"
-                        Width="530">
+                    <Border BorderThickness="3"
+                            CornerRadius="10"
+                            Width="530">
 
-                    <Border.BorderBrush>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
-                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
-                            <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
-                            <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
-                            <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
+                                <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
 
-                    <Grid Margin="5">
+                        <Grid Margin="5">
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
-                            <RowDefinition Height="40" />
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
 
-                        <!-- Labels -->
-                        <TextBlock Text="Пауза между операциями"/>
-                        <TextBlock Text="Прослушать" Grid.Row="1"/>
-                        <TextBlock Text="Скачать" Grid.Row="2"/>
-                        <TextBlock Text="Включить таймер прокси" Grid.Row="3"/>
-                        <TextBlock Text="Просмотр процесса" Grid.Row="4"/>
-                        <TextBlock Text="Использовать прокси повторно" Grid.Row="5"/>
-                        <TextBlock Text="Проверить прокси перед работой" Grid.Row="6"/>
+                            <!-- Labels -->
+                            <TextBlock Text="Пауза между операциями"/>
+                            <TextBlock Text="Прослушать" Grid.Row="1"/>
+                            <TextBlock Text="Скачать" Grid.Row="2"/>
+                            <TextBlock Text="Включить таймер прокси" Grid.Row="3"/>
+                            <TextBlock Text="Просмотр процесса" Grid.Row="4"/>
+                            <TextBlock Text="Использовать прокси повторно" Grid.Row="5"/>
+                            <TextBlock Text="Проверить прокси перед работой" Grid.Row="6"/>
 
-                        <!-- Content -->
-                        <DockPanel Grid.Column="1">
-                            <TextBlock Text="{Binding ElementName=zPauseValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
-                                       DockPanel.Dock="Right"
-                                       TextAlignment="Center" />
-                            <Slider Value="{Binding Pause}"
-                                    Name="zPauseValue" />
-                        </DockPanel>
-                        <DockPanel Grid.Column="1"
-                                   Grid.Row="1">
-                            <TextBlock Text="{Binding ElementName=zPlayValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
-                                       DockPanel.Dock="Right"
-                                       TextAlignment="Center"/>
-                            <Slider Value="{Binding PlayTime}"
-                                    Name="zPlayValue"/>
-                        </DockPanel>
-                        <DockPanel Grid.Column="1"
-                                   Grid.Row="2">
-                            <TextBlock Text="{Binding ElementName=zDownloadValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
-                                        DockPanel.Dock="Right"
-                                        TextAlignment="Right"/>
-                            <Slider Value="{Binding DownloadPercent}"
-                                    Name="zDownloadValue" />
-                        </DockPanel>
-                        <CheckBox IsChecked="{Binding Timer}" Grid.Column="1" Grid.Row="3"/>
-                        <CheckBox IsChecked="{Binding ViewProcess}" Grid.Column="1" Grid.Row="4"/>
-                        <CheckBox IsChecked="{Binding UseProxyRepeat}" Grid.Column="1" Grid.Row="5"/>
-                        <CheckBox IsChecked="{Binding CheckProxy}" Grid.Column="1" Grid.Row="6"/>
+                            <!-- Content -->
+                            <DockPanel Grid.Column="1">
+                                <TextBlock Text="{Binding ElementName=zPauseValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                           DockPanel.Dock="Right"
+                                           TextAlignment="Center" />
+                                <Slider Value="{Binding Pause}"
+                                        Name="zPauseValue" />
+                            </DockPanel>
+                            <DockPanel Grid.Column="1"
+                                       Grid.Row="1">
+                                <TextBlock Text="{Binding ElementName=zPlayValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                           DockPanel.Dock="Right"
+                                           TextAlignment="Center"/>
+                                <Slider Value="{Binding PlayTime}"
+                                        Name="zPlayValue"/>
+                            </DockPanel>
+                            <DockPanel Grid.Column="1"
+                                       Grid.Row="2">
+                                <TextBlock Text="{Binding ElementName=zDownloadValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                            DockPanel.Dock="Right"
+                                            TextAlignment="Right"/>
+                                <Slider Value="{Binding DownloadPercent}"
+                                        Name="zDownloadValue" />
+                            </DockPanel>
+                            <CheckBox IsChecked="{Binding Timer}" Grid.Column="1" Grid.Row="3"/>
+                            <CheckBox IsChecked="{Binding ViewProcess}" Grid.Column="1" Grid.Row="4"/>
+                            <CheckBox IsChecked="{Binding UseProxyRepeat}" Grid.Column="1" Grid.Row="5"/>
+                            <CheckBox IsChecked="{Binding CheckProxy}" Grid.Column="1" Grid.Row="6"/>
 
-                    </Grid>
-                    
-                </Border>
+                        </Grid>
 
-            </StackPanel>
-            
-        </ScrollViewer>
+                    </Border>
+
+                </StackPanel>
+
+            </ScrollViewer>
+        </Grid>
     </Border>
 </local:BasePage>

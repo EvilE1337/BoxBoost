@@ -10,7 +10,7 @@
       Title="SettingsLocalProxyFrame">
 
     <Border>
-        <Grid>
+        <Grid Width="580">
             <!-- Main scroll -->
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel 
@@ -18,7 +18,7 @@
                     HorizontalAlignment="Center"
                     TextBlock.TextAlignment="Center">
 
-                    <!-- Main BP box -->
+                    <!-- Main LP box -->
                     <Border BorderThickness="3"
                             CornerRadius="12"
                             Width="530">

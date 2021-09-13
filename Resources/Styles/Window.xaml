@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:BoxBoost.Resources.Styles">
+                    xmlns:local="clr-namespace:BoxBoost.Resources.Styles"
+                    xmlns:fa="http://schemas.fontawesome.io/icons/"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <ResourceDictionary.MergedDictionaries>
         <!-- Order is important -->
@@ -28,5 +30,65 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <StackPanel>
+                    <fa:ImageAwesome Icon="Flag"
+                                     Foreground="{StaticResource ForegroundDarkPurpuleBrush}"/>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ScrollBar}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Margin" Value="-28 0 0 0" />
+        <Setter Property="MinWidth" Value="{Binding Height, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                        <Border Padding="0 4" Background="Transparent">
+                            <Track x:Name="PART_Track"
+                                   IsDirectionReversed="true"
+                                   IsEnabled="{TemplateBinding IsMouseOver}"
+                                   Width="16"
+                                   ViewportSize="NaN">
+                                <Track.Resources>
+                                    <!--thumb size 100-->
+                                    <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
+                                        50
+                                    </sys:Double>
+                                </Track.Resources>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Width="1" Opacity="1" Command="{x:Static ScrollBar.PageUpCommand}" />
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Width="1" Opacity="1" Command="{x:Static ScrollBar.PageDownCommand}" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource ScrollBarThumb}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

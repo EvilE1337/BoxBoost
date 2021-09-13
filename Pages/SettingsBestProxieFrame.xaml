@@ -21,7 +21,7 @@
     </local:BasePage.Resources>
     
     <Border>
-        <Grid>
+        <Grid Width="580">
             <!-- Main scroll -->
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel 

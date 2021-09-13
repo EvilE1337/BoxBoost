@@ -101,10 +101,7 @@ namespace BoxBoost.ViewModels
 
             InitializeFillColection(ref _ListBoostSiteItem, Enum.GetNames(typeof(SiteList)));
             InitializeFillColection(ref _ListModeItem, Enum.GetNames(typeof(ModeList)));
-            ListLinkBoost = new ObservableCollection<string>()
-            {
-                "wewe","wewe"
-            };
+            ListLinkBoost = new ObservableCollection<string>();
         }
 
         #endregion
