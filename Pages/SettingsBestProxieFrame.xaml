@@ -83,7 +83,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding Elite}" Content="Элитные"/>
                                     <CheckBox IsChecked="{Binding Anonim}" Content="Анонимные"/>
-                                    <CheckBox IsChecked="{Binding Transparet}" Content="Прозрачные"/>
+                                    <CheckBox IsChecked="{Binding Transparent}" Content="Прозрачные"/>
                                 </StackPanel>
                             </Expander>
 

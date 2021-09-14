@@ -166,7 +166,7 @@
                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                 <TextBlock.Effect>
-                                    <BlurEffect Radius="10.0"
+                                    <BlurEffect Radius="5.0"
                                             KernelType="Box"/>
                                 </TextBlock.Effect>
                             </TextBlock>
