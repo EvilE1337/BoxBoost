@@ -16,6 +16,8 @@ namespace BoxBoost.ValueConverters
             {
                 switch (value.ToString())
                 {
+                    case "TaskOutputFrame":
+                        return "Управление задачами";
                     case "SettingsBestProxieFrame":
                         return "Сервис BestProxie";
                     case "SettingsLocalProxyFrame":

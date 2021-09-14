@@ -41,6 +41,10 @@
                                 <!--Основной содержание окна-->
                                 <Grid>
 
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="/Images/BackGroundTask.jpg" />
+                                    </Grid.Background>
+                                    
                                     <!--Обрезка углов-->
                                     <Grid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Container}" />
@@ -58,7 +62,10 @@
                                     </Grid.RowDefinitions>
 
                                     <!--Шапка-->
-                                    <Grid Background="Transparent" Grid.Row="0" Panel.ZIndex="1" MouseLeftButtonDown="Grid_MouseDown">
+                                    <Grid Background="Transparent" 
+                                          Grid.Row="0" 
+                                          Panel.ZIndex="1" 
+                                          MouseLeftButtonDown="Grid_MouseDown">
                                         <Grid.ColumnDefinitions>
                                             <!--Иконка-->
                                             <ColumnDefinition Width="Auto"/>
@@ -71,7 +78,10 @@
                                         <!--Кнопка с иконкой-->
                                         <Button Style="{StaticResource SystemIconButton}"
                                                 Command="{Binding MenuCommand}">
-                                            <fa:ImageAwesome Icon="Code"/>
+                                            <fa:ImageAwesome Icon="Code"
+                                                             Spin="True"
+                                                             FlipOrientation="Horizontal"
+                                                             SpinDuration="1"/>
                                         </Button>
 
                                         <!--Заголовок-->
@@ -85,10 +95,12 @@
                                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                                             <Button Command="{Binding MinimizeCommand}"
                                                     Style="{StaticResource WindowControlButton}"
-                                                    Content="_"/>
+                                                    Content="_"
+                                                    Padding="-4"/>
                                             <Button Command="{Binding CloseCommand}"
                                                     Style="{StaticResource WindowCloseButton}"
-                                                    Content="X"/>
+                                                    Content="X"
+                                                    Padding="4"/>
                                         </StackPanel>
 
                                     </Grid>
@@ -106,8 +118,8 @@
 
                                         <Border.Background>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                <GradientStop Color="{StaticResource BackgroundVeryLight}" Offset="0.0"/>
-                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="1.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundDark}" Offset="0.0"/>
+                                                <GradientStop Color="{StaticResource ForegroundVeryDark}" Offset="1.0"/>
                                             </LinearGradientBrush>
                                         </Border.Background>
                                     </Border>
@@ -123,13 +135,11 @@
                                     </Grid>
 
                                     <!--Подвал-->
-                                    
+
                                     <Grid Grid.Row="3">
-                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding StatusOperBar}" />
+                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding StatusOperBar}" Background="Transparent"/>
                                     </Grid>
-
                                     
-
                                 </Grid>
 
                             </Grid>
@@ -141,8 +151,8 @@
         </Style>
     </Window.Resources>
 
-    <Grid Background="{StaticResource ForegroundLightBrush}">
-        <ListView ItemsSource="{Binding ListViewOutInfoItem}" BorderThickness="0">
+    <Grid>
+        <ListView ItemsSource="{Binding ListViewOutInfoItem}" BorderThickness="0" Background="Transparent">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Vertical"/>

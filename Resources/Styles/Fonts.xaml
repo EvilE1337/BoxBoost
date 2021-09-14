@@ -3,11 +3,11 @@
                     xmlns:local="clr-namespace:BoxBoost.Resources.Styles"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="SansPro">pack://application;,,,/Fonts/#PFCentroSansPro</FontFamily>
-    <FontFamily x:Key="NordinRegular">pack://application;,,,/Fonts/#Nordin-Regular</FontFamily>
+    <FontFamily x:Key="SansPro">pack://application:,,,/Fonts/#PF Centro Sans Pro Thin</FontFamily>
+    <FontFamily x:Key="NordinRegular">pack://application:,,,/Fonts/#Nordin Rounded</FontFamily>
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-        <Setter Property="FontFamily" Value="{StaticResource SansPro}"/>
+        <Setter Property="FontFamily" Value="{StaticResource NordinRegular}"/>
     </Style>
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">

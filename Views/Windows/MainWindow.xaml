@@ -89,10 +89,12 @@
                                             <StackPanel>
                                                 <TextBlock Style="{StaticResource HeaderText}"
                                                            FontSize="{StaticResource FontSizeLarge}"
+                                                           FontWeight="Bold"
                                                            Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue=BoxBoost}"/>
                                                 <TextBlock Style="{StaticResource HeaderText}"
                                                            Foreground="{StaticResource ForegroundDarkPurpuleBrush}"
-                                                           FontSize="{StaticResource FontSizeRegular}"
+                                                           FontSize="{StaticResource FontSizeLarge}"
+                                                           FontWeight="Bold"
                                                            Text="{Binding CurrentPage, Converter={valueconverters:ApplicationPageName}}"/>
                                             </StackPanel>
                                         </Viewbox>
@@ -214,7 +216,8 @@
                                                     Command="{Binding StartBoostCommand}"
                                                     IsEnabled="{Binding EnableSwitch}">
                                                 <fa:ImageAwesome Icon="PlayCircleOutline"
-                                                                 Style="{StaticResource ImageButtonAwesome}"/>
+                                                                 Style="{StaticResource ImageButtonAwesome}"
+                                                                 Margin="0 4"/>
                                             </Button>
                                         </StackPanel>
                                         

@@ -120,7 +120,8 @@
                                     <Button Style="{StaticResource TextButton}"
                                             Command="{Binding ClearCheckBoxCommand}"
                                             HorizontalAlignment="Center"
-                                            Content="Очистить">
+                                            Content="Очистить"
+                                            Margin="5">
                                     </Button>
 
                                 </StackPanel>

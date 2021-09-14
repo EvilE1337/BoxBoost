@@ -119,7 +119,29 @@ namespace BoxBoost.ViewModels
             set => Set(ref _StatusOperBar, value);
         }
         #endregion
-        
+
+        #region Прослушивания
+        /// <summary>Прослушивания</summary>
+        private int _CountPlay;
+
+        public int CountPlay
+        {
+            get => _CountPlay;
+            set => Set(ref _CountPlay, value);
+        }
+        #endregion
+
+        #region Скачивания
+        /// <summary>Скачивания</summary>
+        private int _CountDownload;
+
+        public int CountDownload
+        {
+            get => _CountDownload;
+            set => Set(ref _CountDownload, value);
+        }
+        #endregion
+
         #endregion
 
         #region Commands

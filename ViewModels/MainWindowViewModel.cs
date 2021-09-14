@@ -49,7 +49,7 @@ namespace BoxBoost.ViewModels
 
         #region Активная страница
         /// <summary>Активная страница</summary>
-        private ApplicationPage _CurrentPage = ApplicationPage.None;
+        private ApplicationPage _CurrentPage = ApplicationPage.TaskOutputFrame;
 
         public ApplicationPage CurrentPage
         {
@@ -274,8 +274,8 @@ namespace BoxBoost.ViewModels
 
         private void OnStartBoostCommandExecute(object p)
         {
-            if(ApplicationPage.None != CurrentPage)
-                SwitchPage(ApplicationPage.None);
+            if(ApplicationPage.TaskOutputFrame != CurrentPage)
+                SwitchPage(ApplicationPage.TaskOutputFrame);
             _WindowStorage.OpenWindow(ApplicationWindow.BoostWin, out Window _window);
             TaskManager.Create((BoostWindow)_window);
         }
@@ -378,7 +378,7 @@ namespace BoxBoost.ViewModels
                     });
                 });
 
-            CurrentPage = ApplicationPage.None;
+            CurrentPage = ApplicationPage.TaskOutputFrame;
         }
 
         private void WindowResized()

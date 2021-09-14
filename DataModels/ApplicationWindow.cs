@@ -12,7 +12,23 @@ namespace BoxBoost.DataModels
     internal class WindowStorage
     {
         List<Window> WindowSa = new List<Window>();
-        
+
+        public WindowStorage()
+        {
+            CheckWindow();
+        }
+
+        private async void CheckWindow()
+        {
+            while (true)
+            {
+                for (int i = 0; i < WindowSa.Count; i++)
+                    if (!WindowSa[i].IsLoaded)
+                        RemoveWindow(i);
+                await Task.Delay(5000);
+            }
+        }
+
         internal void OpenWindow(ApplicationWindow appWindow)
         {
             Window _window = Create(appWindow);

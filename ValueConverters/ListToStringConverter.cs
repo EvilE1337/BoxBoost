@@ -14,7 +14,7 @@ namespace BoxBoost.ValueConverters
             if (targetType != typeof(string))
                 throw new InvalidOperationException("The target must be a String");
 
-            return String.Join("\r\n", ((List<string>)value).ToArray());
+            return String.Join("\r\n", ((IList<string>)value).ToArray());
         }
 
         public override object ConvertBack(object value, Type targetType = null, object parameter = null, CultureInfo culture = null)

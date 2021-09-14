@@ -23,6 +23,8 @@ namespace BoxBoost.ValueConverters
                     return PageStorage.CurrentPage = new Pages.SettingsMainFrame();
                 case ApplicationPage.SettingsOtherFrame:
                     return PageStorage.CurrentPage = new Pages.SettingsOtherFrame();
+                case ApplicationPage.TaskOutputFrame:
+                    return PageStorage.CurrentPage = new Pages.TaskOutputFrame();
                 default:
                     PageStorage.CurrentPage = null;
                     //Debugger.Break();
@@ -44,11 +46,11 @@ namespace BoxBoost.ValueConverters
                     case "SettingsOtherFrame":
                         return ApplicationPage.SettingsOtherFrame;
                     default:
-                        return ApplicationPage.None;
+                        return ApplicationPage.TaskOutputFrame;
 
                 }
             else
-                return ApplicationPage.None;
+                return ApplicationPage.TaskOutputFrame;
         }
     }
 }

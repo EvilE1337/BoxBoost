@@ -1,4 +1,5 @@
 ﻿using BoxBoost.DataModels;
+using BoxBoost.Infrastructure.Commands;
 using BoxBoost.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,18 @@ namespace BoxBoost.ViewModels
         {
             /// <summary>Время создания</summary>
             public string DateTimeTask { get; set; }
-            
-            /// <summary>Команда перезапуска</summary>
-            public ICommand CommandReset { get; set; }
+
+            /// <summary>Ссылки</summary>
+            public ObservableCollection<string> LinksTask { get; set; }
+
+            /// <summary>Прослушивания</summary>
+            public int CountPlayTask { get; set; }
+
+            /// <summary>Скачивания</summary>
+            public int CountDownloadTask { get; set; }
+
+            /// <summary>Статус</summary>
+            public bool StatusActive { get; set; }
 
             /// <summary>Команда отключения</summary>
             public ICommand CommandShutdown { get; set; }
@@ -44,19 +54,42 @@ namespace BoxBoost.ViewModels
 
         public TastOutputViewModel()
         {
+            CicleCheckTasksAsync();
+        }
+
+        #endregion
+        
+        #region Helper
+        
+        private async void CicleCheckTasksAsync()
+        {
+            while (true)
+            {
+                FillTasks();
+                await Task.Delay(5000);
+            }
+        }
+
+        private void FillTasks()
+        {
             TaskCollection = new ObservableCollection<TaskCollectionStruct>();
             List<TaskManager.TaskCollectionStruct> Tasks = TaskManager.GetTaskList();
             Tasks.ForEach(f =>
             {
-                //получить vm
+                BoostWindowViewModel _DataContext = ((BoostWindowViewModel)f.AppWin.DataContext);
+                TaskCollectionStruct TaskObj = new TaskCollectionStruct()
+                {
+                    DateTimeTask = f.DateTimeTask,
+                    CommandShutdown = new LambdaCommand((object obj) => f.AppWin.Close(), (object obj) => true),
+                    LinksTask = _DataContext.MainSettings.ListLinkBoost,
+                    CountDownloadTask = _DataContext.CountDownload,
+                    CountPlayTask = _DataContext.CountPlay,
+                    StatusActive = f.AppWin.IsLoaded
+                };
+                TaskCollection.Add(TaskObj);
             });
         }
 
-        #endregion
-
-
-        #region Helper
-        
 
         #endregion
     }

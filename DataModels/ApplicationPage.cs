@@ -42,7 +42,7 @@ namespace BoxBoost.DataModels
 
     public enum ApplicationPage
     {
-        None = 0,
+        TaskOutputFrame = 0,
         SettingsMainFrame = 1,
         SettingsOtherFrame = 2,
         SettingsLocalProxyFrame = 3,     

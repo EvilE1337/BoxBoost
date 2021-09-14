@@ -5,36 +5,153 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BoxBoost.Pages"
       xmlns:ViewModels="clr-namespace:BoxBoost.ViewModels"
+      xmlns:fa="http://schemas.fontawesome.io/icons/"
+      xmlns:valueconverters="clr-namespace:BoxBoost.ValueConverters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TaskOutputFrame">
 
     <Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Width="750">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
-            <StackPanel 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    TextBlock.TextAlignment="Center">
+                <StackPanel 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextBlock.TextAlignment="Center">
 
-                <Border Background="{StaticResource ForegroundLightBrush}" 
+                    <Border BorderThickness="3"
                             CornerRadius="10"
-                            Width="330">
+                            Width="700">
 
-                    <Grid>
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.0"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.5"/>
+                                <GradientStop Color="{StaticResource ForegroundDarkPurpule}" Offset="0.7"/>
+                                <GradientStop Color="{StaticResource ForegroundPurpule}" Offset="0.9"/>
+                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                        <Grid Margin="5">
 
-                        
-                    </Grid>
+                            <DataGrid AutoGenerateColumns="False"
+                                      HorizontalGridLinesBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                      VerticalGridLinesBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                      BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                      FontSize="12"
+                                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                      FontWeight="ExtraLight"
+                                      ColumnWidth="Auto"
+                                      Background="Transparent"
+                                      RowBackground="Transparent"
+                                      ItemsSource="{Binding TaskCollection}">
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="FontSize" Value="3"/>
+                                        <Setter Property="FontWeight" Value="ExtraLight"/>
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
+                                <DataGrid.RowHeaderStyle>
+                                    <Style TargetType="{x:Type DataGridRowHeader}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGrid.RowHeaderStyle>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Время запуска" Binding="{Binding DateTimeTask}"/>
+                                    <DataGridTemplateColumn Header="Ссылки">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Style="{StaticResource Hoverless}"
+                                                        Command="{Binding CommandShutdown}">
+                                                    <fa:ImageAwesome Icon="InfoCircle"
+                                                                     Height="20"
+                                                                     Style="{StaticResource ImageButtonAwesome}">
+                                                        <fa:ImageAwesome.ToolTip>
+                                                            <TextBlock Style="{StaticResource HeaderText}"
+                                                                       FontFamily="{StaticResource SansPro}"
+                                                                       Margin="3" 
+                                                                       Background="Transparent" 
+                                                                       Text="{Binding LinksTask, Converter={valueconverters:ListToStringConverter}}"/>
+                                                        </fa:ImageAwesome.ToolTip>
+                                                    </fa:ImageAwesome>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Прослушивания" Binding="{Binding CountPlayTask}" />
+                                    <DataGridTextColumn Header="Скачивания" Binding="{Binding CountDownloadTask}"/>
+                                    <DataGridTemplateColumn  Header="Статус">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <fa:ImageAwesome Icon="Circle"
+                                                                     Height="20">
+                                                        <fa:ImageAwesome.Style>
+                                                            <Style TargetType="{x:Type fa:ImageAwesome}">
+                                                                <Setter Property="Foreground" Value="Blue"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding StatusActive}" Value="True">
+                                                                        <Setter Property="Foreground" Value="Green" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding StatusActive}" Value="False">
+                                                                        <Setter Property="Foreground" Value="Red" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </fa:ImageAwesome.Style>
+                                                    </fa:ImageAwesome>
+                                                    <TextBlock>
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="{x:Type TextBlock}">
+                                                                <Setter Property="Text" Value="Тест" />
+                                                                <Setter Property="Foreground" Value="{StaticResource ForegroundDarkPurpuleBrush}" />
+                                                                <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+                                                                <Setter Property="Margin" Value="5" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding StatusActive}" Value="True">
+                                                                        <Setter Property="Text" Value="Активна" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding StatusActive}" Value="False">
+                                                                        <Setter Property="Text" Value="Не активна" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn  Header="Завершить">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Style="{StaticResource Hoverless}"
+                                                        Command="{Binding CommandShutdown}">
+                                                    <fa:ImageAwesome Icon="MinusCircle"
+                                                                     Height="20"
+                                                                     Style="{StaticResource ImageButtonAwesome}"/>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
 
-                </Border>
+                            </DataGrid>
 
-            </StackPanel>
+                        </Grid>
 
-        </ScrollViewer>
+                    </Border>
+
+                </StackPanel>
+
+            </ScrollViewer>
+        </Grid>
     </Border>
 </local:BasePage>

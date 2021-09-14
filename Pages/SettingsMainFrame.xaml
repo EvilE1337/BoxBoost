@@ -148,6 +148,7 @@
                                         <DockPanel>
                                             <TextBlock Text="Ввод:"/>
                                             <TextBox Text="{Binding InLink}"
+                                                     FontFamily="{StaticResource SansPro}"
                                                      Margin="10 0 0 0"/>
                                         </DockPanel>
                                     </StackPanel>
