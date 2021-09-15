@@ -41,21 +41,31 @@
                                       VerticalGridLinesBrush="{StaticResource ForegroundDarkPurpuleBrush}"
                                       BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
                                       FontSize="12"
-                                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      HorizontalAlignment="Center" VerticalAlignment="Top"
                                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                       FontWeight="ExtraLight"
                                       ColumnWidth="Auto"
                                       Background="Transparent"
                                       RowBackground="Transparent"
+                                      IsReadOnly="True"
                                       ItemsSource="{Binding TaskCollection}">
+                                <DataGrid.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                                        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </Style>
+                                </DataGrid.CellStyle>
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style TargetType="DataGridColumnHeader">
-                                        <Setter Property="FontSize" Value="3"/>
-                                        <Setter Property="FontWeight" Value="ExtraLight"/>
+                                        <Setter Property="Background" Value="{StaticResource ForegroundDarkPurpuleBrush}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}"/>
+                                        <Setter Property="Padding" Value="5 0 5 0"/>
                                     </Style>
                                 </DataGrid.ColumnHeaderStyle>
                                 <DataGrid.RowHeaderStyle>
                                     <Style TargetType="{x:Type DataGridRowHeader}">
+                                        <Setter Property="Background" Value="Transparent" />
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate />
@@ -133,9 +143,10 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Style="{StaticResource Hoverless}"
-                                                        Command="{Binding CommandShutdown}">
+                                                        Command="{Binding CommandShutdown}"
+                                                        Height="23"
+                                                        Width="23">
                                                     <fa:ImageAwesome Icon="MinusCircle"
-                                                                     Height="20"
                                                                      Style="{StaticResource ImageButtonAwesome}"/>
                                                 </Button>
                                             </DataTemplate>
