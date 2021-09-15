@@ -47,6 +47,18 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
+        #region Local Proxy настройки
+
+        private SettingsLocalProxyViewModel _LocalProxySettings;
+
+        public SettingsLocalProxyViewModel LocalProxySettings
+        {
+            get => _LocalProxySettings;
+            set => Set(ref _LocalProxySettings, value);
+        }
+
+        #endregion
+
         #region BestProxie настройки
 
         private SettingsBestProxieViewModel _BestProxieSettings;
@@ -208,6 +220,7 @@ namespace BoxBoost.ViewModels
         private void FillSettings()
         {
             BestProxieSettings = SettingHelper.LoadSetting(new SettingsBestProxieViewModel());
+            LocalProxySettings = SettingHelper.LoadSetting(new SettingsLocalProxyViewModel());
             MainSettings = SettingHelper.LoadSetting(new SettingsMainViewModel());
             OtherSettings = SettingHelper.LoadSetting(new SettingsOtherViewModel());
         }

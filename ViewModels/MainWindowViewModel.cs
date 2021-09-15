@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -274,10 +275,7 @@ namespace BoxBoost.ViewModels
 
         private void OnStartBoostCommandExecute(object p)
         {
-            if(ApplicationPage.TaskOutputFrame != CurrentPage)
-                SwitchPage(ApplicationPage.TaskOutputFrame);
-            _WindowStorage.OpenWindow(ApplicationWindow.BoostWin, out Window _window);
-            TaskManager.Create((BoostWindow)_window);
+            ToBegin();
         }
 
         private bool CanStartBoostCommandExecute(object p) => true;
@@ -345,11 +343,12 @@ namespace BoxBoost.ViewModels
                 EnableSwitch = false;
                 await PageStorage.BeforeUnloadPage(isBack);
                 CurrentPage = (ApplicationPage)newCurrentPage;
+                await WaitLoadPage();
                 EnableSwitch = true;
             }
         }
 
-        private async void SwitchPage(ApplicationPage page)
+        private async Task SwitchPage(ApplicationPage page)
         {
             if (page != CurrentPage)
             {
@@ -357,6 +356,7 @@ namespace BoxBoost.ViewModels
                 EnableSwitch = false;
                 await PageStorage.BeforeUnloadPage(isBack);
                 CurrentPage = page;
+                await WaitLoadPage();
                 EnableSwitch = true;
             }
         }
@@ -368,7 +368,7 @@ namespace BoxBoost.ViewModels
             System.Enum.GetNames(typeof(ApplicationPage))
                 .ToList().ForEach(f =>
                 {
-                    void Act(object obj) => SwitchPage((ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), f));
+                    async void Act(object obj) => await SwitchPage((ApplicationPage)System.Enum.Parse(typeof(ApplicationPage), f));
 
                     ButtonsPagination.Add(new ButtonPaginationStruct()
                     {
@@ -379,6 +379,68 @@ namespace BoxBoost.ViewModels
                 });
 
             CurrentPage = ApplicationPage.TaskOutputFrame;
+        }
+
+        private async void ToBegin()
+        {
+            if (ApplicationPage.TaskOutputFrame != CurrentPage)
+                await SwitchPage(ApplicationPage.TaskOutputFrame);           
+            if (CheckSettings())
+            {
+                _WindowStorage.OpenWindow(ApplicationWindow.BoostWin, out Window _window);
+                TaskManager.Create((BoostWindow)_window);
+            }
+        }
+
+        private async Task WaitLoadPage()
+        {
+            while(!PageStorage.CurrentPage.IsLoaded)
+            {
+                await Task.Delay(100);
+            }
+        }
+
+        private bool CheckSettings()
+        {
+            bool IsGood = true;
+            string OutInfo = "Ошибка проверки настроек. ";
+
+            try
+            {
+                #region mainCheck
+
+                SettingsMainViewModel MainSettings = SettingHelper.LoadSetting(new SettingsMainViewModel());
+
+                bool mainCheck = !string.IsNullOrEmpty(MainSettings.Site) && !string.IsNullOrEmpty(MainSettings.Mode) && MainSettings.ListLinkBoost.Count > 0;
+
+                if(!mainCheck) OutInfo += "Не все поля в основных настройках были заполнены. ";
+
+                #endregion
+
+                #region proxyCheck
+
+                SettingsBestProxieViewModel BestProxieSettings = SettingHelper.LoadSetting(new SettingsBestProxieViewModel());
+                SettingsLocalProxyViewModel LocalProxySettings = SettingHelper.LoadSetting(new SettingsLocalProxyViewModel());
+
+                bool proxyCheck = !string.IsNullOrEmpty(BestProxieSettings.Key) || LocalProxySettings.ListProxyFileItem.Count > 0;
+
+                if (!proxyCheck) OutInfo += "Не найден источник получения прокси. ";
+
+                #endregion
+
+                IsGood = mainCheck && proxyCheck;
+            }
+            catch (Exception ex)
+            {
+                OutInfo += ex.Message;
+                IsGood = false;
+            }
+
+            if (!IsGood)
+                MessageBox.Show(OutInfo, "Внимание!",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+
+            return IsGood;
         }
 
         private void WindowResized()
