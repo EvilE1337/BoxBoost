@@ -281,5 +281,10 @@
   <ItemGroup>
     <Resource Include="Images\BackGroundTask.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="UseProxy.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

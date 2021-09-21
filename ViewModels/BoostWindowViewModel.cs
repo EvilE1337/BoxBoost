@@ -120,16 +120,32 @@ namespace BoxBoost.ViewModels
             set => Set(ref _LinkText, value);
         }
         #endregion
-        
-        #region Статус операции
-        /// <summary> Статус операции </summary>
-        private int _StatusOperBar = 0;
 
-        public int StatusOperBar
+        #region Статус бары
+
+        private ObservableCollection<StatusBarStruct> _StatusBars;
+
+        public ObservableCollection<StatusBarStruct> StatusBars
         {
-            get => _StatusOperBar;
-            set => Set(ref _StatusOperBar, value);
+            get => _StatusBars;
+            set => Set(ref _StatusBars, value);
         }
+
+        public class StatusBarStruct : ViewModel
+        {
+            /// <summary>Название</summary>
+            public string TitleBar { get; set; }
+
+            /// <summary>Проценты</summary>
+            private int _Percent = 0;
+
+            public int Percent
+            {
+                get => _Percent;
+                set => Set(ref _Percent, value);
+            }
+        }
+
         #endregion
 
         #region Прослушивания
@@ -206,6 +222,7 @@ namespace BoxBoost.ViewModels
             mWindow = window;
 
             ListViewOutInfoItem = new ObservableCollection<OutInformationStruct>();
+            _StatusBars = new ObservableCollection<StatusBarStruct>();
 
             FillSettings();
             FillCommand();
@@ -277,6 +294,8 @@ namespace BoxBoost.ViewModels
             return null;
         }
 
+        #region Proxy
+
         private async Task<List<string>> GetProxy()
         {
             MessageUpdate("Начало получения прокси", OutLvl.Info);
@@ -295,12 +314,16 @@ namespace BoxBoost.ViewModels
 
             await Task.WhenAll(tasks);
 
+            ClearStatusBars();
+
             return OutListProxy;
         }
 
         private List<IProxy> FillProxyContainer()
         {
             List<IProxy> proxyContainer = new List<IProxy>();
+            Action<string> delegateMsg = (msg) => MessageUpdate(msg);            
+            string urlSite = MainSettings.ListLinkBoost[0];
 
             if (!string.IsNullOrWhiteSpace(BestProxieSettings.Key))
             {
@@ -321,14 +344,48 @@ namespace BoxBoost.ViewModels
                     Country = BestProxyCountry.GetReplaceOnValueList(BestProxieSettings.CountryList.Where(w => w.IsSelected).Select(s => s.NameCountry).ToList())
                 };
 
-                Action<string> delegateMsg = (msg) => MessageUpdate(msg);
-                Action<int> delegateStatus = (status) => StatusOperBar = status;
+                StatusBarStruct StBr = CreateStatusBar("BestProxie");
+                Action<int> delegateStatus = (status) => StBr.Percent = status;
 
-                proxyContainer.Add(new BestProxie(MainSettings.ListLinkBoost[0], argsService, ref delegateMsg, ref delegateStatus));
+                proxyContainer.Add(new BestProxie(urlSite, argsService, ref delegateMsg, ref delegateStatus));
+            }
+
+            if(LocalProxySettings.ListProxyFileItem.Count > 0)
+            {
+                StatusBarStruct StBr = CreateStatusBar("LocalProxy");
+                Action<int> delegateStatus = (status) => StBr.Percent = status;
+
+                proxyContainer.Add(new MyProxy(urlSite, LocalProxySettings.ListProxyFileItem.ToList(), ref delegateMsg, ref delegateStatus));
             }
 
             return proxyContainer;
         }
+
+        #endregion
+
+        #region StatusBar
+
+        private StatusBarStruct CreateStatusBar(string name)
+        {
+            StatusBarStruct StBr = new StatusBarStruct()
+            {
+                TitleBar = name,
+                Percent = 0
+            };
+
+            StatusBars.Add(StBr);
+
+            return StBr;
+        }
+
+        private void ClearStatusBars()
+        {
+            StatusBars.Clear();
+        }
+
+        #endregion
+
+        #region Msg
 
         private void MessageUpdate(string msg, OutLvl lvl = OutLvl.Info)
         {
@@ -349,6 +406,8 @@ namespace BoxBoost.ViewModels
             {OutLvl.Info, Brushes.DarkGray},
             {OutLvl.Good, Brushes.Green}
         };
+
+        #endregion
 
         #endregion
     }

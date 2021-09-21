@@ -37,7 +37,7 @@ namespace BoxBoost.DataModels
 
         #region Вероятность
         /// <summary>Вероятность</summary>
-        private int _RandomMode;
+        private int _RandomMode = 1;
 
         public int RandomMode
         {
@@ -48,7 +48,7 @@ namespace BoxBoost.DataModels
 
         #region Число потоков
         /// <summary>Число потоков</summary>
-        private int _CountStream;
+        private int _CountStream = 1;
 
         public int CountStream
         {

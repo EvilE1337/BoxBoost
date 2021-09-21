@@ -137,7 +137,28 @@
                                     <!--Подвал-->
 
                                     <Grid Grid.Row="3">
-                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding StatusOperBar}" Background="Transparent"/>
+
+                                        <StackPanel>
+                                            <ListBox ItemsSource="{Binding StatusBars}" 
+                                                     Background="Transparent" 
+                                                     BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                                     HorizontalContentAlignment="Stretch">
+                                                <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical"/>
+                                                    </ItemsPanelTemplate>
+                                                </ListBox.ItemsPanel>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel>
+                                                            <TextBlock Text="{Binding TitleBar}" FontSize="{StaticResource FontSizeSmall}"/>
+                                                            <ProgressBar Minimum="0" Maximum="100" Value="{Binding Percent}" Background="Transparent"/>
+                                                        </DockPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </StackPanel>
+                                        
                                     </Grid>
                                     
                                 </Grid>
