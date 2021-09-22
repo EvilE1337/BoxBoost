@@ -259,12 +259,24 @@ namespace BoxBoost.ViewModels
 
         private async void LaunchAsync()
         {
-            MessageUpdate("Запуск...", OutLvl.Good);
-            List<string> Proxy = await GetProxy();
-            int CountProxy = Proxy.Count;
-            MessageUpdate("Получено " + CountProxy + " прокси", CountProxy > 0 ? OutLvl.Good : OutLvl.Err);
-            await Task.Run(async () => await RunBoost(Proxy));
-            LaunchAsync();
+            try
+            {
+                MessageUpdate("Запуск...", OutLvl.Good);
+                List<string> Proxy = await GetProxy();
+                int CountProxy = Proxy.Count;
+                MessageUpdate("Получено " + CountProxy + " прокси", CountProxy > 0 ? OutLvl.Good : OutLvl.Err);
+                await Task.Run(async () => await RunBoost(Proxy));
+                LaunchAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Внимание!",
+                   MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                mWindow.Close();
+            }
         }
 
         private async Task RunBoost(List<string> Proxy)
@@ -400,6 +412,8 @@ namespace BoxBoost.ViewModels
         {
             App.Current.Dispatcher.Invoke(() =>
             {
+                msg = "[" + NowDate + "]" + msg;
+
                 ListViewOutInfoItem.Add(new OutInformationStruct()
                 {
                     ColorText = ColorLvl[lvl],
@@ -408,6 +422,8 @@ namespace BoxBoost.ViewModels
                 AddLog(msg, lvl);
             });
         }
+
+        private static string NowDate => DateTime.Now.ToString("HH:mm:ss");
 
         private readonly Dictionary<OutLvl, SolidColorBrush> ColorLvl = new Dictionary<OutLvl, SolidColorBrush>
         {
