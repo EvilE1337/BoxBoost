@@ -263,17 +263,22 @@ namespace BoxBoost.ViewModels
             List<string> Proxy = await GetProxy();
             int CountProxy = Proxy.Count;
             MessageUpdate("Получено " + CountProxy + " прокси", CountProxy > 0 ? OutLvl.Good : OutLvl.Err);
-            await RunBoost(MainSettings.ListLinkBoost.ToList());
+            await Task.Run(async () => await RunBoost(Proxy));
+            LaunchAsync();
         }
 
         private async Task RunBoost(List<string> Proxy)
         {
             IBoostSite BoostSite = GetBoostSite(Proxy);
-            BoostSite.LaunchBoost(MainSettings.ListLinkBoost.ToList());
+            await BoostSite.LaunchBoostAsync();
         }
 
         private IBoostSite GetBoostSite(List<string> Proxy)
         {
+            void delegateMsg(string msg) => MessageUpdate(msg);
+            void delegateCountPlay(int countPlay) => App.Current.Dispatcher.Invoke(() => CountPlay = countPlay);
+            void delegateCountDownload(int countDownload) => App.Current.Dispatcher.Invoke(() => CountDownload = countDownload);
+
             switch (MainSettings.Site.ToEnum<SiteList>())
             {
                 case SiteList.PromoDJ:
@@ -286,7 +291,11 @@ namespace BoxBoost.ViewModels
                         Pause = OtherSettings.Pause,
                         PercentDownLoad = OtherSettings.DownloadPercent,
                         PercentPlay = OtherSettings.PlayTime,
-                        UseProxyRepeat = OtherSettings.UseProxyRepeat
+                        UseProxyRepeat = OtherSettings.UseProxyRepeat,
+                        OutMsgAct = delegateMsg,
+                        CountDownloadAct = delegateCountDownload,
+                        CountPlayAct = delegateCountPlay,
+                        LinkList = MainSettings.ListLinkBoost.ToList()
                     });
                 case SiteList.SoundCloud:
                     break;

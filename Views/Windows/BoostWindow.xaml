@@ -141,7 +141,8 @@
                                         <StackPanel>
                                             <ListBox ItemsSource="{Binding StatusBars}" 
                                                      Background="Transparent" 
-                                                     BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                                     BorderThickness="0"
+                                                     BorderBrush="Transparent"
                                                      HorizontalContentAlignment="Stretch">
                                                 <ListBox.ItemsPanel>
                                                     <ItemsPanelTemplate>
@@ -151,8 +152,8 @@
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <DockPanel>
-                                                            <TextBlock Text="{Binding TitleBar}" FontSize="{StaticResource FontSizeSmall}"/>
-                                                            <ProgressBar Minimum="0" Maximum="100" Value="{Binding Percent}" Background="Transparent"/>
+                                                            <TextBlock Text="{Binding TitleBar}" FontSize="{StaticResource FontSizeSmall}" Margin="0 0 5 0" Foreground="{StaticResource ForegroundPurpuleBrush}"/>
+                                                            <ProgressBar Minimum="0" Maximum="100" Value="{Binding Percent}" Background="Transparent" Foreground="{StaticResource ForegroundDarkPurpuleBrush}"/>
                                                         </DockPanel>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
