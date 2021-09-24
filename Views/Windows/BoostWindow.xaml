@@ -58,7 +58,7 @@
                                         <!--Содержание окна-->
                                         <RowDefinition Height="*"/>
                                         <!--Подвал окна-->
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
                                     <!--Шапка-->
