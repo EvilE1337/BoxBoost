@@ -123,34 +123,40 @@
 
                                     <StackPanel Grid.Row="1">
                                         <StackPanel>
-                                            <StackPanel>
-                                                <ListBox x:Name="listBox" 
-                                                         ItemsSource="{Binding ListLinkBoost}" 
-                                                         Background="Transparent" 
-                                                         BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
-                                                         Margin="5"
-                                                         HorizontalContentAlignment="Stretch">
-                                                    <ListBox.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Vertical"/>
-                                                        </ItemsPanelTemplate>
-                                                    </ListBox.ItemsPanel>
-                                                    <ListBox.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <DockPanel>
-                                                                <TextBlock Text="{Binding}" Height="Auto"/>
-                                                                <Button Style="{StaticResource Hoverless}"
+                                            <ListBox x:Name="listBox" 
+                                                     ItemsSource="{Binding ListLinkBoost}" 
+                                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                     Background="Transparent" 
+                                                     BorderBrush="{StaticResource ForegroundDarkPurpuleBrush}"
+                                                     Margin="5"
+                                                     HorizontalContentAlignment="Stretch">
+                                                <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical"/>
+                                                    </ItemsPanelTemplate>
+                                                </ListBox.ItemsPanel>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <TextBlock Text="{Binding}" Height="Auto">
+                                                                <ToolTipService.ToolTip>
+                                                                    <StackPanel>
+                                                                        <TextBlock Text="{Binding}" />
+                                                                    </StackPanel>
+                                                                </ToolTipService.ToolTip>
+                                                            </TextBlock>
+                                                            <Button Style="{StaticResource Hoverless}"
                                                                         Command="{Binding DataContext.DeleteLinkCommand,ElementName=listBox}"
                                                                         CommandParameter="{Binding}"
                                                                         HorizontalContentAlignment="Right"
                                                                         HorizontalAlignment="Right">
-                                                                    <fa:ImageAwesome Icon="Minus" Height="3"/>
-                                                                </Button>
-                                                            </DockPanel>
-                                                        </DataTemplate>
-                                                    </ListBox.ItemTemplate>
-                                                </ListBox>
-                                            </StackPanel>
+                                                                <fa:ImageAwesome Icon="Minus" Height="3"/>
+                                                            </Button>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
                                         </StackPanel>
                                         <DockPanel>
                                             <TextBlock Text="Ввод:"/>
