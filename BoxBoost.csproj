@@ -102,6 +102,8 @@
     <Compile Include="Infrastructure\Helpers\SettingHelper.cs" />
     <Compile Include="Services\Log4netLvl.cs" />
     <Compile Include="ValueConverters\ApplicationPageName.cs" />
+    <Compile Include="ValueConverters\BaseMultiValueConverter.cs" />
+    <Compile Include="ValueConverters\ModeValueConverter.cs" />
     <Compile Include="ValueConverters\StringBindingParamsConverter.cs" />
     <Compile Include="ViewModels\VMSettings\BestProxieSettings.cs" />
     <Compile Include="ViewModels\VMSettings\LocalProxySettings.cs" />
@@ -283,6 +285,7 @@
     <Resource Include="Images\BackGroundTask.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\BackGroundFist.jpg" />
     <Content Include="UseProxy.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

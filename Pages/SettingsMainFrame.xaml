@@ -77,9 +77,16 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" 
                                             Grid.Row="1">
-                                    <ComboBox SelectedItem="{Binding Mode}"
+                                    <ComboBox SelectedValue="{Binding Mode}"
                                               ItemsSource="{Binding ListModeItem}"
-                                              MinHeight="32"/>
+                                              MinHeight="32">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                     Text="{Binding Converter={valueconverters:ModeValueConverter}}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
                                 </StackPanel>
                                 <DockPanel Grid.Column="1" 
                                            Grid.Row="2">

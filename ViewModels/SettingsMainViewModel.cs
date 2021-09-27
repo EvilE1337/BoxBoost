@@ -1,5 +1,6 @@
 ﻿using BoxBoost.DataModels;
 using BoxBoost.Infrastructure.Commands;
+using BoxBoost.ValueConverters;
 using BoxBoost.ViewModels.Base;
 using E1337.BoostWorker;
 using System;
