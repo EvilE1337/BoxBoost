@@ -412,7 +412,7 @@ namespace BoxBoost.ViewModels
         {
             App.Current.Dispatcher.Invoke(() =>
             {
-                msg = "[" + NowDate + "]" + msg;
+                msg = "[" + NowDate + "] " + msg;
 
                 ListViewOutInfoItem.Add(new OutInformationStruct()
                 {
@@ -428,7 +428,7 @@ namespace BoxBoost.ViewModels
         private readonly Dictionary<OutLvl, SolidColorBrush> ColorLvl = new Dictionary<OutLvl, SolidColorBrush>
         {
             {OutLvl.Err, Brushes.Red},
-            {OutLvl.Info, Brushes.DarkGray},
+            {OutLvl.Info, Brushes.Black},
             {OutLvl.Good, Brushes.Green}
         };
 

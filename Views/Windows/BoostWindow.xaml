@@ -182,10 +182,11 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock FontSize="12" 
-                                   TextWrapping="Wrap"
-                                   Foreground="{Binding ColorText}"
-                                   Text="{Binding InformationText}"/>
+                    <TextBlock FontSize="15"
+                               FontWeight="Bold"
+                               TextWrapping="Wrap"
+                               Foreground="{Binding ColorText}"
+                               Text="{Binding InformationText}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
