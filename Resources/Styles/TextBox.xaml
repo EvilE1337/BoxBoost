@@ -173,7 +173,8 @@
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="{StaticResource ForegroundDarkPurpuleBrush}" />
+        <Setter Property="BorderThickness" Value="4"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
@@ -184,7 +185,7 @@
                                          Height="15"
                                           Background="{TemplateBinding Background}"
                                           BorderBrush="{TemplateBinding BorderBrush}"
-                                          BorderThickness="1"
+                                          BorderThickness="2"
                                           ClipToBounds="True">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="5" ShadowDepth="2" />

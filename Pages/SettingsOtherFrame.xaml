@@ -14,12 +14,6 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style TargetType="{x:Type Slider}">
-            <Setter Property="Maximum" Value="100"/>
-            <Setter Property="Minimum" Value="0"/>
-            <Setter Property="TickFrequency" Value="1"/>
-            <Setter Property="IsSnapToTickEnabled" Value="True"/>
-        </Style>
     </local:BasePage.Resources>
     
     <Border>
@@ -77,7 +71,13 @@
                                            DockPanel.Dock="Right"
                                            TextAlignment="Center" />
                                 <Slider Value="{Binding Pause}"
-                                        Name="zPauseValue" />
+                                        Name="zPauseValue" 
+                                        SelectionStart="{Binding Pause}">
+                                    <Slider.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkDarkBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                    </Slider.Resources>
+                                </Slider>
                             </DockPanel>
                             <DockPanel Grid.Column="1"
                                        Grid.Row="1">
@@ -85,7 +85,13 @@
                                            DockPanel.Dock="Right"
                                            TextAlignment="Center"/>
                                 <Slider Value="{Binding PlayTime}"
-                                        Name="zPlayValue"/>
+                                        Name="zPlayValue"
+                                        SelectionStart="{Binding PlayTime}">
+                                    <Slider.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkDarkBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                    </Slider.Resources>
+                                </Slider>
                             </DockPanel>
                             <DockPanel Grid.Column="1"
                                        Grid.Row="2">
@@ -93,7 +99,13 @@
                                             DockPanel.Dock="Right"
                                             TextAlignment="Right"/>
                                 <Slider Value="{Binding DownloadPercent}"
-                                        Name="zDownloadValue" />
+                                        Name="zDownloadValue" 
+                                        SelectionStart="{Binding DownloadPercent}">
+                                    <Slider.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkDarkBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                    </Slider.Resources>
+                                </Slider>
                             </DockPanel>
                             <CheckBox IsChecked="{Binding Timer}" Grid.Column="1" Grid.Row="3"/>
                             <CheckBox IsChecked="{Binding ViewProcess}" Grid.Column="1" Grid.Row="4"/>

@@ -11,15 +11,6 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsMainFrame">
 
-    <local:BasePage.Resources>
-        <Style TargetType="{x:Type Slider}">
-            <Setter Property="Maximum" Value="100"/>
-            <Setter Property="Minimum" Value="0"/>
-            <Setter Property="TickFrequency" Value="1"/>
-            <Setter Property="IsSnapToTickEnabled" Value="True"/>
-        </Style>
-    </local:BasePage.Resources>
-    
     <Border>
         <Grid Width="580">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -94,15 +85,28 @@
                                                 DockPanel.Dock="Right"
                                                 TextAlignment="Center"/>
                                     <Slider Value="{Binding RandomMode}"
-                                            Name="zRandValue"/>
+                                            Name="zRandValue"
+                                            SelectionStart="{Binding RandomMode}">
+                                        <Slider.Resources>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkDarkBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                        </Slider.Resources>
+                                    </Slider>
                                 </DockPanel>
                                 <DockPanel Grid.Column="1"
                                            Grid.Row="3">
                                 <TextBlock Text="{Binding ElementName=zStreamValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
                                             DockPanel.Dock="Right"
                                             TextAlignment="Center"/>
-                                <Slider Value="{Binding CountStream}"
-                                        Name="zStreamValue" />
+                                    <Slider Value="{Binding CountStream}"
+                                            Name="zStreamValue"
+                                            SelectionStart="{Binding CountStream}">
+                                        <Slider.Resources>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlDarkDarkBrushKey}" Color="{StaticResource ForegroundDarkPurpule}" />
+                                        </Slider.Resources>
+                                    </Slider>
+                                    
                             </DockPanel>
                             
                             </Grid>
