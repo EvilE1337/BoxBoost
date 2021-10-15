@@ -307,10 +307,24 @@ namespace BoxBoost.ViewModels
                         OutMsgAct = delegateMsg,
                         CountDownloadAct = delegateCountDownload,
                         CountPlayAct = delegateCountPlay,
-                        LinkList = MainSettings.ListLinkBoost.ToList()
+                        LinkList = MainSettings.ListLinkBoost.ToList(),
+                        VisibleProcess = OtherSettings.ViewProcess
                     });
                 case SiteList.SoundCloud:
-                    break;
+                    return new SoundCloud(new SettingsSoundCloud()
+                    {
+                        CountStream = MainSettings.CountStream,
+                        Mode = MainSettings.Mode.ToEnum<ModeList>(),
+                        ProxyList = Proxy,
+                        Pause = OtherSettings.Pause,
+                        PercentPlay = OtherSettings.PlayTime,
+                        UseProxyRepeat = OtherSettings.UseProxyRepeat,
+                        OutMsgAct = delegateMsg,
+                        CountDownloadAct = delegateCountDownload,
+                        CountPlayAct = delegateCountPlay,
+                        LinkList = MainSettings.ListLinkBoost.ToList(),
+                        VisibleProcess = OtherSettings.ViewProcess
+                    });
             }
             return null;
         }
