@@ -56,6 +56,19 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
+        #region Размер режима
+
+        private double _ModeHeight;
+
+        [XmlIgnore]
+        public double ModeHeight
+        {
+            get => _ModeHeight;
+            set => Set(ref _ModeHeight, value);
+        }
+
+        #endregion
+
         #endregion
 
         #region Commands
@@ -88,6 +101,22 @@ namespace BoxBoost.ViewModels
 
         #endregion
 
+        #region Скрыть по режиму
+        [XmlIgnore]
+        public ICommand CheckVisibleCommand { get; set; }
+
+        private void OnCheckVisibleCommandExecute(object p)
+        {
+            if (Site != SiteList.OldPromoDJ.ToString() && Site != SiteList.PromoDJ.ToString())
+                ModeHeight = 0;
+            else
+                ModeHeight = 40;
+        }
+
+        private bool CanCheckVisibleCommandExecute(object p) => true;
+
+        #endregion
+
         #endregion
 
 
@@ -98,6 +127,7 @@ namespace BoxBoost.ViewModels
             #region команды
             DeleteLinkCommand = new LambdaCommand(OnDeleteLinkCommandExecute, CanDeleteLinkCommandExecute);
             AddLinkCommand = new LambdaCommand(OnAddLinkCommandExecute, CanAddLinkCommandExecute);
+            CheckVisibleCommand = new LambdaCommand(OnCheckVisibleCommandExecute, CanCheckVisibleCommandExecute);
             #endregion
 
             InitializeFillColection(ref _ListBoostSiteItem, Enum.GetNames(typeof(SiteList)));

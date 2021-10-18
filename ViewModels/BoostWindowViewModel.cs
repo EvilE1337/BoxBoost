@@ -262,9 +262,17 @@ namespace BoxBoost.ViewModels
             try
             {
                 MessageUpdate("Запуск...", OutLvl.Good);
-                List<string> Proxy = await GetProxy();
-                int CountProxy = Proxy.Count;
-                MessageUpdate("Получено " + CountProxy + " прокси", CountProxy > 0 ? OutLvl.Good : OutLvl.Err);
+                List<string> Proxy = new List<string>();
+                if (!OtherSettings.NoProxy)
+                {
+                    Proxy = await GetProxy();
+                    int CountProxy = Proxy.Count;
+                    MessageUpdate("Получено " + CountProxy + " прокси", CountProxy > 0 ? OutLvl.Good : OutLvl.Err);
+                }
+                else
+                {
+                    MessageUpdate("Получение прокси пропущено", OutLvl.Good);
+                }
                 await Task.Run(async () => await RunBoost(Proxy));
                 LaunchAsync();
             }
@@ -308,7 +316,8 @@ namespace BoxBoost.ViewModels
                         CountDownloadAct = delegateCountDownload,
                         CountPlayAct = delegateCountPlay,
                         LinkList = MainSettings.ListLinkBoost.ToList(),
-                        VisibleProcess = OtherSettings.ViewProcess
+                        VisibleProcess = OtherSettings.ViewProcess,
+                        NoProxy = OtherSettings.NoProxy
                     });
                 case SiteList.SoundCloud:
                     return new SoundCloud(new SettingsSoundCloud()
@@ -323,8 +332,43 @@ namespace BoxBoost.ViewModels
                         CountDownloadAct = delegateCountDownload,
                         CountPlayAct = delegateCountPlay,
                         LinkList = MainSettings.ListLinkBoost.ToList(),
-                        VisibleProcess = OtherSettings.ViewProcess
+                        VisibleProcess = OtherSettings.ViewProcess,
+                        NoProxy = OtherSettings.NoProxy
                     });
+                case SiteList.Yandex:
+                    return new YandexMusic(new SettingsYandexMusic()
+                    {
+                        CountStream = MainSettings.CountStream,
+                        Mode = MainSettings.Mode.ToEnum<ModeList>(),
+                        ProxyList = Proxy,
+                        Pause = OtherSettings.Pause,
+                        PercentPlay = OtherSettings.PlayTime,
+                        UseProxyRepeat = OtherSettings.UseProxyRepeat,
+                        OutMsgAct = delegateMsg,
+                        CountDownloadAct = delegateCountDownload,
+                        CountPlayAct = delegateCountPlay,
+                        LinkList = MainSettings.ListLinkBoost.ToList(),
+                        VisibleProcess = OtherSettings.ViewProcess,
+                        NoProxy = OtherSettings.NoProxy
+                    });
+                case SiteList.OldPromoDJ:
+                    return new PromoDJOld(new SettingsPromoDJOld()
+                    {
+                        CountStream = MainSettings.CountStream,
+                        Mode = MainSettings.Mode.ToEnum<ModeList>(),
+                        LuckyRnd = MainSettings.RandomMode,
+                        ProxyList = Proxy,
+                        Pause = OtherSettings.Pause,
+                        PercentDownLoad = OtherSettings.DownloadPercent,
+                        PercentPlay = OtherSettings.PlayTime,
+                        UseProxyRepeat = OtherSettings.UseProxyRepeat,
+                        OutMsgAct = delegateMsg,
+                        CountDownloadAct = delegateCountDownload,
+                        CountPlayAct = delegateCountPlay,
+                        LinkList = MainSettings.ListLinkBoost.ToList(),
+                        NoProxy = OtherSettings.NoProxy
+                    });
+
             }
             return null;
         }

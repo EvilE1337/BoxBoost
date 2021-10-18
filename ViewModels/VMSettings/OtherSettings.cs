@@ -89,6 +89,17 @@ namespace BoxBoost.ViewModels.VMSettings
         }
         #endregion
 
+        #region Без прокси
+        /// <summary>Без прокси</summary>
+        private bool _NoProxy;
+
+        public bool NoProxy
+        {
+            get => _NoProxy;
+            set => Set(ref _NoProxy, value);
+        }
+        #endregion
+
         #endregion
     }
 }

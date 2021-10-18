@@ -54,6 +54,7 @@
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="40" />
                                 <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
                             </Grid.RowDefinitions>
 
                             <!-- Labels -->
@@ -64,6 +65,7 @@
                             <TextBlock Text="Просмотр процесса" Grid.Row="4"/>
                             <TextBlock Text="Использовать прокси повторно" Grid.Row="5"/>
                             <TextBlock Text="Проверить прокси перед работой" Grid.Row="6"/>
+                            <TextBlock Text="Без прокси" Grid.Row="7"/>
 
                             <!-- Content -->
                             <DockPanel Grid.Column="1">
@@ -111,6 +113,7 @@
                             <CheckBox IsChecked="{Binding ViewProcess}" Grid.Column="1" Grid.Row="4"/>
                             <CheckBox IsChecked="{Binding UseProxyRepeat}" Grid.Column="1" Grid.Row="5"/>
                             <CheckBox IsChecked="{Binding CheckProxy}" Grid.Column="1" Grid.Row="6"/>
+                            <CheckBox IsChecked="{Binding NoProxy}" Grid.Column="1" Grid.Row="7"/>
 
                         </Grid>
 

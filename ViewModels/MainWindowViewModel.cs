@@ -418,11 +418,11 @@ namespace BoxBoost.ViewModels
                 #endregion
 
                 #region proxyCheck
-
+                SettingsOtherViewModel OtherSettings = SettingHelper.LoadSetting(new SettingsOtherViewModel());
                 SettingsBestProxieViewModel BestProxieSettings = SettingHelper.LoadSetting(new SettingsBestProxieViewModel());
                 SettingsLocalProxyViewModel LocalProxySettings = SettingHelper.LoadSetting(new SettingsLocalProxyViewModel());
 
-                bool proxyCheck = !string.IsNullOrEmpty(BestProxieSettings.Key) || LocalProxySettings.ListProxyFileItem.Count > 0;
+                bool proxyCheck = OtherSettings.NoProxy || !string.IsNullOrEmpty(BestProxieSettings.Key) || LocalProxySettings.ListProxyFileItem.Count > 0;
 
                 if (!proxyCheck) OutInfo += "Не найден источник получения прокси. ";
 

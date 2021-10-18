@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BoxBoost.Pages"
       xmlns:ViewModels="clr-namespace:BoxBoost.ViewModels"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:valueconverters="clr-namespace:BoxBoost.ValueConverters"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d" 
@@ -49,14 +50,14 @@
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="40" />
-                                    <RowDefinition Height="40" />
-                                    <RowDefinition Height="40" />
+                                    <RowDefinition Height="{Binding ModeHeight}" />
+                                    <RowDefinition Height="{Binding ModeHeight}" />
                                     <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
 
                                 <!-- Labels -->
                                 <TextBlock Text="Сайт"/>
-                                <TextBlock Text="Режим" Grid.Row="1" />
+                                <TextBlock Text="Режим" Grid.Row="1"/>
                                 <TextBlock Text="Вероятность" Grid.Row="2"/>
                                 <TextBlock Text="Число потоков" Grid.Row="3"/>
 
@@ -64,7 +65,13 @@
                                 <StackPanel Grid.Column="1">
                                     <ComboBox SelectedItem="{Binding Site}"
                                               ItemsSource="{Binding ListBoostSiteItem}"
-                                              MinHeight="32"/>
+                                              MinHeight="32">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding CheckVisibleCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" 
                                             Grid.Row="1">
