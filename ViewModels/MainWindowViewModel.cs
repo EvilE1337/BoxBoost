@@ -411,7 +411,7 @@ namespace BoxBoost.ViewModels
 
                 SettingsMainViewModel MainSettings = SettingHelper.LoadSetting(new SettingsMainViewModel());
 
-                bool mainCheck = !string.IsNullOrEmpty(MainSettings.Site) && !string.IsNullOrEmpty(MainSettings.Mode) && MainSettings.ListLinkBoost.Count > 0;
+                bool mainCheck = !string.IsNullOrEmpty(MainSettings.Site) && MainSettings.ListLinkBoost.Count > 0;
 
                 if(!mainCheck) OutInfo += "Не все поля в основных настройках были заполнены. ";
 

@@ -305,7 +305,7 @@ namespace BoxBoost.ViewModels
                     return new PromoDJ(new SettingsPromoDJ()
                     {
                         CountStream = MainSettings.CountStream,
-                        Mode = MainSettings.Mode.ToEnum<ModeList>(),
+                        Mode = MainSettings.Mode != null ? MainSettings.Mode.ToEnum<ModeList>() : ModeList.All,
                         LuckyRnd = MainSettings.RandomMode,
                         ProxyList = Proxy,
                         Pause = OtherSettings.Pause,
@@ -323,7 +323,6 @@ namespace BoxBoost.ViewModels
                     return new SoundCloud(new SettingsSoundCloud()
                     {
                         CountStream = MainSettings.CountStream,
-                        Mode = MainSettings.Mode.ToEnum<ModeList>(),
                         ProxyList = Proxy,
                         Pause = OtherSettings.Pause,
                         PercentPlay = OtherSettings.PlayTime,
@@ -339,7 +338,6 @@ namespace BoxBoost.ViewModels
                     return new YandexMusic(new SettingsYandexMusic()
                     {
                         CountStream = MainSettings.CountStream,
-                        Mode = MainSettings.Mode.ToEnum<ModeList>(),
                         ProxyList = Proxy,
                         Pause = OtherSettings.Pause,
                         PercentPlay = OtherSettings.PlayTime,
